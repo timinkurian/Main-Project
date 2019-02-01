@@ -1,0 +1,11 @@
+<h2>Profile</h2>
+<h3>{{user.name}}</h3>
+<h3> {{user.job}}</h3>
+<button (click)="clickcheck()">Show more</button>
+<div *ngIf=!check>
+<div *ngIf='(user.phone.length>0)'>
+<h3>{{user.address}}</h3>
+Phone
+<p *ngFor='let phoneno of user.phone'>{{phoneno}}</p>
+</div>
+</div>
