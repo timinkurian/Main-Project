@@ -1,0 +1,6 @@
+
+<form  class="paddingt-100" #f="ngForm" name="regform" (submit)="registration(f)">
+    <input type="text" name="username" placeholder="username" id="uname" [(ngModel)]="student.username">
+    <input type="password" name="password" placeholder="password" id="pswd"  [(ngModel)]="student.password">
+    <button type="submit">Submit</button>
+</form>
