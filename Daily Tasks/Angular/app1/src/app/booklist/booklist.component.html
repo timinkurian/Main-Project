@@ -1,0 +1,12 @@
+Selected Title:{{selbook.stitle}}
+<br/>
+Selected Order:{{selbook.sauthor}}
+<br/>
+Selected Publisher:{{selbook.spublisher}}
+<br/>
+<app-book [title]="item.title"
+[author]="item.author"
+[publisher]="item.publisher"
+ *ngFor="let item of Bookdetails"
+ (sendbook)="addBook($event)">
+</app-book>
