@@ -9,7 +9,7 @@ Selected department:{{selstudent.sdepartment}}
 <app-student [rollno]="student.rollno"
 [name]="student.name"
 [batch]="student.batch"
-[batch]="student.department"
+[department]="student.department"
  *ngFor="let student of studentdetails"
  (sendstudent)="addstudent($event)">
 </app-student>
