@@ -1,0 +1,15 @@
+Installation
+1. First download install composer
+2. composer global require laravel/installer(install laravel)
+3. laravel new project name (to create  new project)
+php artisan serve - To run a project
+php artisan make:controller LoginController  -To create controller
+php artisan make:model Login - To create Model
+php artisan make:migration Login -To create migration file
+
+app -model
+app->http->controllers - controls
+app->http->middleware - actions performed
+resources->views - includes all designs. all files with blade.php
+routes->web.php - All routes are specified here
+
