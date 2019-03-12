@@ -1,0 +1,25 @@
+table 	{
+
+    border-collapse:collapse;
+    
+    border:5px solid red;
+    
+    width:34%;
+    
+    align:right;
+    
+    float:right;
+    
+    font-family:Arial,"sans-serif";
+    
+    color:green;
+    
+    font-weight:bold;
+    
+    font-style:italic;
+    
+    text-align:left;
+    
+    font-size:11px;
+    
+    }

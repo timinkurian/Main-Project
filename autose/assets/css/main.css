@@ -1,0 +1,77 @@
+
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+.main{
+  padding-top: 90px; 
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1000px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 650px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+          .navbar:not(.top-nav-collapse) {
+              background: #1C2331!important;
+          }
+      }
+	  
+.form-control {
+    margin-top: 5px;
+}
+
+/* //validation */
+.invalid-data {
+    border-bottom: 2px solid red!important;
+    transition: border-width 0.3s linear!important;
+}
+
+.invalid-data:hover,
+.invalid-data:focus,
+.invalid-data:active {
+    border-width: 3px!important;
+    outline: none!important;
+    box-shadow: none!important;
+    border-color: red!important;
+}
+
+.alert-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background: #132159;
+  text-align: center;
+  min-width: 300px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #000;
+}
+
+p.alert-data {
+  margin: auto;
+  color: #fff;
+}
+.img-fluid, .modal-dialog.cascading-modal.modal-avatar .modal-header, .video-fluid {
+  max-width: 40%;
+  height: auto;
+}
+.purple.lighten-1 {
+  background-color:  #6c757d!important;
+}

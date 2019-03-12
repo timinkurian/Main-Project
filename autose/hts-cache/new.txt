@@ -1,0 +1,3 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+10:32:10	11371/11371	---M-Z	200	added ('OK')	text/html	date:Mon,%2001%20Oct%202018%2005:02:06%20GMT	https://s.bootsnipp.com/iframe/K0ZmK	C:/Users/Timin/Desktop/template/s.bootsnipp.com/iframe/K0ZmK.html	(from )
+10:32:10	265/265	---M--	200	added ('OK')	text/plain	date:Wed,%2010%20May%202017%2014:59:06%20GMT	https://s.bootsnipp.com/robots.txt		(from )
