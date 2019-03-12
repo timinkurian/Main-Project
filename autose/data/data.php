@@ -71,7 +71,7 @@ function userLogin($conn){
     $res = mysqli_query($conn, $sql);
     if(mysqli_num_rows($res)>0){
         $result = mysqli_fetch_assoc($res);
-        print_r($result);
+      //  print_r($result);
         //return;
         $a=$result['designation_id'];
         if($a == 2)//admin
@@ -106,7 +106,7 @@ function userLogin($conn){
            
         }
 
-        else if($a==3)
+        else if($a==3)//service center
         { 
             $id = $result['user_id'];
             $designation_id = $result['designation_id'];
@@ -149,7 +149,7 @@ function userProfile($conn){
     // print_r($mob);
     // return;
     $dist=$_POST['district'];
-    $place=$_POST['place'];
+    $place=$_POST['place'];  
     //$logid=getSession('logid');
     $val=getSession('user_id');
     //print_r($dist);

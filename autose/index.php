@@ -2,6 +2,18 @@
 require('layouts/app_top');
 require('data/session.php');
 
+if(isset($_SESSION['user_id'])){
+  switch($_SESSION['designation_id']){
+      case '1':
+          header('location:user.php');
+          break;
+      default:
+          break;
+  }
+}
+
+
+
 // if(!getSession('designation_id')){
 //             header('location:user.php');  some problems
 //     }

@@ -1,35 +1,36 @@
 <?php 
 require('layouts/app_top');
-require('data/session.php');
+//require('data/session.php');
 
-if(isset($_SESSION['logid'])){
-    switch($_SESSION['utype']){
-        case '1':
-            header('location:user.php');
-            break;
-        default:
-            break;
-    }
-}
+// if(isset($_SESSION['user_id'])){
+//     switch($_SESSION['designation_id']){
+//         case '1':
+//             header('location:user.php');
+//             break;
+//         default:
+//             break;
+//     }
+// }
 
-if(!getSession('logid'))
-{
-  header('Location:index.php');
-}
+
 ?>
 
 <body>
+  <!-- Navbar -->
+  <?php
+ include('layouts/usermenu.php');
+ if(!getSession('user_id'))
+{
+  header('Location:index.php');
+}
+ ?>
+ 
+  <!-- Navbar -->
+
 <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
 <div class="view full-page-intro" >
 
-  <!-- Navbar -->
-  
- <nav>
-  <ul id='menu'>
-    <li><a class='home' href='user.php'>Home</a></li>
-  </ul>
-</nav>
-  <!-- Navbar -->
+
 
   <div class="main">
       <!-- Content -->
@@ -41,24 +42,24 @@ if(!getSession('logid'))
           <!--Grid column-->
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-2 col-md-4 mb-8" >
 
-<!--Card-->
-<div class="card">
+          <div class="card">
 
-  <!--Card content-->
-  <div class="card-body">
-
+<!--Card content-->
+<div class="card-body">
     <!-- Form -->
     <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data" class="mt-5">
       <!-- Heading -->
-      
+      <!--Card-->
+
       <input type="text" hidden value="addcar" name="type">
       <h3 class="dark-grey-text text-center">
         <strong>ADD NEW SERVICE SCHEME</strong>
-      </h3>
-      <hr>
+      </h3><hr>
       <table>
+      
+      
       <tr>
       <td>Vehicle number</label></td>
       <td>
@@ -122,6 +123,12 @@ if(!getSession('logid'))
         </div>
         </td>
         </tr>
+        </td>
+
+        </div>
+        <div>
+        
+
         <tr>
         <td><label>Manufacturing Year</label></td>
         <td>
@@ -165,6 +172,8 @@ if(!getSession('logid'))
         </td>
         </tr>
         </table>
+    
+        
       <div class="text-center">
         <input type="submit" class="btn btn-indigo" value="Add"> 
         <hr>

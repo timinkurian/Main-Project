@@ -69,7 +69,7 @@ p.alert-data {
   color: #fff;
 }
 .img-fluid, .modal-dialog.cascading-modal.modal-avatar .modal-header, .video-fluid {
-  max-width: 40%;
+  max-width: 40px;
   height: auto;
 }
 .purple.lighten-1 {

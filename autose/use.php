@@ -1,18 +1,16 @@
 <?php 
 require('layouts/app_top');
-// require('data/connect.php');
-// require('data/session.php');
-// if(!getSession('user_id'))
-// {
-//   header('Location:index.php');
-// }
+
+require('data/session.php');
+if(!getSession('logid'))
+{
+  header('Location:index.php');
+}
 ?>
 <body>
 
   <!-- Navbar -->
- <?php
- include('layouts/usermenu.php');
- ?>
+ 
   <!-- Navbar -->
   
 
