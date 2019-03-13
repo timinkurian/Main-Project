@@ -29,7 +29,7 @@ if(!getSession('user_id'))
                               <a class="nav-link waves-effect waves-light" href="#">Pricing</a>
                           </li> -->
                           <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Car
+                              <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Car Details
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                                   <a class="dropdown-item waves-effect waves-light" href="addcar.php">Add Car</a>

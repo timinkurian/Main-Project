@@ -26,6 +26,12 @@ switch($type){
          case 'forget':
             forgetPassword($conn);
         break;
+        case 'forgototp':
+            confirmOTP($conn);
+        break;
+        case 'changepassword':
+            changePassword($conn);
+        break;
         default:
             break;
     }   
@@ -244,24 +250,105 @@ function centerRegistration($conn){
 
 function forgetPassword($conn){
     $email=$_POST['email'];
-    $sql="SELECT * FROM `login` WHERE `username`='$email'";
+    $sql="SELECT * FROM `tbl_login` WHERE `email`='$email'";
 	$result=mysqli_query($conn,$sql);
 	$row=mysqli_fetch_assoc($result);
-    $a=$row['username'];
+    $a=$row['email'];
     if($a==$email)
 	{
-	$e=$row['username'];
+	$e=$row['email'];
    // $p="Password:".$row['password'];
-    $pass=$row['password'];
-    $pa=base64_decode($pass);
-    $p="Password:".$pa;
-    $m="Username:".$e."\r\n".$p;
+   setSession('email', $e);
+   $n = 6; 
+   // Function to generate OTP 
+   function generateNumericOTP($n) { 
+       
+       // Take a generator string which consist of 
+       // all numeric digits 
+       $generator = "1357902468"; 
+   
+       // Iterate for n-times and pick a single character 
+       // from generator and append it to $result 
+       
+       // Login for generating a random character from generator 
+       //	 ---generate a random number 
+       //	 ---take modulus of same with length of generator (say i) 
+       //	 ---append the character at place (i) from generator to result 
+   
+       $result = ""; 
+   
+       for ($i = 1; $i <= $n; $i++) { 
+           $result .= substr($generator, (rand()%(strlen($generator))), 1); 
+       } 
+   
+       // Return result 
+       return $result; 
+   } 
+   
+   // Main program 
+  
+   $pa=generateNumericOTP($n); 
+   $sql="INSERT INTO `tbl_otp`(`email`, `otp`, `status`,`count`) VALUES ('$e','$pa',1,3) ";
+//    print_r($sql);
+//    return;
+   $r2=mysqli_query($conn,$sql);
+   $link=
+    // $pass=$row['password'];
+    // $pa=base64_decode($pass);
+     $p="Your OTP:".$pa;
+    $m="Go to the link to recover your account:".$link."\r\n".$p;
 	mail($e,"Recover",$m);
-    echo "<script>alert('Authentication Success Please check your mail');window.location='../index.php';</script>";
-	}
-	else{
-        echo "<script>alert('Please provide valid informations');window.location='../index.php';</script>";
+    echo "<script>alert('Authentication Success Please check your mail');window.location='../otpconfirm.php';</script>";
+	 }
+	 else{
+         echo "<script>alert('Please provide valid informations');window.location='../index.php';</script>";
+     }	
+}
+function confirmOTP($conn){
+    $otp=$_POST['otp'];
+    $email=getSession('email');
+    // print_r($email);
+    // return;
+    $sql="SELECT * FROM `tbl_otp` WHERE `otp`='$otp' AND `email`='$email' AND `status`=1";
+    // print_r($sql);
+    // return;
+    $result=mysqli_query($conn,$sql);
+	$row=mysqli_fetch_assoc($result);
+    $a=$row['otp'];
+    $count=$row['count'];
+    if($count>0)
+    {
+        if($a==$otp)
+	    {
+            $sql1="UPDATE `tbl_otp` SET `status`=0,`count`=0 WHERE `email`='$email'";
+            mysqli_query($conn,$sql1);
+            echo "<script>alert('Authentication Success ');window.location='../passwordchangeotp.php';</script>";
+
+        }   
+        else{
+            $sql1="UPDATE `tbl_otp` SET `count`= count-1 WHERE `email`='$email'";
+            mysqli_query($conn,$sql1);
+            echo "<script>alert('Wrong OTP ');window.location='../otpconfirm.php';</script>";
+        }
     }
-    
-	
+    else
+    {
+    echo "<script>alert('OTP Expired ');window.location='../index.php';</script>";
+    }
+}
+function  changePassword($conn){
+    $pswd=base64_encode($_POST['pswd']);
+    $cpswd=base64_encode($_POST['cpswd']);
+    $email=getSession('email');
+    $sql1="SELECT * FROM `tbl_login` WHERE `email`='$email'";
+    $res=mysqli_query($conn,$sql1);
+	$row=mysqli_fetch_assoc($res);
+    $a=$row['user_id'];
+    // print_r($a);
+    // return;
+    $sql="UPDATE `tbl_login` SET `password`='$pswd' WHERE `user_id`='$a'";
+    mysqli_query($conn,$sql);
+    $_SESSION['user_id'] = '';
+    $_SESSION['designation_id'] = '';
+    echo "<script>alert('Password updated successfully');window.location='../index.php';</script>";
 }
