@@ -39,8 +39,8 @@ switch($type){
 function regUser($conn){
     $email=$_POST['email'];
     //$desg=$_POST['designation'];
-    $pswd=base64_encode($_POST['pswd']);
-    $cpswd=base64_encode($_POST['cpswd']);
+    $pswd=md5($_POST['pswd']);
+    $cpswd=md5($_POST['cpswd']);
     
 
         
@@ -71,7 +71,7 @@ function regUser($conn){
 //user fns
 function userLogin($conn){
     $uname = $_POST['username'];
-    $password = base64_encode($_POST['password']);
+    $password = md5($_POST['password']);
 
     $sql = "SELECT * FROM `tbl_login` WHERE email='$uname' and password = '$password' and status >=1";
     $res = mysqli_query($conn, $sql);
@@ -86,7 +86,8 @@ function userLogin($conn){
             $designation_id = $result['designation_id'];
             setSession('user_id', $id);
             setSession('designation_id', $designation_id);
-            //print_r($id);
+            // print_r($designation_id);
+            // return;
             echo "<script>alert('Login Successfull');window.location='../adminhome.php';</script>";
 
         }
@@ -292,53 +293,71 @@ function forgetPassword($conn){
 //    print_r($sql);
 //    return;
    $r2=mysqli_query($conn,$sql);
-   $link=
+  // $link=
     // $pass=$row['password'];
     // $pa=base64_decode($pass);
      $p="Your OTP:".$pa;
-    $m="Go to the link to recover your account:".$link."\r\n".$p;
-	mail($e,"Recover",$m);
+   // $m="Go to the link to recover your account:".$link."\r\n".$p;
+	mail($e,"Recover",$p);
     echo "<script>alert('Authentication Success Please check your mail');window.location='../otpconfirm.php';</script>";
 	 }
 	 else{
          echo "<script>alert('Please provide valid informations');window.location='../index.php';</script>";
      }	
-}
+ }
 function confirmOTP($conn){
     $otp=$_POST['otp'];
     $email=getSession('email');
     // print_r($email);
     // return;
-    $sql="SELECT * FROM `tbl_otp` WHERE `otp`='$otp' AND `email`='$email' AND `status`=1";
+    $sql="SELECT * FROM `tbl_otp` WHERE `email`='$email'  AND `status`=1 AND `count`!=0";
     // print_r($sql);
-    // return;
+    //  return;
     $result=mysqli_query($conn,$sql);
-	$row=mysqli_fetch_assoc($result);
-    $a=$row['otp'];
-    $count=$row['count'];
-    if($count>0)
-    {
+    if(mysqli_num_rows($result)>0){
+         	$row=mysqli_fetch_assoc($result);
+            $a=$row['otp'];
+            $co=$row['count'];
+// print_r($co);
+// return;
+//      echo $co." ".$a." ".$otp;
+//     if($co>0)
+//     {
+        
+    
         if($a==$otp)
-	    {
-            $sql1="UPDATE `tbl_otp` SET `status`=0,`count`=0 WHERE `email`='$email'";
-            mysqli_query($conn,$sql1);
-            echo "<script>alert('Authentication Success ');window.location='../passwordchangeotp.php';</script>";
+ 	    {
+             $sql1="UPDATE `tbl_otp` SET `status`=0,`count`=0 WHERE `email`='$email'";
+             mysqli_query($conn,$sql1);
+             echo "<script>alert('Authentication Success ');window.location='../passwordchangeotp.php';</script>";
 
-        }   
-        else{
-            $sql1="UPDATE `tbl_otp` SET `count`= count-1 WHERE `email`='$email'";
-            mysqli_query($conn,$sql1);
-            echo "<script>alert('Wrong OTP ');window.location='../otpconfirm.php';</script>";
-        }
-    }
-    else
-    {
-    echo "<script>alert('OTP Expired ');window.location='../index.php';</script>";
-    }
-}
+         
+         }
+         else
+         {
+
+             $sql2="UPDATE `tbl_otp` SET `count`= count-1 WHERE `email`='$email'";
+             //print_r($sql2);
+             //return;
+             mysqli_query($conn,$sql2);
+             echo "<script>alert('Wrong OTP ');window.location='../otpconfirm.php';</script>";
+         }
+     }
+  else
+     {
+        $sql3="UPDATE `tbl_otp` SET `count`=0,`status`=0 WHERE `email`='$email'";
+        //print_r($sql2);
+        //return;
+        mysqli_query($conn,$sql3);
+        echo "<script>alert('OTP Expired ');window.location='../index.php';</script>";
+     }
+ }
+
+
+
 function  changePassword($conn){
-    $pswd=base64_encode($_POST['pswd']);
-    $cpswd=base64_encode($_POST['cpswd']);
+    $pswd=md5($_POST['pswd']);
+    $cpswd=md5($_POST['cpswd']);
     $email=getSession('email');
     $sql1="SELECT * FROM `tbl_login` WHERE `email`='$email'";
     $res=mysqli_query($conn,$sql1);
@@ -350,5 +369,6 @@ function  changePassword($conn){
     mysqli_query($conn,$sql);
     $_SESSION['user_id'] = '';
     $_SESSION['designation_id'] = '';
+    $_SESSION['email'] = '';
     echo "<script>alert('Password updated successfully');window.location='../index.php';</script>";
 }

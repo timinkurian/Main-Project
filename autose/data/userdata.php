@@ -223,7 +223,7 @@ function profileUpdate($conn){
     }
 }
 function changePassword($conn){
-    $paswd=base64_encode($_POST['pswd']);
+    $paswd=md5($_POST['pswd']);
     $logid=getSession('logid');
     $sql="UPDATE `login` SET `password`='$paswd' WHERE `logid`='$logid'";
     mysqli_query($conn,$sql);

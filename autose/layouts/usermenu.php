@@ -33,15 +33,15 @@ if(!getSession('user_id'))
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                                   <a class="dropdown-item waves-effect waves-light" href="addcar.php">Add Car</a>
-                                  <a class="dropdown-item waves-effect waves-light" href="#">View Car</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="viewcar.php">View Car</a>
                               </div>
                           </li>
                           <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointment
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Add Car</a>
-                                  <a class="dropdown-item waves-effect waves-light" href="#">View Car</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="#">Make Appointment</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="#">View Appointment</a>
                               </div>
                           </li>
                       </ul>

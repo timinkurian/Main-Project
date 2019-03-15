@@ -2,7 +2,7 @@
 require('layouts/app_top');
 
 require('data/session.php');
-if(!getSession('logid'))
+if(!getSession('user_id'))
 {
   header('Location:index.php');
 }
