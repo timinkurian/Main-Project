@@ -49,7 +49,7 @@ if(isset($_SESSION['logid'])){
         <div class="row wow fadeIn">
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4" >
 
             <!--Card-->
             <div class="card">
@@ -65,15 +65,20 @@ if(isset($_SESSION['logid'])){
                   <h3 class="dark-grey-text text-center">
                     <strong>Registration</strong>
                   </h3>
-                  <hr>
+                  <!-- <hr> -->
 
-                  <!-- <div class="md-form">                  
-                  <select name="designation" class="form-control"> -->
-                    <?//php
-                      //include('data/usertype.php')
-                      ?>
-                  <!-- </select>
-                  </div>  -->
+                  <div class="md-form"> 
+                    <div class="row">
+                      <div class="offset-2 col-md-4">
+                                  
+                  <input type="radio" name="designation" value="1" class=" validate"> User
+                  
+                      </div>
+                      <div class="col-md-4">
+                      <input type="radio" name="designation" value="3" class=" validate"> Center
+                      </div>
+                    </div>
+                  </div>  
                   <div class="md-form">                  
                     <input type="email" id="email" class="form-control validate" name="email">
                     <label for="form3">Email</label>

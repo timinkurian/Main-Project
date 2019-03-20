@@ -1,11 +1,11 @@
 <?php 
+require('data/connect.php');
+require('data/session.php');
 require('layouts/app_top');
-// require('data/connect.php');
-// require('data/session.php');
-// if(!getSession('user_id'))
-// {
-//   header('Location:index.php');
-// }
+if(!sessionRedirect('1', 'designation_id'))
+{
+  header('Location:index.php');
+}
 ?>
 <body>
 
@@ -18,7 +18,13 @@ require('layouts/app_top');
 
   <!-- Full Page Intro -->
   <div  id="pageData"  class="view full-page-intro" >
-
+<!-- video -->
+<div class="background-wrap">
+			<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted"> 
+				<source src="userhomevideo.mp4" type="video/mp4">
+				Video not supported
+			</video>          
+		</div>
     <!-- Mask & flexbox options-->
     <div class="mask d-flex justify-content-center align-items-center">
 
@@ -31,7 +37,9 @@ require('layouts/app_top');
           <!--Grid column-->
           <div  class="col-md-12">
           <h4>
-                Welcome! User 
+                Welcome! User <br>
+                You Are In The World of Cars
+
               </h4>
           </div>
           <!--Grid column-->

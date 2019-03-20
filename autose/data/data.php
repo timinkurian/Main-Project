@@ -38,7 +38,7 @@ switch($type){
 
 function regUser($conn){
     $email=$_POST['email'];
-    //$desg=$_POST['designation'];
+    $desg=$_POST['designation'];
     $pswd=md5($_POST['pswd']);
     $cpswd=md5($_POST['cpswd']);
     
@@ -56,11 +56,11 @@ function regUser($conn){
    
     else
     {
-        $sqldes="SELECT designation_id FROM tbl_designation WHERE designation='user'";
-        $desid = mysqli_query($conn, $sqldes);
-        $desg = mysqli_fetch_assoc($desid);
-        $desgid=$desg['designation_id'];
-        $sqllog="INSERT INTO `tbl_login` (email,password,designation_id,status) VALUES ('$email','$pswd',$desgid,'2')";
+       // $sqldes="SELECT designation_id FROM tbl_designation WHERE designation='user'";
+       // $desid = mysqli_query($conn, $sqldes);
+       // $desg = mysqli_fetch_assoc($desid);
+       // $desgid=$desg['designation_id'];
+        $sqllog="INSERT INTO `tbl_login` (email,password,designation_id,status) VALUES ('$email','$pswd',$desg,'2')";
         $res1 = mysqli_query($conn, $sqllog);
 
        echo"<script> alert('Registration Successful');window.location ='../index.php';</script>";
@@ -72,7 +72,12 @@ function regUser($conn){
 function userLogin($conn){
     $uname = $_POST['username'];
     $password = md5($_POST['password']);
+    if(isset($_SESSION['user_id'])){
+        echo "<script>alert('Already signed in another account');window.location='../index.php';</script>";
+    }
+    else{
 
+    
     $sql = "SELECT * FROM `tbl_login` WHERE email='$uname' and password = '$password' and status >=1";
     $res = mysqli_query($conn, $sql);
     if(mysqli_num_rows($res)>0){
@@ -146,6 +151,7 @@ function userLogin($conn){
         echo "<script>alert('Invalid Username or Password');window.location='../index.php';</script>";
     }
 }
+}
 
 
 function userProfile($conn){
@@ -208,37 +214,64 @@ function userProfile($conn){
 function centerRegistration($conn){
     $cname=$_POST['cname'];
     $licno="lic".$_POST['licno'];
-    $type=$_POST['types'];
+//$type=$_POST['types'];
     $brand=$_POST['brand'];
     $mob=$_POST['mobno'];
     $dist=$_POST['district'];
     $place=$_POST['place'];
     $val=getSession('user_id');
-    $z="select * from login where user_id='$val'";
-    $r1=mysqli_query($conn,$z);
-    $row=mysqli_fetch_array($r1);
-    $email=$row[1];
+    // $z="select * from login where user_id='$val'";
+    // $r1=mysqli_query($conn,$z);
+    // $row=mysqli_fetch_array($r1);
+    // $email=$row[1];
     //print_r($email);
-        $sql="SELECT * FROM `servicecenter` WHERE  `licenceno`='$licno' OR `mobile`='$mob' ";
+        $sql="SELECT * FROM `tbl_servicecenter` WHERE  `licenceno`='$licno'";
         $count=mysqli_query($conn,$sql);
         if(mysqli_num_rows($count)<1){
             $sDirPath = 'upload/'.$val.'/'; //Specified Pathname
             mkdir($sDirPath,0777,true);
             $cert=$_FILES['certificate']['name'];
-            $cert = '/upload/'.$val.'/'.$cert;
+            $cert = 'upload/'.$val.'/'.$cert;
             $img=$_FILES['certificate']['name'];
 
-            $sql= "INSERT INTO `servicecenter`(`user_id`, `centername`, `licenceno`, `type`, `brand`, `district`, `place`, `certificate`, `mobile`) VALUES ('$val','$cname','$licno','$type','$brand','$dist','$place','$cert','$mob')";
-        // print_r($sql);
-            $r2=mysqli_query($conn,$sql);
+            $sq="SELECT district_id FROM `tbl_district` WHERE `district`='$dist'";//select district id
+            $disti=mysqli_query($conn,$sq);
+            $dist = mysqli_fetch_assoc($disti);
+            $distid=$dist['district_id'];
+            //  print_r($distid);
+            //  return;
+            $sqld="SELECT place FROM `tbl_place` WHERE `place`='$place' AND `district_id`='$distid'";//select place
+            $countd=mysqli_query($conn,$sqld);
+            if(mysqli_num_rows($countd)<1){//place is not already exist
+                $sq1="INSERT INTO `tbl_place`( `district_id`, `place`) VALUES ('$distid','$place')";
+                mysqli_query($conn,$sq1);
+            }
+            $sq2="SELECT place_id FROM `tbl_place` WHERE `place`='$place'";//fetching place id
+            $pid=mysqli_query($conn,$sq2);
+            $plcid=mysqli_fetch_assoc($pid);
+            $placeid=$plcid['place_id'];
+
+            $sq3="SELECT brand_id FROM `tbl_brand` WHERE `brand_name`='$brand'";//fetching brand id
+            $bid=mysqli_query($conn,$sq3);
+            $brndid=mysqli_fetch_assoc($bid);
+            $brandid=$brndid['brand_id'];
+
+            $sql5= "INSERT INTO `tbl_servicecenter`(`licenceno`, `user_id`, `place_id`, `brand_id`, `center_name`, `certificate`, `mobile`) VALUES('$licno','$val','$placeid','$brandid','$cname','$cert','$mob')";
+        //   print_r($sql5);
+        //   return;
+            mysqli_query($conn,$sql5);
              move_uploaded_file($_FILES['certificate']['tmp_name'],'upload/'.$val.'/' . $_FILES['certificate']['name']);
      
-            $sql2="UPDATE `login` SET `status`=0 where `user_id`=$val";
+            $sql2="UPDATE `tbl_login` SET `status`=0 where `user_id`=$val";
              mysqli_query($conn,$sql2);
+            //  $_SESSION['user_id'] = '';
+            //  $_SESSION['designation_id'] = '';
+            session_destroy();
+        
             echo "<script>alert('Updated successfully...!! Wait for Approvel');window.location='../index.php';</script>";
     }
     else{
-        echo "<script>alert('Check Your Data!');window.location='../index.php';</script>";
+        echo "<script>alert('Service center already registered with the license number!');window.location='../index.php';</script>";
     }
 
     /* if ($conn->query($sql) === TRUE) {

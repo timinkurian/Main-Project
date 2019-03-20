@@ -15,7 +15,7 @@ if(isset($_SESSION['logid'])){
 <body>
 
  <!--style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover-->
-<div class="view full-page-intro";">
+<div class="view full-page-intro";>
 
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -43,7 +43,7 @@ if(isset($_SESSION['logid'])){
 
        
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4" >
 
             <!--Card-->
             <div class="card">
@@ -57,7 +57,7 @@ if(isset($_SESSION['logid'])){
                   
                   <input type="text" hidden value="centerreg" name="type">
                   <h3 class="dark-grey-text text-center">
-                    <strong>Registration</strong>
+                    <strong>Update Your Profile</strong>
                   </h3>
                   <hr>
 
@@ -69,13 +69,13 @@ if(isset($_SESSION['logid'])){
                     <input type="text" id="licno" class="form-control validate" name="licno" data-type="lic" maxlength=4 >
                     <label for="form2">Licence number</label>
                   </div>
-                  <div class="md-form">                  
+                  <!-- <div class="md-form">                  
                   <select name="types" class="form-control" required>
                   <option value="">Choose Type of Center</option>
                   <option value="Authorized">Authorized</option>
-                 <!-- <option value="Unauthorized">Unauthorized</option>-->
+                <option value="Unauthorized">Unauthorized</option>
                   </select>
-                  </div>
+                  </div> -->
                   <div class="md-form">                  
                   <select name="brand" class="form-control" required >
                       <?php

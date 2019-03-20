@@ -13,3 +13,10 @@ function getSession($key){
     
     return false;
 }
+
+function sessionRedirect($user, $key){
+    if($user == getSession($key)){
+        return true;
+    }
+    return false;
+}

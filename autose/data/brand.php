@@ -2,14 +2,14 @@
 require "connect.php";
 //require "session.php";
 //$brand=getSession('brand');
-
-$sql = "SELECT DISTINCT brandname FROM `brand`";
+echo '<option value disabled selected>Select Brand</option>';
+$sql = "SELECT DISTINCT brand_name FROM `tbl_brand`";
 $result = mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
-    echo '<option value="">Choose Brand</option>';
+
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<option value='".$row['brandname']."'>".$row['brandname']."</option>";
+        echo "<option value='".$row['brand_name']."'>".$row['brand_name']."</option>";
     }
 } else {
     echo "0 results";

@@ -1,3 +1,6 @@
+
+
+
 //form submit
 $("#login").submit(function (e) {
     e.preventDefault();
@@ -50,7 +53,7 @@ function inputValidate($value, $type, $optional, $class) {
     }
     //regex set for validation
     var pattern;
-    $telPattern = /(7|8|9|1|6)\d{8}$/;
+    $telPattern = /(7|8|9|1|6)\d{9}$/;
     $numberPattern = /^([0-9])?$/;
     $licPattern = /\d{4}$/;
     $textPattern = /([A-Za-z])$/;
@@ -186,3 +189,18 @@ $("#u_type").on("change", function () {
         $("#divLname").fadeIn();
     }
 });
+
+
+
+$("#login").ready(function () {
+    //called when key is pressed in textbox
+    $("#mobno").keypress(function (e) {
+       //if the letter is not digit then display error and don't type anything
+       if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+          //display error message
+          $message = "Should contain numbers only."
+          userAlert($message);
+          return false;
+      }
+     });
+  });

@@ -1,13 +1,16 @@
 <?php 
 require('layouts/app_top');
 session_start();
-if(isset($_SESSION['logid'])){
-    switch($_SESSION['utype']){
+if(isset($_SESSION['user_id'])){
+    switch($_SESSION['designation_id']){
         case '1':
             header('location:user.php');
             break;
-        default:
+            case '2':
+            header('location:adminhome.php');
             break;
+        default:
+            break;  
     }
 }
 ?>
@@ -63,17 +66,11 @@ if(isset($_SESSION['logid'])){
                   
                   <input type="text" hidden value="reguser" name="type">
                   <h3 class="dark-grey-text text-center">
-                    <strong>Registration</strong>
+                    <strong>Center Registration</strong>
                   </h3>
                   <hr>
 
-                 <div class="md-form">                  
-                  <select name="designation" class="form-control">
-                      <?php
-                      include('data/susertype.php')
-                      ?>
-                    </select>
-                  </div>
+
                   <div class="md-form">                  
                     <input type="email" id="email" class="form-control validate" name="email">
                     <label for="form3">Email</label>

@@ -1,17 +1,11 @@
 <?php 
+require('data/connect.php');
+require('data/session.php');
 require('layouts/app_top');
-//require('data/session.php');
-
-// if(isset($_SESSION['user_id'])){
-//     switch($_SESSION['designation_id']){
-//         case '1':
-//             header('location:user.php');
-//             break;
-//         default:
-//             break;
-//     }
-// }
-
+if(!sessionRedirect('1', 'designation_id'))
+{
+  header('Location:index.php');
+}
 
 ?>
 
@@ -42,7 +36,7 @@ require('layouts/app_top');
           <!--Grid column-->
 
           <!--Grid column-->
-          <div class="offset-2 col-md-4 mb-8" >
+          <div class="offset-2 col-md-8" >
 
           <div class="card">
 
@@ -55,25 +49,17 @@ require('layouts/app_top');
 
       <input type="text" hidden value="addcar" name="type">
       <h3 class="dark-grey-text text-center">
-        <strong>ADD NEW SERVICE SCHEME</strong>
+        <strong>ADD YOUR CAR</strong>
       </h3><hr>
-      <table>
-      
-      
-      <tr>
-      <td>Vehicle number</label></td>
-      <td>
-      <div class="md-form">                  
-        <input type="text" id="vehno" class="form-control validate" name="vehno" maxlength=13 data-type="regno"></td>
+      <div class="row">
+        <div class="col-md-6">
+        <div class="md-form">                  
+        <input type="text" id="vehno" class="form-control validate" name="vehno" maxlength=13 data-type="regno" placeholder="Vehicle Number"></td>
       <!--  <label for="form3">Service Name</label>-->
      </div>
-     </td>
-     </tr>
-    <tr>
-
-    <td><label>Choose brand</label></td>
-    <td>
-     <div class="md-form">                  
+        </div>
+        <div class="col-md-6">
+        <div class="md-form">                  
        <!--<input type="" id="form3" class="form-control" name="fanme"> -->
        <select class="form-control" name="brand" id="brand" required>
            <?php
@@ -81,99 +67,64 @@ require('layouts/app_top');
            ?>
         </select >
         </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Choose Model</label></td>
-        <td>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
         <div class="md-form">                  
        <!--<input type="" id="form3" class="form-control" name="fanme"> -->
        <select class="form-control" name="model" id="model" required>
-          
         </select >
         </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Choose Variant</label></td>
-        <td>
+        </div>
+        <div class="col-md-6">
         <div class="md-form">                  
        <!--<input type="" id="form3" class="form-control" name="fanme"> -->
        <select class=" form-control" name="variant" id="variant" required>        
        <!--echo '<option value=Select>Choose the brand</option>';-->
         </select >
         </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Fuel Type</label></td>
-        <td>
-        <div class="md-form">                  
-       <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-       <select class="form-control" name="fuel" id="fuel" required>                  
-        </select >
-        </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Color</label></td>
-        <td>
-        <div class="md-form">
-        <input type="text" class="form-control validate" name="color" id="color" data-type="name" required>                   
-        </div>
-        </td>
-        </tr>
-        </td>
-
-        </div>
-        <div>
-        
-
-        <tr>
-        <td><label>Manufacturing Year</label></td>
-        <td>
-        <div class="md-form">
-        <input type="text" id="datepicker" class="form-control " name="datepicker" required>                   
-        </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Engine Number</label></td>
-        <td>
-        <div class="md-form">
-        <input type="text" class="form-control validate" name="engineno" id="engineno" data-type="engineno">                   
-        </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Chasis Number</label></td>
-        <td>
-        <div class="md-form">                  
-        <input type="text" id="chasisno" class="form-control validate" name="chasisno" data-type="chasisno" >
         </div>  
-        </td>
-        </tr>
-        <tr>
-        <td><label>Choose RC Book</label></td>
-        <td>
+        </div>  
+        <div class="row">
+        <div class="col-md-6">
+        <div class="md-form">
+        <input type="text" class="form-control validate" name="color" id="color" data-type="name" placeholder="Color" required>                   
+        </div>
+        </div>
+        <div class="col-md-6">
+        <div class="md-form">
+        <input type="text" id="datepicker" class="form-control " name="datepicker" required placeholder="Select Manufactured Year"> 
+        </div>
+        </div>  
+        </div>  
+        <div class="row">
+        <div class="col-md-6">
+        <div class="md-form">
+        <input type="text" class="form-control validate" name="engineno" id="engineno" data-type="engineno" placeholder="Engine Number">                   
+        </div>
+        </div>
+        <div class="col-md-6">
         <div class="md-form">                  
-        <input type="file" id="rcbook" class="form-control" name="rcbook" accept=".jpeg,.jpg,.png" required >
-        <label for="form3"></label>
+        <input type="text" id="chasisno" class="form-control validate" name="chasisno" data-type="chasisno" placeholder="Chasis Number">
         </div> 
-        </td>
-        </tr>
-        <tr>
-        <td><label>Choose Car Image</label></td>
-        <td>
-        <div class="md-form">                  
+        </div>  
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+        <div class="md-form">    
+        <label>Choose RC Book</label><br><br>              
+        <input type="file" id="rcbook" class="form-control" name="rcbook" accept=".jpeg,.jpg,.png" required >
+        </div>
+        </div>
+        <div class="col-md-6">
+        <div class="md-form"> 
+        <label>Choose Car Image</label><br><br>                  
         <input type="file" id="car" class="form-control " name="car" accept=".jpeg,.jpg,.png" required>
         <label for="form3"></label>
         </div> 
-        </td>
-        </tr>
-        </table>
-    
-        
+        </div>  
+        </div>        
       <div class="text-center">
         <input type="submit" class="btn btn-indigo" value="Add"> 
         <hr>

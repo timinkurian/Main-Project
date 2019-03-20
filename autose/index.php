@@ -1,16 +1,28 @@
 <?php 
-require('layouts/app_top');
 require('data/session.php');
-
+require('data/connect.php');
+require('layouts/app_top');
 if(isset($_SESSION['user_id'])){
-  switch($_SESSION['designation_id']){
-      case '1':
-          header('location:user.php');
-          break;
-      default:
-          break;
-  }
-}
+  $id=$_SESSION['user_id'];
+  $sql="SELECT status FROM tbl_login WHERE user_id=$id";
+  $res=mysqli_query($conn,$sql);
+  $result = mysqli_fetch_assoc($res);
+  $stat=$result['status'];
+  if($stat==1){
+   switch($_SESSION['designation_id']){
+       case '1':
+           header('location:user.php');
+           break;
+           case '2':
+           header('location:adminhome.php');
+           break;
+           case '3':
+           header('location:sevricecenterhome.php');
+           break;
+   }
+ }
+ }
+
 
 
 
@@ -119,7 +131,7 @@ if(isset($_SESSION['user_id'])){
               <strong>It's a world of Cars </strong>
             </p>
 
-            <a href=regcenter.php class="btn btn-indigo btn-lg">Register your service center
+            <a href=reguser.php class="btn btn-indigo btn-lg">Register your service center
               <i class="fa fa-graduation-cap ml-2"></i>
             </a>
 

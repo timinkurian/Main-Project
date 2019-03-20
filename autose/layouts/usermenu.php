@@ -1,13 +1,14 @@
 <?php 
 
-require('data/connect.php');
-require('data/session.php');
-if(!getSession('user_id'))
-{
-  header('Location:index.php');
-}
+// require('data/connect.php');
+// require('data/session.php');
+// if(!getSession('user_id'))
+// {
+//   header('Location:index.php');
+// }
 ?>
 <body>
+
  
  <!-- Navbar -->
  <nav class="mb-1 navbar navbar-expand-lg navbar-dark purple lighten-1">
@@ -51,6 +52,12 @@ if(!getSession('user_id'))
                                   <i class="fas fa-envelope"></i>
                               </a>
                           </li> -->
+                          <style>
+                              .avatar{
+                                  vertical-align:middle;
+                                margin-right:100px;
+                              }
+                              </style>
                           <li class="nav-item avatar dropdown">
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <?php
@@ -58,7 +65,7 @@ if(!getSession('user_id'))
                                     $sql="SELECT * FROM tbl_user WHERE user_id=$val";
                                     $img=mysqli_query($conn,$sql);
                                     $result=mysqli_fetch_array($img)?>
-                                  <img src="data/<?php echo $result['photo']; ?>" class="img-fluid rounded-circle z-depth-0" alt="Material Design for Bootstrap - example photo">
+                                  <img src="data/<?php echo $result['photo']; ?>" class="img-fluid rounded-circle z-depth-0" alt="Material Design for Bootstrap - example photo" class="avatar">
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                                   <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>

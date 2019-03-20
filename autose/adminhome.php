@@ -1,8 +1,8 @@
 <?php 
-require('layouts/app_top');
-
+require('data/connect.php');
 require('data/session.php');
-if(!getSession('user_id'))
+require('layouts/app_top');
+if(!sessionRedirect('2', 'designation_id'))
 {
   header('Location:index.php');
 }
