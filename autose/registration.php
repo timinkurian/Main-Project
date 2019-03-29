@@ -110,7 +110,6 @@ if(!getSession('user_id'))
                       <label for="checkbox1" class="form-check-label dark-grey-text">Rememer Me</label>-->
                     </fieldset>
                   </div>
-
                 </form>
                 <!-- Form -->
 

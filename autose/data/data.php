@@ -41,9 +41,6 @@ function regUser($conn){
     $desg=$_POST['designation'];
     $pswd=md5($_POST['pswd']);
     $cpswd=md5($_POST['cpswd']);
-    
-
-        
     $sql = "SELECT * FROM `tbl_login` WHERE email='$email'";
     $res = mysqli_query($conn, $sql);
 
@@ -61,9 +58,25 @@ function regUser($conn){
        // $desg = mysqli_fetch_assoc($desid);
        // $desgid=$desg['designation_id'];
         $sqllog="INSERT INTO `tbl_login` (email,password,designation_id,status) VALUES ('$email','$pswd',$desg,'2')";
+        // print_r($sqllog);
+        // return;
         $res1 = mysqli_query($conn, $sqllog);
-
-       echo"<script> alert('Registration Successful');window.location ='../index.php';</script>";
+        $sql = "SELECT * FROM `tbl_login` WHERE email='$email' and password = '$pswd'";
+        $res = mysqli_query($conn, $sql);
+        $result = mysqli_fetch_assoc($res);
+        $id = $result['user_id'];
+        $designation_id = $result['designation_id'];
+        setSession('user_id', $id);
+        setSession('designation_id', $designation_id);
+        if($designation_id==1)
+        {
+            header('Location:../registration.php');
+          //  echo"<script> alert('Registration Successful');window.location ='../registration.php';</script>";
+        }
+        else if($designation_id==3){
+            header('Location:../servicecenteradd.php');
+        }
+       
     } 
 
 }
@@ -191,13 +204,13 @@ function userProfile($conn){
         $sDirPath = 'upload/'.$val.'/'; //Specified Pathname
         mkdir($sDirPath,0777,true);
         $path=$_FILES['photo']['name'];
-        $path = '/upload/'.$val.'/'.$path;
+        $path = 'upload/'.$val.'/'.$path;
         $img=$_FILES['photo']['name'];
     //  print_r($mob);
     // return;
     $sql= "INSERT INTO `tbl_user` (`user_id`,`first_name`,`last_name`,`mobile`,`place_id`,`photo`) VALUES ($val,'$fname','$lname','$mob',$placeid,'$path')";
     //  print_r($sql);
-    //  return;
+    //   return;
     $r2=mysqli_query($conn,$sql);
     move_uploaded_file($_FILES['photo']['tmp_name'],'upload/'.$val.'/'. $_FILES['photo']['name']);
     $sql2="UPDATE `tbl_login` SET `status`=1 where `user_id`=$val";
@@ -216,6 +229,8 @@ function centerRegistration($conn){
     $licno="lic".$_POST['licno'];
 //$type=$_POST['types'];
     $brand=$_POST['brand'];
+    // print_r($brand);
+    // return;
     $mob=$_POST['mobno'];
     $dist=$_POST['district'];
     $place=$_POST['place'];
@@ -256,7 +271,7 @@ function centerRegistration($conn){
             $brndid=mysqli_fetch_assoc($bid);
             $brandid=$brndid['brand_id'];
 
-            $sql5= "INSERT INTO `tbl_servicecenter`(`licenceno`, `user_id`, `place_id`, `brand_id`, `center_name`, `certificate`, `mobile`) VALUES('$licno','$val','$placeid','$brandid','$cname','$cert','$mob')";
+            $sql5= "INSERT INTO `tbl_servicecenter`(`licenceno`, `user_id`, `place_id`, `brand_id`, `center_name`, `certificate`, `mobile`) VALUES('$licno','$val','$placeid','$brand','$cname','$cert','$mob')";
         //   print_r($sql5);
         //   return;
             mysqli_query($conn,$sql5);

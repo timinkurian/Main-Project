@@ -161,7 +161,7 @@ if(isset($_SESSION['user_id'])){
 
                   <div class="md-form">
                     <i class="fa fa-user prefix grey-text"></i>
-                    <input type="email" id="form3" class="form-control" name="username">
+                    <input type="email" id="form3" class="form-control" name="username" >
                     <label for="form3">user name</label>
                   </div>
                   <div class="md-form">

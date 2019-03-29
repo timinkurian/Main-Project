@@ -71,11 +71,11 @@ if(isset($_SESSION['logid'])){
                     <div class="row">
                       <div class="offset-2 col-md-4">
                                   
-                  <input type="radio" name="designation" value="1" class=" validate"> User
+                  <input type="radio" name="designation" value="1" class=" validate" required> User
                   
                       </div>
                       <div class="col-md-4">
-                      <input type="radio" name="designation" value="3" class=" validate"> Center
+                      <input type="radio" name="designation" value="3" class=" validate" required> Center
                       </div>
                     </div>
                   </div>  

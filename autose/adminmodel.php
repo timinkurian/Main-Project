@@ -9,12 +9,13 @@ if(!sessionRedirect('2', 'designation_id'))
 ?>
 
 <body>
+<!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
 <div class="view full-page-intro" >
+
   <!-- Navbar -->
   <?php
  include('layouts/adminmenu.php');
  ?>
-  <!-- Navbar -->
 
   <div class="main">
       <!-- Content -->
@@ -23,9 +24,8 @@ if(!sessionRedirect('2', 'designation_id'))
         <!--Grid row-->
         <div class="row wow fadeIn">
 
-
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4">
+          <div class="offset-4 col-md-4 mb-4" >
 
             <!--Card-->
             <div class="card">
@@ -34,26 +34,30 @@ if(!sessionRedirect('2', 'designation_id'))
               <div class="card-body">
 
                 <!-- Form -->
-                <form name="" id="login" method="post" action="data/admindata.php" class="mt-5">
+                <form name="" id="login" method="post" action="data/admindata.php" enctype="multipart/form-data" class="mt-5">
                   <!-- Heading -->
                   
-                  <input type="text" hidden value="district" name="type">
+                  <input type="text" hidden value="newmodel" name="type">
                   <h3 class="dark-grey-text text-center">
-                    <strong>Add District</strong>
+                    <strong>ADD NEW MODEL</strong>
                   </h3>
                   <hr>
-                  <div class="md-form">                  
-                    <input type="text" id="dname" class="form-control validate" name="dname" data-type="name" >
-                    <label for="form3">District Name</label>
+                  <div class="md-form">
+                  <select class="form-control md-form" name="brand" id="brand" required>
+                     <?php
+                        include('data/brand.php');
+                     ?>
+                    </select >
                   </div>
+                  <div class="md-form">
+                <input type="text" class="form-control validate" name="model" id="model" data-type="name" placeholder="Model Name" required>                   
+                </div>
+                  
                   <div class="text-center">
-                    <input type="submit" class="btn btn-indigo" value="ADD"> 
+                    <input type="submit" class="btn btn-indigo" value="Add"> 
                     <hr>
-                <!-- <fieldset class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox1">
-                      <label for="checkbox1" class="form-check-label dark-grey-text">Rememer Me</label>-->
-                    </fieldset>
-                  </div>
+
+                  </div> 
 
                 </form>
                 <!-- Form -->
@@ -68,16 +72,13 @@ if(!sessionRedirect('2', 'designation_id'))
 
         </div>
         <!--Grid row-->
+
       </div>
-      <!-- Content -->     
+      <!-- Content -->
   </div>
 
-
-
-  
-
  <?php
-    require('layouts/specialapp_end');
+    require('layouts/app_end');
  ?>
  </div>
 </body>

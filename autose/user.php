@@ -21,7 +21,7 @@ if(!sessionRedirect('1', 'designation_id'))
 <!-- video -->
 <div class="background-wrap">
 			<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted"> 
-				<source src="userhomevideo.mp4" type="video/mp4">
+				<source src="traffic.mp4" type="video/mp4">
 				Video not supported
 			</video>          
 		</div>

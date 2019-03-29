@@ -35,7 +35,7 @@ require "session.php";
             </tr>
         </thead>
         <?php
-    $sql="SELECT * FROM `district`";
+    $sql="SELECT * FROM `tbl_district`";
     $res=mysqli_query($conn,$sql);
     if ($res) {
         ?>

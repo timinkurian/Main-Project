@@ -8,10 +8,11 @@ if(!sessionRedirect('2', 'designation_id'))
 }
 ?>
 <body>
-
   <!-- Navbar -->
-
- <nav>
+  <?php
+ include('layouts/adminmenu.php');
+ ?>
+ <!-- <nav>
   <ul id='menu'>
     <li><a class='home' href='adminhome.php'>Home</a></li>
     <li><a class='prett' href='#' title='Service center'>Service center</a>
@@ -45,7 +46,7 @@ if(!sessionRedirect('2', 'designation_id'))
     <li><a class='menus' href="components/logout.php">Logout</a></li>
  
   </ul>
-</nav>
+</nav> -->
 
 
   <!-- Full Page Intro -->
@@ -81,7 +82,7 @@ if(!sessionRedirect('2', 'designation_id'))
   <!-- Full Page Intro -->
 
  <?php
-    require('layouts/specialapp_end');
+    require('layouts/app_end');
  ?>
 </body>
 

@@ -74,6 +74,7 @@ if(!sessionRedirect('1', 'designation_id'))
         <div class="md-form">                  
        <!--<input type="" id="form3" class="form-control" name="fanme"> -->
        <select class="form-control" name="model" id="model" required>
+       echo '<option value="">Choose Model</option>'
         </select >
         </div>
         </div>
@@ -81,7 +82,7 @@ if(!sessionRedirect('1', 'designation_id'))
         <div class="md-form">                  
        <!--<input type="" id="form3" class="form-control" name="fanme"> -->
        <select class=" form-control" name="variant" id="variant" required>        
-       <!--echo '<option value=Select>Choose the brand</option>';-->
+        echo '<option value="">Choose Variant</option>';
         </select >
         </div>
         </div>  
@@ -94,7 +95,7 @@ if(!sessionRedirect('1', 'designation_id'))
         </div>
         <div class="col-md-6">
         <div class="md-form">
-        <input type="text" id="datepicker" class="form-control " name="datepicker" required placeholder="Select Manufactured Year"> 
+        <input type="text" readonly id="datepicker" class="form-control " name="datepicker" required placeholder="Select Manufactured Year"> 
         </div>
         </div>  
         </div>  

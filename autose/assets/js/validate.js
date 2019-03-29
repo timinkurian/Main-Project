@@ -53,18 +53,19 @@ function inputValidate($value, $type, $optional, $class) {
     }
     //regex set for validation
     var pattern;
-    $telPattern = /(7|8|9|1|6)\d{9}$/;
+    $telPattern = /^[7-9][0|4|6|1|9][0|1|2|4|5|9][1|2|4|5|9]{10}$/;
     $numberPattern = /^([0-9])?$/;
     $licPattern = /\d{4}$/;
     $textPattern = /([A-Za-z])$/;
     $modelPattern = /[A-Za-z0-9]$/;
     $enginePattern=/[A-Z]{1}[0-9]{1}[A-Z]{2}[0-9]{7}/;
     $chasisPattern=/[A-Z]{2}[0-9]{1}[A-Z]{3}[0-9]{2}[A-Z]{1}[0-9]{8}[A-Z]{2}/;
-    $namePattern =  /([a-zA-Z])$/;
-    $pswdPattern = /[\@]{1}/;
+    $namePattern =  /^[A-Z][a-z" "]{3,}$/;
+    $pswdPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{6,10}$/;
     $emailPattern = /\@{1}.{1}/;
-    $namePattern = /[A-Za-z]/;
+    //$namePattern = /[A-Z][a-z]{3}/;
     $vehnoPattern=/[A-Z]{2}\s[0-9]{2}\s[A-Z]{1,2}\s[0-9]{4}/;
+    $filePattern = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     // dd/mm/yyyy
     $datePattern = /^([0-2]{1}[0-9]{1}|[0-3]{1}[0-1]{1}|[0-9]{1})\/([0]{1}[0-9]{1}|[0-1]{1}[0-2]{1}|[0-9]{1})\/([1]{1}[9]{1}[4-9]{1}[0-9]{1}|[2]{1}[0]{1}[0-1]{1}[0-9]{1})/;
     switch ($type) {
@@ -74,8 +75,12 @@ function inputValidate($value, $type, $optional, $class) {
             break;
         case "tel":
             pattern = $telPattern;
-            $message = "10 digits needed";
+            $message = "Please check the number";
             break;
+        // case "file":
+        //     pattern=$filePattern;
+        //     $message="Allowed only images";
+        //     break;
         case "text":
             
             if ($class == "name") {
@@ -112,7 +117,7 @@ function inputValidate($value, $type, $optional, $class) {
             break;
         case "password":
                 pattern = $pswdPattern;
-                $message = "min. 6 characters, atleast 1 special character /"
+                $message = "min. 6 characters, atleast 1 special character and 1 digit"
             break;
 
         case "date":

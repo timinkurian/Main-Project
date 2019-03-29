@@ -1,7 +1,9 @@
 <?php
 require "connect.php";
 
-$sql = "SELECT * FROM `servicecenter` WHERE `logid` in (SELECT `logid` FROM `login` WHERE `status`=0 and `usertype`='servicecenter')";
+$sql = "SELECT * FROM `tbl_servicecenter` as s,tbl_place as p,tbl_district as d,tbl_brand as b,tbl_login as l where l.user_id=s.user_id and l.status='0' and l.designation_id='3' and s.place_id=p.place_id and p.district_id=d.district_id and s.brand_id=b.brand_id";
+// print_r($sql);
+// return;
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
@@ -35,7 +37,7 @@ if ($val) {
             <tr>
                 <th>Center Name</th>
                 <th>Licence Number</th>
-                <th>Type</th>
+                <!-- <th>Type</th> -->
                 <th>Brand</th>
                 <th>District</th>
                 <th>Place</th>
@@ -52,16 +54,16 @@ if ($val) {
             <tr>
 
                 <td>
-                    <?php echo $result['centername']; ?>
+                    <?php echo $result['center_name']; ?>
                 </td>
                 <td>
                     <?php echo $result['licenceno']; ?>
                 </td>
+                <!-- <td> -->
+                    <?php //echo $result['']; ?>
+                <!-- </td> -->
                 <td>
-                    <?php echo $result['type']; ?>
-                </td>
-                <td>
-                    <?php echo $result['brand']; ?>
+                    <?php echo $result['brand_name']; ?>
                 </td>
                 <td>
                     <?php echo $result['district']; ?>
@@ -78,9 +80,9 @@ if ($val) {
                     <img src="data/<?php echo $result['certificate']; ?>">
             </a>
                 </td>
-                <td id="servControl<?php echo $result['scid']; ?>"> 
-                    <input type="button" class="btn btn-indigo adm-click" data-type="approve" data-id= <?php echo $result['scid']; ?> value="Approve">
-                    <input type="button" class="btn btn-indigo adm-click" data-type="reject" data-id= <?php echo $result['scid']; ?> value="Reject">
+                <td id="servControl<?php echo $result['licenceno']; ?>"> 
+                    <input type="button" class="btn btn-indigo adm-click" data-type="approve" data-id= <?php echo $result['licenceno']; ?> value="Approve">
+                    <input type="button" class="btn btn-indigo adm-click" data-type="reject" data-id= <?php echo $result['licenceno']; ?> value="Reject">
                 </td>
             </tr>
                 <?php
@@ -88,6 +90,7 @@ if ($val) {
             ?>
         </tbody>
     </table>
+
 </body>
 
 </html>

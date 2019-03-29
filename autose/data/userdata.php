@@ -38,15 +38,12 @@ switch($type){
     }   
     function addCar($conn){
         $vehno=$_POST['vehno'];
-        $brand=$_POST['brand'];
-        $model=$_POST['model'];
         $variant=$_POST['variant'];
-        $fuel=$_POST['fuel'];
         $color=$_POST['color'];
         $year=$_POST['datepicker'];
         $engineno=$_POST['engineno'];
         $chasisno=$_POST['chasisno'];
-        $val=getSession('logid');
+        $usrid=getSession('user_id');
         $f=$_FILES['rcbook']['name'];
         $g=$_FILES['car']['name'];
         if($f==$g)
@@ -54,15 +51,15 @@ switch($type){
             echo "<script>alert('The file name must be different');window.location='../addcar.php';</script>";
         }
         else{
-        $sql="SELECT `usrid` FROM `user` WHERE `logid`='$val'";
-        $usid=mysqli_query($conn,$sql);
-        $data1 = mysqli_fetch_assoc($usid);
-        $usrid = $data1['usrid'];
+        // $sql="SELECT `usrid` FROM `user` WHERE `logid`='$val'";
+        // $usid=mysqli_query($conn,$sql);
+        // $data1 = mysqli_fetch_assoc($usid);
+        // $usrid = $data1['usrid'];
 
-        $sql4="SELECT * FROM `car` WHERE `usrid`='$usrid' AND `engineno`='$engineno' AND `chasisno`='$chasisno'";
+        $sql4="SELECT * FROM `tbl_car` WHERE `usr_id`='$usrid' AND `engineno`='$engineno' AND `chasisno`='$chasisno'";
         $count=mysqli_query($conn,$sql4);
         if(mysqli_num_rows($count)<1){
-            $sql5="SELECT * FROM `car` WHERE `vehno`='$vehno' OR `engineno`='$engineno' OR `chasisno`='$chasisno'";
+            $sql5="SELECT * FROM `tbl_car` WHERE `regno`='$vehno' OR `engineno`='$engineno' OR `chasisno`='$chasisno'";
             $coun=mysqli_query($conn,$sql5);
             if(mysqli_num_rows($coun)<1){
                 $sDirPath = 'upload/car/'.$vehno.'/'; //Specified Pathname
@@ -73,7 +70,9 @@ switch($type){
                 $path1=$_FILES['car']['name'];
                 $path1 = '/upload/car/'.$vehno.'/'.$path1;
                 $img1=$_FILES['car']['name'];
-        $sql1="INSERT INTO `car` (`vehno`, `usrid`, `brand`, `model`,`variant`, `fuel`, `man_year`, `color`, `engineno`, `chasisno`, `rcbook`, `image`, `status`) VALUES ('$vehno','$usrid','$brand','$model','$variant','$fuel','$year','$color','$engineno','$chasisno','$path','$path1','aproval Pending')";
+        $sql1="INSERT INTO `tbl_car`( `user_id`, `variant_id`, `manufactured_year`, `color`, `regno`, `engineno`, `chasisno`, `rcbook`, `photo`, `status`) VALUES ('$usrid','$variant','$year','$color','$vehno','$engineno','$chasisno','$path','$path1','0')";
+        // print_r($sql1);
+        // return;
         mysqli_query($conn,$sql1);
         move_uploaded_file($_FILES['rcbook']['tmp_name'],'upload/car/'.$vehno.'/' . $_FILES['rcbook']['name']);
         move_uploaded_file($_FILES['car']['tmp_name'],'upload/car/'.$vehno.'/' . $_FILES['car']['name']);

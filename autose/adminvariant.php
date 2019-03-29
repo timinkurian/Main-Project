@@ -37,45 +37,40 @@ if(!sessionRedirect('2', 'designation_id'))
                 <form name="" id="login" method="post" action="data/admindata.php" enctype="multipart/form-data" class="mt-5">
                   <!-- Heading -->
                   
-                  <input type="text" hidden value="brand" name="type">
+                  <input type="text" hidden value="newvariant" name="type">
                   <h3 class="dark-grey-text text-center">
-                    <strong>ADD NEW BRAND</strong>
+                    <strong>ADD NEW VARIANT</strong>
                   </h3>
                   <hr>
-
-                  <div class="md-form">                  
-                    <input type="text" id="brand" class="form-control validate" name="brand" data-type="name" >
-                    <label for="form3">Brand Name</label>
+                  <div class="md-form">
+                  <select class="form-control md-form" name="brand" id="brand" required>
+                     <?php
+                        include('data/brand.php');
+                     ?>
+                    </select >
                   </div>
-                <!--  <div class="md-form">
-                    <input type="text" id="mname" class="form-control validate" name="mname">
-                    <label for="form2">Middle Name</label>
-                  </div>-->
-
-<!--                  
                   <div class="md-form">                  
-                    <input type="text" id="model" class="form-control validate" name="model" data-type="model" >
-                    <label for="form3"> Model</label>
-                  </div>
-                 
-                  <div class="md-form">                  
-                    <input type="text" id="Variant" class="form-control validate" name="variant" data-type="model" >
-                    <label for="form3">Variant</label>
-                  </div> 
-                  <div class="md-form">                    
+                     <!--<input type="" id="form3" class="form-control" name="fanme"> -->
+                    <select class="form-control" name="model" id="model" required>
+                     echo '<option value="">Choose Model</option>'
+                    </select >
+                </div>
+                <div class="md-form">                  
                     <select class="form-control" name="fuel" id="fuel" required>
-                      <?php
-                        //include('data/addfuel.php');
-                       ?>
-                     </select >
-                  </div>-->
+                    <?php
+                      //echo '<option value="">Choose Model</option>';
+                        include('data/fuel.php');
+                     ?>
+                    </select >
+                    </div>
+                  <div class="md-form">
+                <input type="text" class="form-control validate" name="variant" id="variant" data-type="name" placeholder="Variant Name" required>                   
+                </div>
+                  
                   <div class="text-center">
                     <input type="submit" class="btn btn-indigo" value="Add"> 
                     <hr>
-                 <!-- <fieldset class="form-check">
-                      <input type="checkbox" class="form-check-input" id="checkbox1">
-                      <label for="checkbox1" class="form-check-label dark-grey-text">Rememer Me</label>
-                    </fieldset> -->
+
                   </div> 
 
                 </form>

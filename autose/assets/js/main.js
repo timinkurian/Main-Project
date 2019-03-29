@@ -58,6 +58,7 @@ $(document).ready(function () {
 
         switch ($type) {
             case 'approval':
+           // alert ('hi');
                 $url = 'data/servicecenter.php';
                 break;
             case 'view':
@@ -89,6 +90,7 @@ $(document).ready(function () {
                $url = 'data/adminviewcar.php';
            break;
         }
+        
 
         $.ajax({
             url: $url,

@@ -1,16 +1,19 @@
 <?php 
-require('layouts/app_top');
-
+require('data/connect.php');
 require('data/session.php');
-if(!getSession('logid'))
+require('layouts/app_top');
+if(!sessionRedirect('3', 'designation_id'))
 {
   header('Location:index.php');
 }
 ?>
 <body>
 
+<?php
+ include('layouts/servicemenu.php');
+ ?>
   <!-- Navbar -->
-  <nav>
+  <!-- <nav>
 
 <ul id='menu'>
   <li><a class='home' href='sevricecenterhome.php'>Home</a></li>
@@ -32,7 +35,7 @@ if(!getSession('logid'))
   <li><a class='menus' href="components/logout.php">Logout</a></li>
 
 </ul>
-</nav>
+</nav> -->
 
   <!-- Full Page Intro -->
   <div  id="pageData"  class="view full-page-intro ">
