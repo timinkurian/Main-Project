@@ -1,7 +1,7 @@
 <?php
 require "connect.php";
 
-$sql = "SELECT * FROM `car` WHERE `status`='aproved'";
+$sql = "SELECT * FROM `tbl_car` WHERE `status`='1'";
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
@@ -52,23 +52,33 @@ if ($val) {
         <tbody id="tbbody">
             <?php
             while($result=mysqli_fetch_array($val)){
-
+                $sql1="SELECT * FROM tbl_variant WHERE variant_id=$result[variant_id]";
+                $val1=mysqli_query($conn,$sql1);
+                $result1=mysqli_fetch_assoc($val1);
+                $sql2="SELECT * FROM tbl_model WHERE model_id=$result1[model_id]";
+                $val2=mysqli_query($conn,$sql2);
+                $result2=mysqli_fetch_assoc($val2);
+                // print_r($sql2);
+                // return;
+                $sql3="SELECT * FROM tbl_brand  WHERE brand_id=$result2[brand_id]";
+                $val3=mysqli_query($conn,$sql3);
+                $result3=mysqli_fetch_assoc($val3);
             ?>
             <tr>
             <td>
-                    <?php echo $result['vehno']; ?>
+                    <?php echo $result['regno']; ?>
                 </td>
                 <td>
-                    <?php echo $result['brand']; ?>
+                    <?php echo $result3['brand_name']; ?>
                 </td>
                 <td>
-                    <?php echo $result['model']; ?>
+                    <?php echo $result2['model_name']; ?>
                 </td>
                 <td>
-                    <?php echo $result['variant']; ?>
+                    <?php echo $result1['variant_name']; ?>
                 </td>
                 <td>
-                    <?php echo $result['man_year']; ?>
+                    <?php echo $result['manufactured_year']; ?>
                 </td>
                 <td>
                     <?php echo $result['engineno']; ?>
@@ -84,8 +94,8 @@ if ($val) {
                 </td>
                 <td>
                    
-                   <a href="data/<?php echo $result['image']; ?>" target="_blank">
-                   <img src="data/<?php echo $result['image']; ?>">
+                   <a href="data/<?php echo $result['photo']; ?>" target="_blank">
+                   <img src="data/<?php echo $result['photo']; ?>">
            </a>
                </td>
             </tr>

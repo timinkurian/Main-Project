@@ -1,6 +1,6 @@
 <?php
 require "connect.php";
-$sql = "SELECT * FROM `tbl_brand` ";
+$sql = "SELECT * FROM `tbl_servicetype` ";
 $val = mysqli_query($conn, $sql);
 if ($val) {
     ?>
@@ -55,13 +55,13 @@ if ($val) {
                             ?>
                         <tr>
                             <td>
-                                <?php echo $result['brand_name']; ?>
+                                <?php echo $result['servicetype']; ?>
                             </td>
                             <td>
                         
-                            <form name="" id="login" method="post" action="editbrand.php"  >
-                            <input type="text" hidden value="<?php echo $result['brand_name']; ?>" name="brandname">
-                            <input type="text" hidden value="<?php echo $result['brand_id']; ?>" name="brandid">
+                            <form name="" id="login" method="post" action="editservicetype.php"  >
+                            <input type="text" hidden value="<?php echo $result['servicetype']; ?>" name="type">
+                            <input type="text" hidden value="<?php echo $result['servicetype_id']; ?>" name="id">
                             <input type="submit" class="btn btn-indigo"  value="Edit">
                             </form>
                    

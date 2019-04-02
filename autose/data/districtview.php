@@ -48,7 +48,15 @@ require "session.php";
                 <td>
                     <?php echo $result['district']; ?>
                 </td>
-
+                <td>
+                        
+                        <form name="" id="login" method="post" action="editdistrict.php"  >
+                        <input type="text" hidden value="<?php echo $result['district']; ?>" name="district">
+                        <input type="text" hidden value="<?php echo $result['district_id']; ?>" name="districtid">
+                        <input type="submit" class="btn btn-indigo"  value="Edit">
+                        </form>
+               
+                    </td>  
             </tr>
                 <?php
             }

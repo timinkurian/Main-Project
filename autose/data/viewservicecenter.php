@@ -1,7 +1,7 @@
 <?php
 require "connect.php";
 
-$sql = "SELECT * FROM `servicecenter` WHERE `logid` in (SELECT `logid` FROM `login` WHERE `status`=1 and `usertype`='servicecenter')";
+$sql = "SELECT * FROM `tbl_servicecenter` as s,tbl_place as p,tbl_district as d,tbl_brand as b,tbl_login as l where l.user_id=s.user_id and l.status='1' and l.designation_id='3' and s.place_id=p.place_id and p.district_id=d.district_id and s.brand_id=b.brand_id";
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
@@ -33,7 +33,6 @@ if ($val) {
                 
                 <th>Center Name</th>
                 <th>Licence Number</th>
-                <th>Type</th>
                 <th>Brand</th>
                 <th>District</th>
                 <th>Place</th>
@@ -49,16 +48,13 @@ if ($val) {
             <tr>
 
                 <td>
-                    <?php echo $result['centername']; ?>
+                    <?php echo $result['center_name']; ?>
                 </td>
                 <td>
                     <?php echo $result['licenceno']; ?>
                 </td>
                 <td>
-                    <?php echo $result['type']; ?>
-                </td>
-                <td>
-                    <?php echo $result['brand']; ?>
+                    <?php echo $result['brand_name']; ?>
                 </td>
                 <td>
                     <?php echo $result['district']; ?>

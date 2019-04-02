@@ -53,12 +53,12 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View All
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="view">Service Center</a>
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="viewservicetype">Service Types</a>
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="viewbrand">Brand</a>
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="viewcar">Car</a>
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="viewdistrict">Districts</a>
-                                  <a class="dropdown-item waves-effect waves-light" class="adm-nav" data-type="viewuser">Users</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="view">Service Center</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewservicetype">Service Types</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewbrand">Brand</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewcar">Car</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewdistrict">Districts</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewuser">Users</a>
                               </div>
                           </li>
 

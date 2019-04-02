@@ -37,22 +37,23 @@ $(document).ready(function () {
         });
     })
 
-    $("#variant").on("change", function () {
-        //alert();
-        $variant = $(this).val();
-        $.ajax({
-            url: 'data/fuel.php',
-            method: 'post',
-            data: { 'variant': $variant },
-            success: function (data) {
-                $("#fuel").html(data);
-            }
-        });
-    })
+    // $("#variant").on("change", function () {
+    //     //alert();
+    //     $variant = $(this).val();
+    //     $.ajax({
+    //         url: 'data/fuel.php',
+    //         method: 'post',
+    //         data: { 'variant': $variant },
+    //         success: function (data) {
+    //             $("#fuel").html(data);
+    //         }
+    //     });
+    // })
 
 
     $(".adm-nav").on("click", function (e) {
         //alert();
+        $url = "";
         e.preventDefault();
         $type = $(this).data('type');
 
@@ -89,6 +90,10 @@ $(document).ready(function () {
            // alert();
                $url = 'data/adminviewcar.php';
            break;
+           case 'viewservicetype':
+                $url='data/viewservicetype.php';
+            break;
+            
         }
         
 

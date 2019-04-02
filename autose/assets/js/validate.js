@@ -53,17 +53,17 @@ function inputValidate($value, $type, $optional, $class) {
     }
     //regex set for validation
     var pattern;
-    $telPattern = /^[7-9][0|4|6|1|9][0|1|2|4|5|9][1|2|4|5|9]{10}$/;
+    //$telPattern = /^[7-9][0|4|6|1|9][0|1|2|4|5|9][1|2|4|5|9]{10}$/;
     $numberPattern = /^([0-9])?$/;
     $licPattern = /\d{4}$/;
     $textPattern = /([A-Za-z])$/;
     $modelPattern = /[A-Za-z0-9]$/;
     $enginePattern=/[A-Z]{1}[0-9]{1}[A-Z]{2}[0-9]{7}/;
     $chasisPattern=/[A-Z]{2}[0-9]{1}[A-Z]{3}[0-9]{2}[A-Z]{1}[0-9]{8}[A-Z]{2}/;
-    $namePattern =  /^[A-Z][a-z" "]{3,}$/;
+    $namePattern =  /^[A-Z][a-z]{2,}$/;
     $pswdPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{6,10}$/;
     $emailPattern = /\@{1}.{1}/;
-    //$namePattern = /[A-Z][a-z]{3}/;
+    $stypePattern =   /^[A-Z]{1}[A-Za-z\s]+$/;
     $vehnoPattern=/[A-Z]{2}\s[0-9]{2}\s[A-Z]{1,2}\s[0-9]{4}/;
     $filePattern = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     // dd/mm/yyyy
@@ -84,8 +84,8 @@ function inputValidate($value, $type, $optional, $class) {
         case "text":
             
             if ($class == "name") {
-                pattern = $textPattern;
-                $message = "Should contain letters only."
+                pattern = $namePattern;
+                $message = "First letter must be an uppercase and allows only alphabets."
             }
             if ($class == "model") {
                 pattern = $modelPattern;
@@ -110,6 +110,10 @@ function inputValidate($value, $type, $optional, $class) {
             if ($class == "lic") {
                 pattern = $licPattern;
                 $message = "Should contain numbers only."
+            }
+            if($class=="servicetype"){
+                pattern=$stypePattern;
+                $message="First letter must be an uppercase and allows only alphabets."
             }
             //else{
              //   pattern = $textPattern;

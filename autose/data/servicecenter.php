@@ -82,7 +82,10 @@ if ($val) {
                 </td>
                 <td id="servControl<?php echo $result['licenceno']; ?>"> 
                     <input type="button" class="btn btn-indigo adm-click" data-type="approve" data-id= <?php echo $result['licenceno']; ?> value="Approve">
-                    <input type="button" class="btn btn-indigo adm-click" data-type="reject" data-id= <?php echo $result['licenceno']; ?> value="Reject">
+                    <form name="" id="login" method="post" action="rejectcenter.php"  >
+                    <input type="text" hidden value="<?php echo $result['licenceno']; ?>" name="licenceno">
+                            <input type="submit" class="btn btn-indigo"  value="Reject">
+                    </form>
                 </td>
             </tr>
                 <?php

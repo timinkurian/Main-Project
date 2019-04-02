@@ -52,6 +52,7 @@ if(!sessionRedirect('2', 'designation_id'))
   <!-- Full Page Intro -->
   <div id="pageData" class="view full-page-intro" >
 
+
     <!-- Mask & flexbox options-->
     <div class="mask d-flex justify-content-center align-items-center">
 
@@ -82,7 +83,7 @@ if(!sessionRedirect('2', 'designation_id'))
   <!-- Full Page Intro -->
 
  <?php
-    require('layouts/app_end');
+    require('layouts/specialapp_end');
  ?>
 </body>
 

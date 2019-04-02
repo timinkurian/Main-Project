@@ -23,6 +23,9 @@ switch($type){
         //echo $type;
         serviceType($conn);
         break;
+        case 'editservicetype':
+            editServicetype($conn);
+        break;
         case 'approve':
             approvecenter($conn);
         break;
@@ -40,7 +43,13 @@ switch($type){
         break;
         case 'searchcar':
         searchCar($conn);
-    break;
+        break;
+        case 'editbrand':
+        editBrand($conn);
+        break;
+        case 'editdistrict':
+        editDistrict($conn);
+        break;
         default:
         break;
     }   
@@ -60,6 +69,13 @@ function newBrand($conn){
     else{
         echo "<script>alert('Already Exists!');window.location='../adminbrand.php';</script>";
     }
+}
+function editBrand($conn){
+    $brandid=$_POST['brandid'];
+    $brand=$_POST['brandname'];
+    $sql="UPDATE `tbl_brand` SET `brand_name`='$brand' WHERE brand_id='$brandid'";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Updated Successfully!');window.location='../adminhome.php';</script>";
 }
 function newModel($conn){
     $model=$_POST['model'];
@@ -103,20 +119,40 @@ function serviceType($conn){
         echo "<script>alert('Already Exists!');window.location='../servicetype.php';</script>";
     }
 }
+function editServicetype($conn){
+    $stype=$_POST['stype'];
+    $id=$_POST['id'];
+    $sql="UPDATE `tbl_servicetype` SET `servicetype`='$stype' WHERE `servicetype_id`='$id'";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Updated Successfully!');window.location='../adminhome.php';</script>";
+}
 function approvecenter($conn){
     $sid=$_POST['id'];
      $sql="UPDATE `tbl_login` SET `status`= 1 WHERE `user_id`=(SELECT `user_id` FROM `tbl_servicecenter` WHERE `licenceno`='$sid')";
     mysqli_query($conn, $sql);
+    $sql1="SELECT * from tbl_login where user_id=(SELECT `user_id` FROM `tbl_servicecenter` WHERE `licenceno`='$sid')";
+    $res=mysqli_query($conn, $sql1);
+    $row=mysqli_fetch_assoc($res);
+    $a=$row['email'];
+    $p="You are approved by the admin, so now you can sign into your account";
+    // $m="Go to the link to recover your account:".$link."\r\n".$p;
+     mail($a,"Welcome to Real Deal Cars Family",$p);
     // echo "<script>alert('Approved');window.location=../adminhome.php;</script>";
     echo '1';
 }
 function rejectCenter($conn){
 //    alert();
     $sid=$_POST['id'];
-     $sql="UPDATE `login` SET `status`= '-1' WHERE `logid`=(SELECT `logid` FROM `servicecenter` WHERE `scid`='$sid')";
+    $body=$_POST['body'];
+     $sql="UPDATE `tbl_login` SET `status`= '-1' WHERE `user_id`=(SELECT `user_id` FROM `tbl_servicecenter` WHERE `licenceno`='$sid')";
     mysqli_query($conn, $sql);
-    // echo "<script>alert('Approved');window.location=../adminhome.php;</script>";
-    echo '2';
+    $sql1="SELECT * from tbl_login where user_id=(SELECT `user_id` FROM `tbl_servicecenter` WHERE `licenceno`='$sid')";
+    $res=mysqli_query($conn, $sql1);
+    $row=mysqli_fetch_assoc($res);
+    $a=$row['email'];
+     mail($a,"Regret E-mail",$body);
+     echo "<script>alert('Mail send');window.location='../adminhome.php';</script>";   
+   // echo '2';
 }
 function carAprove($conn){
    
@@ -146,6 +182,16 @@ function districtAdd($conn){//adding district
    else{
     echo "<script>alert('Already Exists!');window.location='../districtadd.php';</script>";
    }
+}
+function editDistrict($conn){
+    $districtid=$_POST['districtid'];
+    $district=$_POST['district'];
+    $sql="UPDATE `tbl_district` SET `district`='$district' WHERE `district_id`='$districtid'";
+    mysqli_query($conn,$sql);
+    // print_r($sql);
+    // return;
+    echo "<script>alert('Updated Successfully');window.location='../adminhome.php';</script>";
+    
 }
 
     function searchCar($conn){
