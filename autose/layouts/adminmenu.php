@@ -12,7 +12,7 @@
 
  
  <!-- Navbar -->
- <nav class="mb-1 navbar navbar-expand-lg navbar-dark purple lighten-1">
+ <nav class="mb-1 navbar navbar-expand-lg navbar-dark purple lighten-1 ">
                   
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-5" aria-controls="navbarSupportedContent-5" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
@@ -39,6 +39,8 @@
                                   <a class="dropdown-item waves-effect waves-light" href='adminvariant.php' >Variant</a>
                                   <a class="dropdown-item waves-effect waves-light" href='districtadd.php' >Districts</a>
                                   <a class="dropdown-item waves-effect waves-light" href='servicetype.php' >Service Types</a>
+                                  <a class="dropdown-item waves-effect waves-light" href='spareparts.php' >Spare Parts</a>
+                                  <a class="dropdown-item waves-effect waves-light" href='department.php' >Department</a>
                               </div>
                           </li>
                           <li class="nav-item dropdown">
@@ -59,6 +61,8 @@
                                   <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewcar">Car</a>
                                   <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewdistrict">Districts</a>
                                   <a class="dropdown-item waves-effect waves-light adm-nav" data-type="viewuser">Users</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="spareparts">Spare Parts</a>
+                                  <a class="dropdown-item waves-effect waves-light adm-nav" data-type="department">Department</a>
                               </div>
                           </li>
 

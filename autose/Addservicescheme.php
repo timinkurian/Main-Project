@@ -3,10 +3,19 @@ require('layouts/app_top');
 require('data/session.php');
 
 ?>
+<link href="plugin/dist/css/component-chosen.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.6/chosen.jquery.min.js"></script>
+<head>
+
+</head>
 <body>
 <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-<div class="view full-page-intro" >
+<div class="view full-page-intro" style="height: fit-content">
 
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -42,7 +51,7 @@ require('data/session.php');
 
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-3 col-md-6 mb-4 text-left">
 
             <!--Card-->
             <div class="card">
@@ -59,50 +68,35 @@ require('data/session.php');
                     <strong>ADD NEW SERVICE SCHEME</strong>
                   </h3>
                   <hr>
-                  <table>
+                  <table class="table-hover table-sm" style="width:100%">
                   <tr>
-                  <td><label>Service Name</label></td>
+                  <td><label>Service Type</label></td>
                   <td>
                   <div class="md-form">                  
-                  <select class="form-control validate" name="sname" id="sname" required>
+                  <select class="form-control " name="stype" id="sid" required>
                   <?php 
                     include('data/servicetype.php');
                   ?>
                   </select >
                   </div>
                   </td>
-                  </tr> 
-                  <tr>
-                  <td>Service Type</label></td>
-                  <td>
-                  <div class="md-form">                  
-                    <input type="text" id="stype" class="form-control validate" name="stype" data-type="model"  >
-                  <!--  <label for="form3">Service Name</label>-->
-                 </div>
-                 </td>
-                 </tr>
-                <tr>
-
-                <td><label>Choose brand</label></td>
-                <td>
-                 <div class="md-form">                  
-                   <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class="form-control validate" name="brand" id="brand" required>
-                   <!--echo '<option value=" ">Choose brand</option>';-->
-                       <?php
-                        include('data/servicebrand.php');
-                       ?>
-                    </select >
-                    </div>
-                    </td>
-                    </tr>
+                  </tr>
                     <tr>
                     <td><label>Choose Model</label></td>
                     <td>
                     <div class="md-form">                  
-                   <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class="form-control validate" name="model" id="model" required>
-                   echo '<option value=" ">Choose Model</option>'; 
+                    <select class="form-control" name="model" id="model" required>
+                    <?php
+                      $val=getSession('brand');
+                      echo '<option value disabled selected>Select Model</option>';
+                      $sql = "SELECT * FROM `tbl_model` WHERE `brand_id`='$val'";
+                      $result = mysqli_query($conn,$sql);
+                      if (mysqli_num_rows($result) > 0) {
+                      while($row = mysqli_fetch_assoc($result)) {
+                      echo "<option value='".$row['model_id']."'>".$row['model_name']."</option>";
+                      }
+                      } 
+                      ?>
                     </select >
                     </div>
                     </td>
@@ -112,37 +106,53 @@ require('data/session.php');
                     <td>
                     <div class="md-form">                  
                    <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class=" form-control validate" name="variant" id="variant" required>  
-                   echo '<option value=" ">Choose Variant</option>';      
-                   <!--echo '<option value=Select>Choose the brand</option>';-->
+                   <select class=" form-control " name="variant" id="variant" required>  
+                   echo '<option value="">Choose Variant</option>'; 
+                 
                     </select >
                     </div>
                     </td>
                     </tr>
                     <tr>
-                    <td><label>Fuel Type</label></td>
+                    <td colspan="2" class="text-left"><label>Replacing Parts</label></td>
+                    <tr>
+                    <td colspan="2">
+                    <div class="">
+                    <select name="val[]" id="optgroup_clickable" class="form-control form-control-chosen-optgroup" title="clickable_optgroup" data-placeholder="Please select..." multiple>
+                   <?php
+                   include('data/replacing.php');
+                   ?>
+                    </select>
+                    </div>
+                    </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><label>Checking Parts</label></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                    <select name="val1[]" id="optgroup_clickable" class="form-control form-control-chosen-optgroup" title="clickable_optgroup" data-placeholder="Please select..." multiple>
+                   <?php
+                   include('data/replacing.php');
+                   ?>
+                    </select>
+                    </div>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td><label>Choose Department</label></td>
                     <td>
                     <div class="md-form">                  
                    <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class="form-control validate" name="fuel" id="fuel" required>  
-                   echo '<option value=" ">Choose Fuel Type</option>';                
+                   <select class=" form-control " name="department" id="department" required> 
+                   <?Php
+
+                   include('data/department.php');
+                   ?>
+                   <!-- echo '<option value="">Choose Variant</option>';  -->
+                 
                     </select >
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><label>Replacing Parts</label></td>
-                    <td>
-                    <div class="md-form">
-                    <input type="textarea" class="form-control " name="replacing" id="replacing" required>                   
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><label>Checking Parts</label></td>
-                    <td>
-                    <div class="md-form">
-                    <input type="textarea" class="form-control" name="checking" id="checking" required>                   
                     </div>
                     </td>
                     </tr>
@@ -182,10 +192,19 @@ require('data/session.php');
       <!-- Content -->
   </div>
 
+
+ </div>
+ <script>
+$('.form-control-chosen-optgroup').chosen({
+  width: '100%'
+});
+$(function() {
+  $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+});
+</script>
  <?php
     require('layouts/app_end');
  ?>
- </div>
 </body>
 
 </html>

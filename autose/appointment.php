@@ -1,45 +1,59 @@
-<?php 
+<?php
+require "data/connect.php";
+require "data/session.php";
 require('layouts/app_top');
-require('data/session.php');
-
-if(isset($_SESSION['logid'])){
-    switch($_SESSION['utype']){
-        case '1':
-            header('location:user.php');
-            break;
-        default:
-            break;
-    }
-}
-
-if(!getSession('logid'))
-{
-  header('Location:index.php');
-}
-$scid=$_POST['type'];
-setSession('scid',$scid);
+$regno=getSession('regno');
+$brandid=getSession('brandid');
 ?>
- 
+   
+   <html>  
+<head>
+  <style>
+  .image1{
+    max-width: 100%;
+}
+.button1{
+  background-color: #aeaeaeed;
+  max-height: 20%;
+}
+  </style>
+</head>
+
 <body>
-<!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-<div class="view full-page-intro" >
+<div class="view full-page-intro" style="height: fit-content">
 
-<nav>
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
 
-<ul id='menu'>
-  <li><a class='home' href='user.php'>Home</a></li>
-</ul>
+    <!-- Brand -->
+    <a class="navbar-brand" href="user.php">
+      <strong>Home</strong>
+    </a>
+
+ 
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </ul>
+
+    </div>
+
+  </div>
 </nav>
-  <!-- Navbar -->
 
-  <div class="main py-3" >
+  <div class="main">
       <!-- Content -->
       <div class="container ">
 
         <!--Grid row-->
         <div class="row wow fadeIn">
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4" >
 
 <!--Card-->
 <div class="card">
@@ -62,24 +76,24 @@ setSession('scid',$scid);
       <td>Pick a Date</label></td>
       <td>
       <div class="md-form">                
-       <input type="text" id="datepicker" class="form-control " name="datepicker" required>
+       <input type="text" readonly id="datepicker" class="form-control " name="datepicker" required>
 
         </div>
      </td>
      </tr>
-      <tr>
+      <!-- <tr>
       <td>Vehicle number</label></td>
       <td>
-      <div class="md-form">                
-       <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-       <select class="form-control" name="vehno" id="vehno" required>
-          <?php
-           include('data/car.php');
-           ?>
-        </select >
+      <div class="md-form"> 
+        <?php
+        // $regno=getSession('regno');
+        // print_r($regno);
+        // return;
+        ?>               
+      <label ></label>
         </div>
      </td>
-     </tr>
+     </tr> -->
         <tr>
         <td><label>Choose Service Type</label></td>
         <td>

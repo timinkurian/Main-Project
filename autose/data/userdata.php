@@ -13,7 +13,9 @@ switch($type){
             // echo $type;
             addCar($conn);
             break;
-
+            case 'deletecar':
+            deleteCar($conn);
+            break;
             case 'appointment':
             makeAppointment($conn);
             break;
@@ -87,6 +89,32 @@ switch($type){
         }
     }
     }
+function deleteCar($conn){
+    $val=$_POST['car'];
+    $regno=$_POST['regno'];
+    setSession('regno',$regno);
+    $brandid=$_POST['brandid'];
+    setSession('brandid',$brandid);
+    if($val=="sell"){
+        ?>
+     <script>window.location='../user.php';</script> 
+     <?php
+    }
+    if($val=="appointment"){
+        ?>
+     <script>window.location='../servicecenterbybrand.php';</script> 
+     <?php
+    }
+    elseif($val=="delete"){
+        $sql="UPDATE `tbl_car` SET `status`=-1 WHERE regno='$regno'";
+        // print_r($sql);
+        // return;
+        mysqli_query($conn,$sql);
+        echo "<script>alert('Removed Successfully');window.location='../viewcar.php';</script>";
+
+    }
+
+}
 function searchCenter($conn){
     $district=$_POST['dist'];
     $brand=$_POST['brand'];

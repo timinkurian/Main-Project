@@ -36,6 +36,33 @@ $(document).ready(function () {
             }
         });
     })
+    $("#model1").on("change", function () {
+        //alert();
+        $model = $(this).val();
+        $.ajax({
+            url: 'data/centerfuel.php',
+            method: 'post',
+            data: { 'model': $model },
+            success: function (data) {
+                $("#fuel1").html(data);
+            }
+        });
+    })
+    $("#fuel1").on("change", function () {
+        //alert();
+        $fuel = $(this).val();
+        $model=$("#model1").val();
+        $.ajax({
+            url: 'data/centerpart.php',
+            method: 'post',
+            data: { 'fuel': $fuel,'model':$model },
+            success: function (data) {
+                console.log(data);
+                
+                $("#parts").html(data);
+            }
+        });
+    })
 
     // $("#variant").on("change", function () {
     //     //alert();
@@ -93,6 +120,12 @@ $(document).ready(function () {
            case 'viewservicetype':
                 $url='data/viewservicetype.php';
             break;
+            case 'spareparts':
+                $url='data/viewspare.php';
+            break;
+            case 'department':
+            $url='data/viewdepartment.php';
+            break
             
         }
         
@@ -167,10 +200,12 @@ $(".cntr-nav").on("click", function (e) {
     //alert();
     e.preventDefault();
     $type = $(this).data('type');
-
+    // alert($type);
     switch ($type) {
-            case 'viewschemes':
+        
+            case 'viewSchemes':
             $url = 'data/centerdata.php';
+           
             break;
             case 'viewappointment':
             $url = 'data/centerappointment.php';
@@ -200,7 +235,7 @@ $("body").on("click", ".cntr-click", function (e) {
     $id = $(this).data('id');
    
     $.ajax({
-
+        
         url: 'data/centerdata.php',
         method: 'post',
         data: { 'type': $type, 'id': $id },

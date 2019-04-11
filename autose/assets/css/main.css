@@ -75,3 +75,9 @@ p.alert-data {
 .purple.lighten-1 {
   background-color:  #0405052b!important;
 }
+
+.full-page-intro{
+  min-height:100vh;
+  display: block;
+  /*  */
+}

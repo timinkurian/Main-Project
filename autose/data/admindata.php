@@ -50,6 +50,15 @@ switch($type){
         case 'editdistrict':
         editDistrict($conn);
         break;
+        case 'spareparts':
+        spareparts($conn);
+        break;
+        case 'department':
+        addDepartment($conn);
+        break;
+        case 'editdepartment':
+        editDepartment($conn);
+        break;
         default:
         break;
     }   
@@ -157,9 +166,19 @@ function rejectCenter($conn){
 function carAprove($conn){
    
     $vid=$_POST['id'];
+    $sql1="SELECT * from tbl_login where user_id=(SELECT `user_id` FROM `tbl_car`  WHERE `car_id`='$vid')";
+    $res=mysqli_query($conn,$sql1);
+    $result=mysqli_fetch_array($res);
+    $email=$result['email'];
+    // print_r($email);
+    // return;
     $sql="UPDATE `tbl_car` SET `status`= '1' WHERE `car_id`='$vid'";
     mysqli_query($conn, $sql);
+    $p="Your request for car registration is approved...! Enjoy all the services provided by Real Deal Cars";
+    // $m="Go to the link to recover your account:".$link."\r\n".$p;
+     mail($email,"Car Registration Approved",$p);
     echo '1';
+ 
 
 }
 
@@ -192,6 +211,25 @@ function editDistrict($conn){
     // return;
     echo "<script>alert('Updated Successfully');window.location='../adminhome.php';</script>";
     
+}
+function spareparts($conn){
+    $spare=$_POST['part'];
+    $sql="INSERT INTO `tbl_spare`(`spare`) VALUES ('$spare')";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Added Successfully');window.location='../spareparts.php';</script>";
+}
+function addDepartment($conn){
+    $department=$_POST['department'];
+    $sql="INSERT INTO `tbl_department`(`department_name`) VALUES ('$department')";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Added Successfully');window.location='../department.php';</script>";
+}
+function editDepartment($conn){
+    $department=$_POST['department'];
+    $id=$_POST['id'];
+    $sql="UPDATE `tbl_department` SET `department_name`='$department' WHERE `department_id`='$id'";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Updated Successfully');window.location='../adminhome.php';</script>";
 }
 
     function searchCar($conn){

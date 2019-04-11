@@ -104,10 +104,17 @@ if(isset($_SESSION['logid'])){
                     <input type="text" id="place" class="form-control validate" name="place" data-type="model">
                     <label for="form3">place</label>
                   </div>
+                  <div class="md-form"> 
+                  <!-- /<label>License Certificate</label>                  -->
+                  <label>Service Center Photo</label><br><br> 
+                    <input type="file" id="photo" class="form-control validate" name="photo" required >  
+                  </div>
                  
-                  <div class="md-form">                  
-                    <input type="file" id="certificate" class="form-control " name="certificate" required>
-                    <label for="form3"></label>
+                  <div class="md-form"> 
+                  <!-- /<label>License Certificate</label>                  -->
+                  <label>License Certificate</label><br><br> 
+                    <input type="file" id="certificate" class="form-control validate" name="certificate" required placeholder="Certi">
+                    
                   </div>
               <!--
                   <div class="md-form">                  

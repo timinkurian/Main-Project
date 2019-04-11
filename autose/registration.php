@@ -81,7 +81,7 @@ if(!getSession('user_id'))
                   </div>
                  
                   <div class="md-form">                  
-                    <input type="tel" id="mobno" class="form-control validate" name="mobno" required >
+                    <input type="tel" id="mobno" class="form-control validate" name="mobno" required maxlength=10 >
                     <label for="form3">Mobile Number</label>
                   </div>
                   <div class="md-form">                  
@@ -99,7 +99,7 @@ if(!getSession('user_id'))
                   </div>
 
                   <div class="md-form">                  
-                    <input type="file" id="photo" class="form-control " name="photo" accept=".jpg,.jpeg,.png" required>
+                    <input type="file" id="photo" class="form-control validate" name="photo" accept=".jpg,.jpeg,.png" required>
                     <label for="form3"></label>
                   </div>
                   <div class="text-center">

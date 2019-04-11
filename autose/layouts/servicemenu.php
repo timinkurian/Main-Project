@@ -34,7 +34,7 @@
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                                   <a class="dropdown-item waves-effect waves-light" href="Addservicescheme.php">Add New Scheme</a>
-                                  <a class="dropdown-item waves-effect waves-light" href='' class="cntr-nav" data-type="viewschemes">View Schmes</a>
+                                  <a  class="dropdown-item waves-effect waves-light cntr-nav" data-type="viewSchemes">View Schemes</a>
                               </div>
                           </li>
                           <li class="nav-item dropdown">
@@ -49,7 +49,7 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Employee
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Add New Employees</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="addemployee.php">Add New Employees</a>
                                   <a class="dropdown-item waves-effect waves-light" href="#">View Employees</a>
                               </div>
                           </li>
@@ -61,6 +61,16 @@
                                   <a class="dropdown-item waves-effect waves-light" href="#">View Leaves</a>
                               </div>
                           </li>
+
+                          <!-- <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Spare Parts
+                              </a>
+                              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+                                  <a class="dropdown-item waves-effect waves-light" href="partsadd.php">Add New Parts</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="#">View Parts</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="stockupdate.php">Update Stock</a>
+                              </div>
+                          </li> -->
 
                       </ul>
                       <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -75,6 +85,8 @@
                                 margin-right:100px;
                               }
                               </style>
+
+
                           <li class="nav-item avatar dropdown">
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <?php
@@ -82,14 +94,16 @@
                                     $sql="SELECT * FROM tbl_servicecenter WHERE user_id=$val";
                                     $img=mysqli_query($conn,$sql);
                                     $result=mysqli_fetch_array($img)?>
-                                  <img src="data/<?php echo $result['photo']; ?>" class="img-fluid rounded-circle z-depth-0" alt="Material Design for Bootstrap - example photo" class="avatar"> 
-                              </a> -->
-                              <div class="nav-link dropdown-toggle waves-effect waves-light" aria-labelledby="navbarDropdownMenuLink-5">
+                                  <img src="data/<?php echo $result['photo']; ?>" class="img-fluid rounded-circle z-depth-0" alt="Material Design for Bootstrap - example photo" class="avatar">
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                                   <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
                                   <a class="dropdown-item waves-effect waves-light" href="#">Change Password</a>
                                   <a class="dropdown-item waves-effect waves-light" href="components/logout.php">Logout</a>
                               </div>
                           </li>
+
+
                       </ul>
                   </div>
               <!-- <a class="navbar-brand" href="#">Navbar</a> -->

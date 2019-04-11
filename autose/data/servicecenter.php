@@ -1,7 +1,7 @@
 <?php
 require "connect.php";
 
-$sql = "SELECT * FROM `tbl_servicecenter` as s,tbl_place as p,tbl_district as d,tbl_brand as b,tbl_login as l where l.user_id=s.user_id and l.status='0' and l.designation_id='3' and s.place_id=p.place_id and p.district_id=d.district_id and s.brand_id=b.brand_id";
+$sql = "SELECT * FROM `tbl_servicecenter` WHERE `user_id` in(SELECT `user_id` FROM `tbl_login` WHERE `status`=0 AND `designation_id`=3)";
 // print_r($sql);
 // return;
 $val=mysqli_query($conn,$sql);
@@ -49,6 +49,15 @@ if ($val) {
         <tbody>
             <?php
             while($result=mysqli_fetch_array($val)){
+                $sql2="SELECT * FROM tbl_place WHERE place_id=$result[place_id]";
+                $val2=mysqli_query($conn,$sql2);
+                $result2=mysqli_fetch_assoc($val2);
+                $sql3="SELECT * FROM tbl_brand  WHERE brand_id=$result[brand_id]";
+                $val3=mysqli_query($conn,$sql3);
+                $result3=mysqli_fetch_assoc($val3);
+                $sql1="SELECT * FROM tbl_district  WHERE district_id=$result2[district_id]";
+                $val1=mysqli_query($conn,$sql1);
+                $result1=mysqli_fetch_assoc($val1);
 
             ?>
             <tr>
@@ -63,13 +72,13 @@ if ($val) {
                     <?php //echo $result['']; ?>
                 <!-- </td> -->
                 <td>
-                    <?php echo $result['brand_name']; ?>
+                    <?php echo $result3['brand_name']; ?>
                 </td>
                 <td>
-                    <?php echo $result['district']; ?>
+                    <?php echo $result1['district']; ?>
                 </td>
                 <td>
-                    <?php echo $result['place']; ?>
+                    <?php echo $result2['place']; ?>
                 </td>
                 <td>
                     <?php echo $result['mobile']; ?>

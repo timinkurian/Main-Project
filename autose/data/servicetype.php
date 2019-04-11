@@ -2,19 +2,14 @@
 require "connect.php";
 //require "session.php";
 //$brand=getSession('brand');
-$val=getSession('logid');
-$sq="SELECT `scid` FROM `servicecenter` WHERE `logid`='$val'";
-$sci=mysqli_query($conn,$sq);
-$data1 = mysqli_fetch_assoc($sci);
-$sc = $data1['scid'];
-$sql = "SELECT `sname` FROM `stypes` WHERE `scid`='$sc'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
+echo '<option value disabled selected>Choose Service Type</option>';
+$sql = "SELECT * FROM `tbl_servicetype`";
+$result = mysqli_query($conn,$sql);
+if (mysqli_num_rows($result) > 0) {
     // output data of each row
-    echo '<option value="">Choose Service Type</option>';
-    while($row = $result->fetch_assoc()) {
-        echo "<option value='".$row['sname']."'>".$row['sname']."</option>";
+    while($row = mysqli_fetch_assoc($result)) {
+
+        echo "<option value='".$row['servicetype_id']."'>".$row['servicetype']."</option>";
+      
     }
-} else {
-    echo "0 results";
 }

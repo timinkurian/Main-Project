@@ -2,6 +2,11 @@
 require "connect.php";
 require "session.php";
 
+$sql = "SELECT * FROM tbl_user";
+// print_r($sql);
+// return;
+$val=mysqli_query($conn,$sql);
+if ($val) {
 ?>
 <html>  
     <style>
@@ -24,6 +29,9 @@ require "session.php";
 
         </style>    
     <body>
+    <div class="mt-20 py-3">
+    <div class="row">
+            <div class="col-md-6 offset-md-1">
     <table>
         <thead>
             <tr>
@@ -36,15 +44,19 @@ require "session.php";
                 <th>Profile Photo</th>              
             </tr>
         </thead>
-        <?php
-$sql = "SELECT * FROM `tbl_user` as s,tbl_place as p,tbl_district as d,tbl_login as l where l.user_id=s.user_id and l.status='1' and l.designation_id='1' and s.place_id=p.place_id and p.district_id=d.district_id";
-$val=mysqli_query($conn,$sql);
-if ($val) {
-        ?>
 
         <tbody>
             <?php
-            while($result=mysqli_fetch_array($val)){
+    while($result=mysqli_fetch_assoc($val)){
+        $sql1="SELECT * FROM tbl_login WHERE user_id=$result[user_id]";
+        $val1=mysqli_query($conn,$sql1);
+        $result1=mysqli_fetch_assoc($val1);
+        $sql2="SELECT * FROM tbl_place WHERE place_id=$result[place_id]";
+        $val2=mysqli_query($conn,$sql2);
+        $result2=mysqli_fetch_assoc($val2);
+        $sql3="SELECT * FROM tbl_district  WHERE district_id=$result2[district_id]";
+        $val3=mysqli_query($conn,$sql3);
+        $result3=mysqli_fetch_assoc($val3);
             ?>
             <tr>
                 <td>
@@ -54,16 +66,16 @@ if ($val) {
                     <?php echo $result['last_name']; ?>
                 </td>
                 <td>
-                    <?php echo $result['email']; ?>
+                    <?php echo $result1['email']; ?>
                 </td>
                 <td>
                     <?php echo $result['mobile']; ?>
                 </td>
                 <td>
-                    <?php echo $result['district']; ?>
+                    <?php echo $result3['district']; ?>
                 </td>
                 <td>
-                    <?php echo $result['place']; ?>
+                    <?php echo $result2['place']; ?>
                 </td>
                 <td>
                    
@@ -85,6 +97,9 @@ if ($val) {
  }
 ?>
 </table>
+</div>
+</div>
+</div>
 </body>
 
 </html>

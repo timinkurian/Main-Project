@@ -8,10 +8,11 @@ if(!sessionRedirect('3', 'designation_id'))
 }
 ?>
 <body>
-
+<!-- <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"> -->
 <?php
  include('layouts/servicemenu.php');
  ?>
+ <!-- </nav> -->
   <!-- Navbar -->
   <!-- <nav>
 

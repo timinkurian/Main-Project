@@ -31,7 +31,7 @@ require "session.php";
     <table>
         <thead>
             <tr>
-                <th>District</th>            
+                <th colspan="2"class="text-center">District</th>            
             </tr>
         </thead>
         <?php

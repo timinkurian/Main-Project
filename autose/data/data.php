@@ -136,12 +136,19 @@ function userLogin($conn){
             $id = $result['user_id'];
             $designation_id = $result['designation_id'];
             $status=$result['status'];
-            $sql = "SELECT `brand` FROM `servicecenter` WHERE `user_id`='$id'";
+            $sql = "SELECT `brand_id`,`licenceno` FROM `tbl_servicecenter` WHERE `user_id`='$id'";
             $res1 = mysqli_query($conn, $sql);
+            $result=mysqli_fetch_array($res1);
+            $brandid=$result['brand_id'];
+            $licenceno=$result['licenceno'];
+            // print_r($brandid);
+            // return;
             setSession('user_id', $id);
            // setSession('logid', $id);
             setSession('designation_id', $designation_id);
-            setSession('brand',$res1);
+            setSession('brand',$brandid);
+            setSession('licenceno',$licenceno);
+            // return;
             if($status=="2"){
                 header('Location:../servicecenteradd.php');
             }
@@ -150,13 +157,41 @@ function userLogin($conn){
             echo "<script>alert('Login Successfull');window.location='../sevricecenterhome.php';</script>";
 
             }
+        }
+            else if($a==4)//service center
+            { 
+                $id = $result['user_id'];
+                $designation_id = $result['designation_id'];
+                $status=$result['status'];
+                $sql = "SELECT employee_id,licenceno FROM `tbl_employee` WHERE `user_id`='$id'";
+                $res1 = mysqli_query($conn, $sql);
+                $result=mysqli_fetch_array($res1);
+                $employeeid=$result['employee_id'];
+                $licenceno=$result['licenceno'];
+                // print_r($brandid);
+                // return;
+                setSession('user_id', $id);
+               // setSession('logid', $id);
+                setSession('designation_id', $designation_id);
+                setSession('employeeid',$employeeid);
+                setSession('licenceno',$licenceno);
+                // return;
+                if($status=="2"){
+                    header('Location:../employeeupdate.php');
+                }
+                else if($status=="1"){
+    
+                echo "<script>alert('Login Successfull');window.location='../employeehome.php';</script>";
+    
+                }
+            }
             else
         {
             // echo $sql;
             //echo "<script>alert('You are not an authorised user');window.location='../index.php';</script>";
                 //header("location:../index.php"); 
         }
-        }
+        
 
         
     }
@@ -248,6 +283,9 @@ function centerRegistration($conn){
             $cert=$_FILES['certificate']['name'];
             $cert = 'upload/'.$val.'/'.$cert;
             $img=$_FILES['certificate']['name'];
+            $photo=$_FILES['photo']['name'];
+            $ph='upload/'.$val.'/'.$photo;
+
 
             $sq="SELECT district_id FROM `tbl_district` WHERE `district`='$dist'";//select district id
             $disti=mysqli_query($conn,$sq);
@@ -271,14 +309,13 @@ function centerRegistration($conn){
             $brndid=mysqli_fetch_assoc($bid);
             $brandid=$brndid['brand_id'];
 
-            $sql5= "INSERT INTO `tbl_servicecenter`(`licenceno`, `user_id`, `place_id`, `brand_id`, `center_name`, `certificate`, `mobile`) VALUES('$licno','$val','$placeid','$brand','$cname','$cert','$mob')";
-        //   print_r($sql5);
-        //   return;
+            $sql5= "INSERT INTO `tbl_servicecenter`(`licenceno`, `user_id`, `place_id`, `brand_id`, `center_name`,`photo`,`certificate`, `mobile`) VALUES('$licno','$val','$placeid','$brand','$cname','$ph','$cert','$mob')";
             mysqli_query($conn,$sql5);
              move_uploaded_file($_FILES['certificate']['tmp_name'],'upload/'.$val.'/' . $_FILES['certificate']['name']);
+             move_uploaded_file($_FILES['photo']['tmp_name'],'upload/'.$val.'/' . $_FILES['photo']['name']);
      
-            $sql2="UPDATE `tbl_login` SET `status`=0 where `user_id`=$val";
-             mysqli_query($conn,$sql2);
+            $sqll="UPDATE `tbl_login` SET `status`=0 where `user_id`=$val";
+             mysqli_query($conn,$sqll);
             //  $_SESSION['user_id'] = '';
             //  $_SESSION['designation_id'] = '';
             session_destroy();
