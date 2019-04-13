@@ -95,6 +95,10 @@ function deleteCar($conn){
     setSession('regno',$regno);
     $brandid=$_POST['brandid'];
     setSession('brandid',$brandid);
+    $modelid=$_POST['modelid'];
+    setSession('modelid',$modelid);
+    $variantid=$_POST['variantid'];
+    setSession('variantid',$variantid);
     if($val=="sell"){
         ?>
      <script>window.location='../user.php';</script> 

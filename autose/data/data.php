@@ -158,7 +158,7 @@ function userLogin($conn){
 
             }
         }
-            else if($a==4)//service center
+            else if($a==4)//employee
             { 
                 $id = $result['user_id'];
                 $designation_id = $result['designation_id'];
@@ -178,6 +178,9 @@ function userLogin($conn){
                 // return;
                 if($status=="2"){
                     header('Location:../employeeupdate.php');
+                }
+                if($status=="3"){
+                    header('Location:../changepassword.php');
                 }
                 else if($status=="1"){
     

@@ -58,10 +58,10 @@ if(!getSession('user_id'))
               <div class="card-body">
 
                 <!-- Form -->
-                <form name="" id="login" method="post" action="data/data.php" enctype="multipart/form-data" class="mt-5">
+                <form name="" id="login" method="post" action="data/employeedata.php" enctype="multipart/form-data" class="mt-5">
                   <!-- Heading -->
                   
-                  <input type="text" hidden value="userreg" name="type">
+                  <input type="text" hidden value="employeereg" name="type">
                   <h3 class="dark-grey-text text-center">
                     <strong>Profile </strong>
                   </h3>

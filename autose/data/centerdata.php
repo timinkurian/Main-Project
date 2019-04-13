@@ -37,6 +37,9 @@ switch($type){
             case 'leave':
             employeeLeave($conn);
             break;
+            case 'removeemployee':
+            removeEmployee($conn);
+            break;
         default:
             break;
     }   
@@ -318,7 +321,7 @@ function addEmployee($conn){
     echo"<script> alert('Already exist');window.location ='../addemployee.php';</script>";
     }
     else{
-    $sql4="INSERT INTO `tbl_login`(`email`, `password`, `designation_id`, `status`) VALUES ('$email','$pswd',4,2)";
+    $sql4="INSERT INTO `tbl_login`(`email`, `password`, `designation_id`, `status`) VALUES ('$email','$pswd',4,3)";
     // print_r($sql4);
     // return;
     mysqli_query($conn,$sql4);
@@ -376,4 +379,10 @@ function employeeLeave($conn){
         }
         }
 
+    }
+    function removeEmployee($conn){
+        $empid=$_POST['id'];
+        $sql="UPDATE tbl_employee SET status=0 WHERE employee_id='$empid'";
+        mysqli_query($conn,$sql);
+        echo '1';
     }

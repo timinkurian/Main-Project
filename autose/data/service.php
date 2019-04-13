@@ -1,21 +1,21 @@
 <?php
-require "connect.php";
-//require "session.php";
-//$brand=getSession('brand');
-$logid=getSession('logid');
-$scid=getSession('scid');
+require "data/connect.php";
 
-$sql = "SELECT DISTINCT `stype` FROM `servicescheme` WHERE `scid`= '$scid'";
+// require ('data/session.php');
+//$brand=getSession('brand');
+$modelid=getSession('modelid');
+$variantid=getSession('variantid');
+echo '<option value disabled selected>Choose Service Type</option>';
+$sql = "SELECT tbl_servicetype.servicetype,tbl_servicescheme.scheme_id FROM tbl_servicetype JOIN tbl_servicescheme ON tbl_servicetype.servicetype_id=tbl_servicescheme.servicetype_id WHERE tbl_servicescheme.model_id=$modelid AND tbl_servicescheme.variant_id=$variantid";
 // echo $sql;
 $result = mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     // echo "<option value=Select>Choose user type </option>";
-    echo '<option value="">Choose Service Type</option>';
+
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<option value='".$row['stype']."'>".$row['stype']."</option>";
+        echo "$row[scheme_id]";
+        echo "<option value='".$row['scheme_id']."'>".$row['servicetype']."</option>";
       
     }
-} else {
-    echo "0 results";
 }

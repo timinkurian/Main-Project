@@ -10,7 +10,7 @@ $brandid=getSession('brandid');
 <head>
   <style>
   .image1{
-    max-width: 100%;
+    max-height: 158px;
 }
 .button1{
   background-color: #aeaeaeed;
@@ -47,6 +47,7 @@ $brandid=getSession('brandid');
 </nav>
 
   <div class="main">
+  <div class="row">
 <!-- <script>
         alert();
 </script> -->
@@ -78,7 +79,7 @@ if ($val) {
 
               ?>
               <label ><b><?php echo $result1['district']; ?></b></label><br>
-              <label ><b><?php echo $result1['place']; ?></label><br>
+              <label ><b><?php echo $result1['place']; ?></b></label><br>
             </div>
         </div>
         <form name="" id="login" method="post" action="appointment.php">
@@ -89,6 +90,7 @@ if ($val) {
 <?php
     }
 ?>
+  </div>
     </div>
           </div>
 </body>

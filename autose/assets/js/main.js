@@ -213,6 +213,9 @@ $(".cntr-nav").on("click", function (e) {
             case 'startedworks':
             $url = 'data/startedworks.php';
             break;
+            case 'viewemployee':
+            $url = 'data/viewemployee.php';
+            break;
             default:
             break;
 
@@ -253,6 +256,31 @@ $("body").on("click", ".cntr-click", function (e) {
     });
 });
 
+
+$("body").on("click", ".cntr-click", function (e) {
+    // e.preventDefault();
+   
+    $type = $(this).data('type');
+    $id = $(this).data('id');
+   
+    $.ajax({
+        
+        url: 'data/centerdata.php',
+        method: 'post',
+        data: { 'type': $type, 'id': $id },
+        success: function (data) {
+            console.log(data);
+
+            //  $("#pageData").html(data);
+            if (data == 1) {
+                $("#servControl" + $id).html('Removed');
+            }
+            // if (data == 2) {
+            //     $("#servControl" + $id).html('Completed!');
+            // }
+        }
+    });
+});
 
 $(".user-nav").on("click", function (e) {
     //alert();

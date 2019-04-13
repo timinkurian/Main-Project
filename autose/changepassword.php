@@ -2,20 +2,7 @@
 require('layouts/app_top');
 require('data/session.php');
 
-if(isset($_SESSION['logid'])){
-    switch($_SESSION['utype']){
-        case '1':
-            header('location:user.php');
-            break;
-        default:
-            break;
-    }
-}
 
-if(!getSession('logid'))
-{
-  header('Location:index.php');
-}
 ?>
 
 <body>
@@ -41,7 +28,7 @@ if(!getSession('logid'))
           <!--Grid column-->
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4">
 
 <!--Card-->
 <div class="card">
@@ -50,7 +37,7 @@ if(!getSession('logid'))
   <div class="card-body">
 
     <!-- Form -->
-    <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data" class="mt-5">
+    <form name="" id="login" method="post" action="data/employeedata.php" enctype="multipart/form-data" class="mt-5">
       <!-- Heading -->
       
       <input type="text" hidden value="changepass" name="type">
@@ -67,7 +54,7 @@ if(!getSession('logid'))
             <label for="form3">Confirm Password</label>
     </div>
       <div class="text-center">
-        <input type="submit" class="btn btn-indigo" value="Change"> 
+        <input type="submit" class="btn btn-indigo" value="Next"> 
         <hr>
     <!-- <fieldset class="form-check">
           <input type="checkbox" class="form-check-input" id="checkbox1">

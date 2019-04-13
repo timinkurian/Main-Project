@@ -2,10 +2,7 @@
 require "data/connect.php";
 require "data/session.php";
 require('layouts/app_top');
-$regno=getSession('regno');
-$brandid=getSession('brandid');
- $modelid=getSession('modelid');
- $variantid=getSession('variantid');
+
 ?>
    
    <html>  
@@ -33,7 +30,7 @@ $brandid=getSession('brandid');
   <div class="container">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="user.php">
+    <a class="navbar-brand" href="employeehome.php">
       <strong>Home</strong>
     </a>
 
@@ -68,13 +65,13 @@ $brandid=getSession('brandid');
   <div class="card-body">
 
     <!-- Form -->
-    <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data" class="mt-5">
+    <form name="" id="login" method="post" action="data/employeedata.php" enctype="multipart/form-data" class="mt-5">
       <!-- Heading -->
       
-      <input type="text" hidden value="appointment" name="type">
+      <input type="text" hidden value="leave" name="type">
       <input type="text" hidden value="<?php echo $_POST['type']?>" name="scid1">    
       <h3 class="dark-grey-text text-center">
-        <strong>Make An Appointment</strong>
+        <strong>Apply Leave</strong>
       </h3>
       <hr>
       <table>
@@ -87,51 +84,19 @@ $brandid=getSession('brandid');
         </div>
      </td>
      </tr>
-      <!-- <tr>
-      <td>Vehicle number</label></td>
-      <td>
-      <div class="md-form"> 
-        <?php
-        // $regno=getSession('regno');
-        // print_r($regno);
-        // return;
-        ?>               
-      <label ></label>
-        </div>
-     </td>
-     </tr> -->
+  
         <tr>
-        <td><label>Choose Service Type</label></td>
-        <td>
-        <div class="md-form">                  
-       <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-       <select class="form-control" name="stype" id="stype" required>
-          <?php
-          include('data/service.php');
-          ?>
-        </select >
-        </div>
-        </td>
-        </tr>
-        <tr>
-        <td><label>Odometer Reading</label></td>
+        <td><label>Reason</label></td>
         <td>
         <div class="md-form">
-        <input type="text" class="form-control validate" name="odometer" id="odometer"  data-type="digits"required>                   
+        <input type="text" class="form-control validate" name="reason" id="reason"  data-type="general" required>                   
         </div>
         </td>
         </tr>
-        <tr>
-        <td><label>Remarks</label></td>
-        <td>
-        <div class="md-form">
-        <textarea rows="3" class="form-control" name="remarks" id="remarks" required></textarea>                   
-        </div>
-        </td>
-        </tr>
+      
         </table>
       <div class="text-center">
-        <input type="submit" class="btn btn-indigo" value="Add"> 
+        <input type="submit" class="btn btn-indigo" value="Apply"> 
         <hr>
     <!-- <fieldset class="form-check">
           <input type="checkbox" class="form-check-input" id="checkbox1">
@@ -172,7 +137,7 @@ require('layouts/app_end');
   $( function() {
     $( "#datepicker" ).datepicker({
       minDate: "+1d",
-      maxDate: "+1m +1w"
+      maxDate: "+1w"
     });
   } );
   </script>

@@ -2,9 +2,9 @@
 require('data/connect.php');
 require('data/session.php');
 require('layouts/app_top');
-if(!sessionRedirect('1', 'designation_id'))
+if(!sessionRedirect('4', 'designation_id'))
 {
-  
+  // include('components/logout.php');
   header('Location:index.php');
 }
 ?>
@@ -12,7 +12,7 @@ if(!sessionRedirect('1', 'designation_id'))
 
   <!-- Navbar -->
  <?php
- include('layouts/usermenu.php');
+ include('layouts/employeemenu.php');
  ?>
   <!-- Navbar -->
   
