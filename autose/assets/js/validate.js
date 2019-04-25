@@ -121,6 +121,10 @@ function inputValidate($value, $type, $optional, $class) {
                pattern = $textPattern;
                $message="First letter must be an uppercase and allows only alphabets."
             }
+            // if($class=="dat")
+            // {
+
+            // }
             break;
         case "password":
                 pattern = $pswdPattern;

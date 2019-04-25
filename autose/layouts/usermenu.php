@@ -41,8 +41,8 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointment
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Make Appointment</a>
-                                  <a class="dropdown-item waves-effect waves-light" href="#">View Appointment</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="viewcar.php">Make Appointment</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="appointmentview.php">View Appointment</a>
                               </div>
                           </li>
                       </ul>

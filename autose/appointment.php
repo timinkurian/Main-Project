@@ -72,7 +72,8 @@ $brandid=getSession('brandid');
       <!-- Heading -->
       
       <input type="text" hidden value="appointment" name="type">
-      <input type="text" hidden value="<?php echo $_POST['type']?>" name="scid1">    
+      <input type="text" hidden value="<?php echo $_POST['licenceno']?>" name="licenceno">    
+      <input type="text" hidden value="<?php echo $regno?>" name="regno">
       <h3 class="dark-grey-text text-center">
         <strong>Make An Appointment</strong>
       </h3>
@@ -82,7 +83,7 @@ $brandid=getSession('brandid');
       <td>Pick a Date</label></td>
       <td>
       <div class="md-form">                
-       <input type="text" readonly id="datepicker" class="form-control " name="datepicker" required>
+       <input type="text" readonly id="datepicker" class="form-control" name="datepicker" data-type="dat" >
 
         </div>
      </td>
@@ -117,7 +118,7 @@ $brandid=getSession('brandid');
         <td><label>Odometer Reading</label></td>
         <td>
         <div class="md-form">
-        <input type="text" class="form-control validate" name="odometer" id="odometer"  data-type="digits"required>                   
+        <input type="text" class="form-control validate" name="odometer" id="odometer"  data-type="digits" required>                   
         </div>
         </td>
         </tr>
@@ -131,7 +132,7 @@ $brandid=getSession('brandid');
         </tr>
         </table>
       <div class="text-center">
-        <input type="submit" class="btn btn-indigo" value="Add"> 
+        <input type="submit" class="btn btn-indigo" value="Book"> 
         <hr>
     <!-- <fieldset class="form-check">
           <input type="checkbox" class="form-check-input" id="checkbox1">
@@ -176,6 +177,7 @@ require('layouts/app_end');
     });
   } );
   </script>
+
 </body>
 
 </html>

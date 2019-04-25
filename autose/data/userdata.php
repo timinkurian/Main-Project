@@ -173,36 +173,44 @@ function searchCenter($conn){
 }
 function makeAppointment($conn){
     $date=$_POST['datepicker'];
-    $vehno=$_POST['vehno'];
+    $vehno=$_POST['regno'];
     $stype=$_POST['stype'];
+    $meter=$_POST['odometer'];
     $remarks=$_POST['remarks'];
-    $logid=getSession('logid');
-    $scid=getSession('scid');
-    //fetching userid
-    $sql1="SELECT `usrid` FROM `user` WHERE `logid`='$logid'";
-    $usid=mysqli_query($conn,$sql1);
-    $data1 = mysqli_fetch_assoc($usid);
-    $usrid = $data1['usrid'];
+    $licenceno=$_POST['licenceno'];
+    // print_r($licenceno);
+    // return;
+    // $logid=getSession('logid');
+    // $scid=getSession('scid');
+    // //fetching userid
+    // $sql1="SELECT `usrid` FROM `user` WHERE `logid`='$logid'";
+    // $usid=mysqli_query($conn,$sql1);
+    // $data1 = mysqli_fetch_assoc($usid);
+    // $usrid = $data1['usrid'];
     //fetching service type id
-    $sql2="SELECT `typeid` FROM `servicescheme` WHERE `stype`='$stype' AND `scid`='$scid'";
+    $sql2="SELECT `department_id` FROM `tbl_servicescheme` WHERE `scheme_id`='$stype'";
     $tid=mysqli_query($conn,$sql2);
     $data2 = mysqli_fetch_assoc($tid);
-    $typeid = $data2['typeid'];
+    $deptid = $data2['department_id'];
+ 
     //find maximum capacity of srvice center
-    $sql3="SELECT `maximum` FROM `stypes` WHERE `typeid`='$typeid' AND `scid`='$scid'";
+    $sql3="SELECT `maximum` FROM `tbl_employeecount` WHERE `licenceno`='$licenceno'AND `department_id`='$deptid'";
     $max=mysqli_query($conn,$sql3);
     $data3 = mysqli_fetch_assoc($max);
     $maxcount = $data3['maximum'];
+    // print_r($maxcount);
+    // return;
     //finding the booking for service type on a particular day
-    $sql4="SELECT * FROM `scount` WHERE `typeid`='$typeid' AND `date`='$date' AND `scid`='$scid'";
+    $sql4="SELECT * FROM `tbl_workcount` WHERE `licenceno`='$licenceno' AND `date`='$date' AND `department_id`='$deptid'";
     $count=mysqli_query($conn,$sql4);
     if(mysqli_num_rows($count)<1){
             //table is empty directly into both tables
-            $sql5="INSERT INTO `scount`( `date`,`scid`, `typeid`, `count`) VALUES ('$date','$scid','$typeid',1)";
+            $sql5="INSERT INTO `tbl_workcount`( `date`,`licenceno`,`department_id`, `count`) VALUES ('$date','$licenceno','$deptid',1)";
             mysqli_query($conn,$sql5);
-            $sql6="INSERT INTO `appointment`(`date`,`vehno`, `usrid`,`scid`, `stype`,`sname`, `remarks`,`status`) VALUES ('$date','$vehno','$usrid','$scid','$typeid','$stype','$remarks','booked')";
+            $sql6="INSERT INTO `tbl_appointment`(`registerno`,`licenceno`, `scheme_id`,`appointment_date`,`odometer`, `remarks`,`appointment_status`) VALUES ('$vehno','$licenceno','$stype','$date','$meter','$remarks','0')";
+            // status=0 applied 
             mysqli_query($conn,$sql6);
-            $_SESSION['scid'] = '';
+           // $_SESSION['scid'] = '';
             echo "<script>alert('Added successfully');window.location='../user.php';</script>";
 
 
@@ -212,18 +220,22 @@ function makeAppointment($conn){
         $acount = $data3['count'];
         if($acount<$maxcount){
             //checking already applied or not
-            $sql9="SELECT * FROM `appointment` WHERE `vehno`='$vehno' AND `date`='$date' AND `scid`='$scid'";
+            $sql9="SELECT * FROM `tbl_appointment` WHERE `registerno`='$vehno' AND `appointment_date`='$date' AND `status`='0'";
             $count1=mysqli_query($conn,$sql9);
             if(mysqli_num_rows($count1)<1){
                 $acount=$acount+1;
                 //not already applied and anyone is already applied for that particular service only upate is performed
-                 $sql7="UPDATE `scount` SET `count`='$acount' WHERE `date`='$date' AND `scid`='$scid' AND `typeid`='$typeid'";
-                
+                 $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$deptid'";        
                 mysqli_query($conn,$sql7);
                 //inserting to appointment table
-                $sql8="INSERT INTO `appointment`(`date`,`vehno`, `usrid`,`scid`, `stype`,`sname`, `remarks`,`status`) VALUES ('$date','$vehno','$usrid','$scid','$typeid','$stype','$remarks','booked')";
+                $sql8="INSERT INTO `tbl_appointment`(`registerno`,`licenceno`, `scheme_id`,`appointment_date`,`odometer`, `remarks`,`appointment_status`) VALUES ('$vehno','$licenceno','$stype','$date','$meter','$remarks','0')";
+                //status=0 means applied
+                //-1 means cancelled
+                //1 started
+                //2 pending
+                //3 completed
                 mysqli_query($conn,$sql8);
-                $_SESSION['scid'] = '';
+                //$_SESSION['scid'] = '';
                 echo "<script>alert('Added successfully');window.location='../user.php';</script>";
             }
             else{

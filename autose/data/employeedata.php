@@ -93,7 +93,39 @@ function applyLeave($conn){
     $date=$_POST['datepicker'];
     $reason=$_POST['reason'];
     $empid=getSession('employeeid');
-    $sql="INSERT INTO `tbl_leave`(`employee_id`,`date`, `reason`, `status`) VALUES ('$empid','$date','$reason',2)";//approve 1 cancel 3 pending 2
-    mysqli_query($conn,$sql);
-    echo "<script>alert('Applied Successfully');window.location='../employeehome.php';</script>";
+    $sq="SELECT * FROM tbl_emlployee WHERE employee_id='$empid'";
+    $res=mysqli_query($conn,$sq);
+    $result=mysqli_fetch_array($res);
+    $licenceno=$result['licenceno'];
+    $department=$result['department_id'];
+    $sql4="SELECT * FROM `tbl_workcount` WHERE `licenceno`='$licenceno' AND `date`='$date' AND `department_id`='$department'";
+    $count=mysqli_query($conn,$sql4);
+    if(mysqli_num_rows($count)<1){
+        //table is empty directly into both tables
+        $sql5="INSERT INTO `tbl_workcount`( `date`,`licenceno`,`department_id`, `count`) VALUES ('$date','$licenceno','$department',1)";
+        mysqli_query($conn,$sql5);
+        $sql="INSERT INTO `tbl_leave`(`employee_id`,`date`, `reason`, `status`) VALUES ('$empid','$date','$reason',2)";
+        //approve 1 cancel 3 pending 2
+        mysqli_query($conn,$sql);
+        echo "<script>alert('Applied Successfully');window.location='../employeehome.php';</script>";
+    }
+    else{
+        $data3 = mysqli_fetch_assoc($count);
+        $acount = $data3['count'];
+        $sql9="SELECT * FROM `tbl_leave` WHERE `employee_id`='$empid' AND `date`='$date'";
+        $count1=mysqli_query($conn,$sql9);
+        if(mysqli_num_rows($count1)<1){
+            $acount=$acount+1;
+            //not already applied and anyone is already applied for that particular service only upate is performed
+             $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$department'";        
+            mysqli_query($conn,$sql7);
+            $sql="INSERT INTO `tbl_leave`(`employee_id`,`date`, `reason`, `status`) VALUES ('$empid','$date','$reason',2)";
+            //approve 1 cancel 3 pending 2
+            mysqli_query($conn,$sql);
+            echo "<script>alert('Applied Successfully');window.location='../employeehome.php';</script>";
+        }
+        else{
+            echo "<script>alert('Sorry!! Already applied');window.location='../user.php';</script>";
+        } 
+    }
 }
