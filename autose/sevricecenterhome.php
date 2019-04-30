@@ -4,6 +4,9 @@ require('data/session.php');
 require('layouts/app_top');
 if(!sessionRedirect('3', 'designation_id'))
 {
+  $_SESSION['user_id'] = '';
+  $_SESSION['designation_id'] = '';
+  session_destroy();
   header('Location:index.php');
 }
 ?>

@@ -41,8 +41,9 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointment
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href='' title='View Appointments' class="cntr-nav">View Booking</a>
-                                  <a class="dropdown-item waves-effect waves-light"  href='' title='Started works' class="cntr-nav">Started works</a>
+                                  <a class="dropdown-item waves-effect waves-light cntr-nav" data-type="viewappointment">View Booking</a>
+                                  <a class="dropdown-item waves-effect waves-light cntr-nav" data-type="startedworks">Started works</a>
+                                  <a class="dropdown-item waves-effect waves-light cntr-nav" data-type="pendingwork">Pending works</a>
                               </div>
                           </li>
                           <li class="nav-item dropdown">
@@ -57,8 +58,8 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Leave Management
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Respond</a>
-                                  <a class="dropdown-item waves-effect waves-light" href="#">View Leaves</a>
+                                  <a class="dropdown-item waves-effect waves-light cntr-nav" data-type="respondleave">Respond</a>
+                                  <a class="dropdown-item waves-effect waves-light cntr-nav" data-type="viewleave"> Approved Leaves</a>
                               </div>
                           </li>
 

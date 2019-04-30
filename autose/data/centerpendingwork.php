@@ -2,12 +2,13 @@
 require "connect.php";
 require "session.php";
 $licenceno=getSession('licenceno');
-$sql = "SELECT * FROM `tbl_appointment` WHERE appointment_status='0' AND licenceno='$licenceno'";
+$sql = "SELECT tbl_appointment.appointment_id,tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_appointment.registerno,tbl_appointment.remarks,tbl_appointment.appointment_status,tbl_servicestatus.employee_id FROM `tbl_appointment` JOIN tbl_servicestatus ON tbl_appointment.appointment_id=tbl_servicestatus.appointment_id WHERE appointment_status='2' AND licenceno='$licenceno'";
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
-
 <html>  
+
+<head>
 <style>
         td, th {
                 /* border: 1px solid black;  */
@@ -27,18 +28,21 @@ if ($val) {
             }
 
         </style> 
-        <body>
-        <div class="py-3 offset-md-2">
+</head>
+
+    <div class="py-3 offset-md-2">
         <table>
             <thead>
-                <tr>
-                
+            <tr>
+
                 <th>Date</th>
                 <th>Vehicle Number</th>
                 <th>Service Type</th>
-                <th>Remarks</th>
-                <th></th>           
-                </tr>
+                <th>User Remarks</th>
+                <th>Reason for Pending</th>
+                <th>Expected Delivery Date </th>
+                <th></th>
+            </tr>
             </thead>
         <tbody>
             <?php
@@ -63,26 +67,26 @@ if ($val) {
                 <td>
                     <?php echo $result['remarks']; ?>
                 </td>
-                
-                <?php
-                    if($result['appointment_status']=='0'){
-
-                ?>
-
-                <?php
-                }
-                ?>
+                <td>
+                <?php 
+                    $apid=$result['appointment_id'];
+                    $sql2="SELECT * FROM `tbl_incomplete` WHERE tbl_incomplete.appointment_id='$apid'";
+                    $val2=mysqli_query($conn,$sql2);
+                    $data2= mysqli_fetch_assoc($val2);                        
+                    echo $data2['reason']; ?>
+            </td>
+            <td>
+                    <?php echo $data2['delivery_date']; ?>
+                </td>
             </tr>
                 <?php
             }
             ?>
         </tbody>
-
+    
 <?php
    }
- else {
-    echo "0 results";
-}?>
+?>
 </table>
 </div>
 </body>

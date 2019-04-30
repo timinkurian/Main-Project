@@ -275,27 +275,21 @@ function changePassword($conn){
 function appointmentCancel($conn){
     //echo "<script>alert('Your Booking Cancelled!');window.location='../user.php';</script>";
     $apid=$_POST['id'];
-    $sql4="SELECT * FROM `appointment` WHERE `apid`='$apid'";
+    $sql4="SELECT tbl_appointment.licenceno, tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_servicescheme.department_id FROM `tbl_appointment` JOIN tbl_servicescheme  ON tbl_appointment.scheme_id=tbl_servicescheme.scheme_id WHERE tbl_appointment.appointment_id='$apid'";
     $row=mysqli_query($conn,$sql4);
     $data1 = mysqli_fetch_assoc($row);
-    $typeid =$data1['stype'];
-    $scid=$data1['scid'];
-    $date=$data1['date'];
-    $status=$data1['status'];
-    $sql5="SELECT `count` FROM `scount` WHERE `typeid`='$typeid' AND `date`='$date' AND `scid`='$scid'";
+    $deptid =$data1['department_id'];
+    $licenceno=$data1['licenceno'];
+    $date=$data1['appointment_date'];
+    
+    $sql5="SELECT `count` FROM `tbl_workcount` WHERE `department_id`='$deptid' AND `date`='$date' AND `licenceno`='$licenceno'";
     $count=mysqli_query($conn,$sql5);
     $data1 = mysqli_fetch_assoc($count);
     $acount =$data1['count'];
     $acount=$acount-1;
-    if($status=='booked')
-    {
-    $sql7="UPDATE `scount` SET `count`='$acount' WHERE `date`='$date' AND `scid`='$scid' AND `typeid`='$typeid'";    
+    $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$deptid'";    
     mysqli_query($conn,$sql7);
-    $sql="UPDATE `appointment` SET `status`='cancelled' WHERE `apid`='$apid' ";
+    $sql="UPDATE `tbl_appointment` SET `appointment_status`='-1' WHERE `appointment_id`='$apid' ";
     mysqli_query($conn,$sql);
     echo '1';
-    }
-    else{
-        echo "<script>alert('Work already started');window.location='../s.php';</script>";
-    }
 }

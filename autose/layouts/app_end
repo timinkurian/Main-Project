@@ -78,3 +78,5 @@
   <!-- Initializations -->
   <script type="text/javascript" src="assets/js/main.js"></script>
   <script type="text/javascript" src="assets/js/validate.js"></script>
+   <script type="text/javascript" src="assets/js/dtpicker.js"></script>
+    <script type="text/javascript" src="assets/js/dtpicker1.js"></script>

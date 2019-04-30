@@ -19,9 +19,9 @@ switch($type){
         // case 'stockupdate':
         //     stockUpdate($conn);
         // break;
-            case 'viewSchemes':
-            viewSchemes($conn);
-            break;
+            // case 'viewSchemes':
+            // viewSchemes($conn);
+            // break;
             case 'addtype':
             addServiceType($conn);
             break;
@@ -39,6 +39,21 @@ switch($type){
             break;
             case 'removeemployee':
             removeEmployee($conn);
+            break;
+            case 'respondleave':
+            respondLeave($conn);
+            break;
+            case 'approveleave':
+            approveLeave($conn);
+            break;
+            case 'rejectleave':
+            rejectLeave($conn);
+            break;
+            case 'searchdepartment':
+            searchByDepartment($conn);
+            break;
+            case 'searchscheme':
+            searchScheme($conn);
             break;
         default:
             break;
@@ -127,7 +142,6 @@ switch($type){
    $scheme=$schemeid['scheme_id'];
     foreach ($replacing as &$value) {
         $sql4="INSERT INTO `tbl_replacing`(`scheme_id`, `spare_id`) VALUES ('$scheme','$value')";
-
         mysqli_query($conn,$sql4);
     }
     foreach($checking as &$value1){
@@ -137,141 +151,6 @@ switch($type){
     echo "<script>alert('Added Successfully');window.location='../Addservicescheme.php';</script>";
    }
 }
-function viewSchemes($conn){
-    ?>
-    <html>  
-    <style>
-        td, th {
-           border: 1px solid black; 
-            padding: 25px;   
-                }
-            th {
-                background-color: gray;
-                color: white;
-                }
-                td{
-                    background-color:white;
-                    color:black;
-                }
-                td img{
-                    width:100px;
-                    height:auto;
-                }
-            </style>    
-        <body>
-        <div class="py-3">
-        <table>
-            <thead>
-                <tr>
-                    <!-- <th>Service Id</th> -->
-                    <th>Service Type</th>
-                    <!-- <th>Brand</th> -->
-                    <th>Model</th>
-                    <th>Variant</th>
-                    <!-- <th>Fuel</th> -->
-                    <th>Replacing Parts</th>
-                    <th>Inspecting Parts</th>
-                    <th> Approximate Amount</th>               
-                </tr>
-            </thead>
-            
-            <?php
-                $val1=getSession('licenceno');
-                //  $sq="SELECT `` FROM `servicecenter` WHERE `logid`='$val'";
-                // $sci=mysqli_query($conn,$sq);
-                // $data1 = mysqli_fetch_assoc($sci);
-                // $sc = $data1['scid'];
-        $sql = "SELECT * FROM `tbl_servicescheme` WHERE `licenceno`='$val1'";
-        $val=mysqli_query($conn,$sql);
-       if($val){
-        ?>
-
-        <tbody>
-            <?php
-            while($result=mysqli_fetch_array($val)){
-                $sql3="SELECT variant_name FROM tbl_variant WHERE variant_id=$result[variant_id]";
-                $val3=mysqli_query($conn,$sql3);
-                $result3=mysqli_fetch_assoc($val3);
-
-                $sql4="SELECT model_name FROM tbl_model WHERE model_id=$result[model_id]";
-                $val4=mysqli_query($conn,$sql4);
-                $result4=mysqli_fetch_assoc($val4);
-                $sql5="SELECT servicetype FROM tbl_servicetype WHERE servicetype_id=$result[servicetype_id]";
-                $val5=mysqli_query($conn,$sql5);
-                $result5=mysqli_fetch_assoc($val5);
-
-            ?>
-            <tr>
-                <td>
-                    <?php echo $result5['servicetype']; ?>
-                </td>
-                <td>
-                    <?php echo $result4['model_name']; ?>
-                </td>
-                <td>
-                    <?php echo $result3['variant_name']; ?>
-                </td>
-                <td>
-                    <?php
-                $sql6="SELECT * FROM tbl_spare JOIN tbl_replacing ON tbl_spare.spare_id=tbl_replacing.spare_id JOIN tbl_servicescheme ON tbl_replacing.scheme_id=tbl_servicescheme.scheme_id WHERE licenceno='$val1' AND tbl_servicescheme.scheme_id='$result[scheme_id]'";     
-                $val6=mysqli_query($conn,$sql6);
-                $count=mysqli_num_rows($val6);
-                $i=1;
-                if($count>0){
-                while($result6=mysqli_fetch_assoc($val6)){
-                    ?>
-                    <?php echo $result6['spare'];?>
-                    <?php
-                         if($i!=$count){
-                            echo ",";
-                            $i=$i+1;
-                        }
-                }
-            }?>
-                </td>
-                <td>
-                <?php
-                $sql6="SELECT * FROM tbl_spare JOIN tbl_checking ON tbl_spare.spare_id=tbl_checking.spare_id JOIN tbl_servicescheme ON tbl_checking.scheme_id=tbl_servicescheme.scheme_id WHERE licenceno='$val1' AND tbl_servicescheme.scheme_id='$result[scheme_id]'";     
-                $val6=mysqli_query($conn,$sql6);
-                $count=mysqli_num_rows($val6);
-                $i=1;
-                if($count>0){
-                while($result6=mysqli_fetch_assoc($val6)){
-                    
-                    ?>
-                    <?php echo $result6['spare']; ?>
-                    <?php
-                    if($i!=$count){
-                        echo ",";
-                        $i=$i+1;
-                    }
-                    
-                }
-                
-            }?>
-                    
-                </td>
-                <td>
-                    <?php echo $result['amount']; ?>
-                </td>
-            </tr>
-                <?php
-            }
-            ?>
-        </tbody>
-
-<?php
-   }
- else {
-    echo "0 results";
-}?>
-</table>
-</div>
-</body>
-
-</html>
-<?php
-    }
 function addServiceType($conn){
     $sname=$_POST['sname'];
     $maximum=$_POST['maximum'];
@@ -384,5 +263,263 @@ function employeeLeave($conn){
         $empid=$_POST['id'];
         $sql="UPDATE tbl_employee SET status=0 WHERE employee_id='$empid'";
         mysqli_query($conn,$sql);
-        echo '1';
+        echo '5';
     }
+
+
+    function respondLeave($conn){
+        ?>
+        <html>  
+        <style>
+            td, th {
+               border: 1px solid black; 
+                padding: 25px;   
+                    }
+                th {
+                    background-color: gray;
+                    color: white;
+                    }
+                    td{
+                        background-color:white;
+                        color:black;
+                    }
+                    td img{
+                        width:100px;
+                        height:auto;
+                    }
+                </style>    
+            <body>
+            <div class="py-3 offset-md-2">
+            <table>
+                <thead>
+                    <tr>
+                    <th>Date</th>
+                    <th>Employee Name</th>
+                    <th>Department</th>
+                    <th>Reason</th>
+                    <th></th>
+              
+                    </tr>
+                </thead>
+                
+                <?php
+                    $val1=getSession('licenceno');
+
+            $sql = "SELECT tbl_employee.first_name,tbl_employee.last_name,tbl_employee.department_id,tbl_leave.date,tbl_leave.reason,tbl_leave.leave_id FROM tbl_employee  JOIN tbl_leave ON tbl_employee.employee_id=tbl_leave.employee_id WHERE tbl_employee.licenceno='$val1' AND tbl_leave.status='2'";
+            $val=mysqli_query($conn,$sql);
+           if($val){
+            ?>
+    
+            <tbody>
+                <?php
+                while($result=mysqli_fetch_array($val)){
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $result['date']; ?>
+                    </td>
+                    <td>
+                        <?php echo $result['first_name']; echo " ";echo $result['last_name'];?>
+                    </td>
+                    <td>
+                        <?php 
+                        $sq="SELECT * FROM tbl_department WHERE department_id='$result[department_id]'";
+                        $res=mysqli_query($conn,$sq);
+                        $r=mysqli_fetch_array($res);
+                        echo $r['department_name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $result['reason']; ?>
+                    </td>
+                    <td id="servControl<?php echo $result['leave_id']; ?>"> 
+                    <input type="button" class="cntr-click" data-type="approveleave" data-id= <?php echo $result['leave_id']; ?> value="Approve">
+                    <input type="button" class="cntr-click" data-type="rejectleave" data-id= <?php echo $result['leave_id']; ?> value="Reject">
+                </td>
+     
+                </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+    
+    <?php
+       }
+     else {
+        echo "0 results";
+    }?>
+    </table>
+    </div>
+    </body>
+    
+    </html>
+    <?php
+        }
+function approveLeave($conn){
+    $id=$_POST['id'];
+    $sql="UPDATE `tbl_leave` SET `status`='1' WHERE `leave_id`='$id'";
+    mysqli_query($conn,$sql);
+    echo '3';
+}
+function rejectLeave($conn){
+    $licenceno=getSession('licenceno');
+    $id=$_POST['id'];
+    // $sql2="SELECT * FROM tbl_leave WHERE leave_id='$id'";
+    // $val= mysqli_query($conn,$sql2);
+    // $result=mysqli_fetch_array($val);
+    $sql4="SELECT tbl_workcount.count,tbl_employee.employee_id,tbl_workcount.licenceno,tbl_workcount.department_id,tbl_workcount.date FROM tbl_workcount JOIN tbl_leave ON tbl_workcount.date=tbl_leave.date JOIN tbl_employee ON tbl_workcount.licenceno=tbl_employee.licenceno where tbl_leave.leave_id='$id' AND tbl_employee.employee_id=tbl_leave.employee_id";
+    $count=mysqli_query($conn,$sql4);
+    $data3 = mysqli_fetch_assoc($count);
+    $acount = $data3['count'];
+    $acount=$acount-1;
+    $sql1="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$data3[date]' AND `licenceno`='$licenceno' AND `department_id`='$data3[department_id]'";
+    //print_r($sql1);
+    //return;
+    mysqli_query($conn,$sql1);
+    $sql="UPDATE `tbl_leave` SET `status`='4' WHERE `leave_id`='$id'";
+    mysqli_query($conn,$sql);
+    
+    echo '4';
+    //approved 1 
+    // cancel 3 
+    // approval pending 2
+    // rejected4
+}
+function searchByDepartment($conn){
+    $dept=$_POST['dept'];
+    $licenceno=getSession('licenceno');
+    $sql = "SELECT * FROM `tbl_employee` WHERE licenceno='$licenceno' AND `status`=1 AND department_id='$dept'";
+    $val=mysqli_query($conn,$sql);
+    if ($val) {
+        while($result=mysqli_fetch_array($val)){
+    ?>
+    <tr>
+
+    <td>
+        <?php echo $result['first_name']; ?>
+    </td>
+    <td>
+        <?php echo $result['last_name']; ?>
+    </td>
+        <?php
+            $sql1="SELECT tbl_district.district,tbl_place.place,tbl_department.department_name,tbl_login.email FROM tbl_place JOIN tbl_employee ON tbl_employee.place_id=tbl_place.place_id JOIN tbl_district ON tbl_place.district_id=tbl_district.district_id JOIN tbl_department ON tbl_department.department_id=tbl_employee.department_id JOIN tbl_login ON tbl_login.user_id=tbl_employee.user_id WHERE tbl_employee.employee_id='$result[employee_id]' AND tbl_employee.status=1";
+            $val1=mysqli_query($conn,$sql1);
+            while($result1=mysqli_fetch_array($val1)){
+        ?>
+    <td>
+        <?php echo $result1['department_name']; ?>
+    </td>
+    <td>
+        <?php echo $result1['district']; ?>
+    </td>
+    <td>
+        <?php echo $result1['place']; ?>
+    </td>
+    <td>
+        <?php echo $result['mobileno']; ?>
+    </td>
+    <td>
+        <?php echo $result1['email']; ?>
+    </td>
+    <?php
+        }
+    ?>
+    <td>
+   
+        <a href="data/<?php echo $result['photo']; ?>" target="_blank">
+        <img src="data/<?php echo $result['photo']; ?>">
+        </a>
+    </td>
+
+    </td>
+    <td id="servControl<?php echo $result['employee_id']; ?>"> 
+    <input type="button" class="btn btn-indigo cntr-click" data-type="removeemployee" data-id= <?php echo $result['employee_id']; ?> value="Remove">
+    </form>
+    </td>
+    </tr>
+    <?php
+    }
+    }
+}
+function searchScheme($conn){
+    $model=$_POST['model'];
+    $variant=$_POST['variant'];
+    if(!$variant){
+        $sql="SELECT * FROM tbl_servicescheme WHERE model_id='$model'";
+    }
+    else{
+        $sql="SELECT * FROM tbl_servicescheme WHERE model_id='$model' AND variant_id='$variant'";
+    }
+    $val=mysqli_query($conn,$sql);
+    if($val){
+        while($result=mysqli_fetch_array($val)){
+            $sql3="SELECT variant_name FROM tbl_variant WHERE variant_id=$result[variant_id]";
+            $val3=mysqli_query($conn,$sql3);
+            $result3=mysqli_fetch_assoc($val3);
+
+            $sql4="SELECT model_name FROM tbl_model WHERE model_id=$result[model_id]";
+            $val4=mysqli_query($conn,$sql4);
+            $result4=mysqli_fetch_assoc($val4);
+            $sql5="SELECT servicetype FROM tbl_servicetype WHERE servicetype_id=$result[servicetype_id]";
+            $val5=mysqli_query($conn,$sql5);
+            $result5=mysqli_fetch_assoc($val5);
+
+        ?>
+        <tr>
+            <td>
+                <?php echo $result5['servicetype']; ?>
+            </td>
+            <td>
+                <?php echo $result4['model_name']; ?>
+            </td>
+            <td>
+                <?php echo $result3['variant_name']; ?>
+            </td>
+            <td>
+                <?php
+            $sql6="SELECT * FROM tbl_spare JOIN tbl_replacing ON tbl_spare.spare_id=tbl_replacing.spare_id JOIN tbl_servicescheme ON tbl_replacing.scheme_id=tbl_servicescheme.scheme_id  AND tbl_servicescheme.scheme_id='$result[scheme_id]'";     
+            $val6=mysqli_query($conn,$sql6);
+            $count=mysqli_num_rows($val6);
+            $i=1;
+            if($count>0){
+            while($result6=mysqli_fetch_assoc($val6)){
+                ?>
+                <?php echo $result6['spare'];?>
+                <?php
+                     if($i!=$count){
+                        echo ",";
+                        $i=$i+1;
+                    }
+            }
+        }?>
+            </td>
+            <td>
+            <?php
+            $sql6="SELECT * FROM tbl_spare JOIN tbl_checking ON tbl_spare.spare_id=tbl_checking.spare_id JOIN tbl_servicescheme ON tbl_checking.scheme_id=tbl_servicescheme.scheme_id AND tbl_servicescheme.scheme_id='$result[scheme_id]'";     
+            $val6=mysqli_query($conn,$sql6);
+            $count=mysqli_num_rows($val6);
+            $i=1;
+            if($count>0){
+            while($result6=mysqli_fetch_assoc($val6)){
+                
+                ?>
+                <?php echo $result6['spare']; ?>
+                <?php
+                if($i!=$count){
+                    echo ",";
+                    $i=$i+1;
+                }
+                
+            }
+            
+        }?>
+                
+            </td>
+            <td>
+                <?php echo $result['amount']; ?>
+            </td>
+        </tr>
+            <?php
+        }
+    }
+
+}

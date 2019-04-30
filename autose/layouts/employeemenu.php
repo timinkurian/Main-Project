@@ -41,7 +41,9 @@
                               <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointment
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                              <a class="dropdown-item waves-effect waves-light" href="#">View Appointment</a>    
+                              <a class="dropdown-item waves-effect waves-light" href="employeeappointmentview.php">View Booking</a>
+                              <a class="dropdown-item waves-effect waves-light" href="employeestartedwork.php">Started Works</a>  
+                              <a class="dropdown-item waves-effect waves-light" href="pendingworkview.php">Pending Works</a>    
                               <!-- <a class="dropdown-item waves-effect waves-light" href="viewcar.php">Make Appointment</a> -->
                                   
                               </div>
@@ -51,7 +53,7 @@
                               </a>
                               <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
                               <a class="dropdown-item waves-effect waves-light" href="leaveapply.php">Apply Leave</a> 
-                              <a class="dropdown-item waves-effect waves-light" href="#">View Leave Status</a>
+                              <a class="dropdown-item waves-effect waves-light" href="leavestatus.php">View Leave Status</a>
                               <!-- <a class="dropdown-item waves-effect waves-light" href="viewcar.php">Make Appointment</a> -->
                                   
                               </div>

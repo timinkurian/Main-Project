@@ -60,7 +60,7 @@ require('data/session.php');
               <div class="card-body">
 
                 <!-- Form -->
-                <form name="" id="login" method="post" action="data/centerdata.php" enctype="multipart/form-data" class="mt-5">
+                <form name="" id="login" method="post" action="data/employeedata.php" enctype="multipart/form-data" class="mt-5">
                   <!-- Heading -->
                   
                   <input type="text" hidden value="schemeadd" name="type">
@@ -69,50 +69,7 @@ require('data/session.php');
                   </h3>
                   <hr>
                   <table class="table-hover table-sm" style="width:100%">
-                  <tr>
-                  <td><label>Service Type</label></td>
-                  <td>
-                  <div class="md-form">                  
-                  <select class="form-control " name="stype" id="sid" required>
-                  <?php 
-                    include('data/servicetype.php');
-                  ?>
-                  </select >
-                  </div>
-                  </td>
-                  </tr>
-                    <tr>
-                    <td><label>Choose Model</label></td>
-                    <td>
-                    <div class="md-form">                  
-                    <select class="form-control" name="model" id="model" required>
-                    <?php
-                      $val=getSession('brand');
-                      echo '<option value disabled selected>Select Model</option>';
-                      $sql = "SELECT * FROM `tbl_model` WHERE `brand_id`='$val'";
-                      $result = mysqli_query($conn,$sql);
-                      if (mysqli_num_rows($result) > 0) {
-                      while($row = mysqli_fetch_assoc($result)) {
-                      echo "<option value='".$row['model_id']."'>".$row['model_name']."</option>";
-                      }
-                      } 
-                      ?>
-                    </select >
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><label>Choose Variant</label></td>
-                    <td>
-                    <div class="md-form">                  
-                   <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class=" form-control " name="variant" id="variant" required>  
-                   echo '<option value="">Choose Variant</option>'; 
                  
-                    </select >
-                    </div>
-                    </td>
-                    </tr>
                     <tr>
                     <td colspan="2" class="text-left"><label>Replacing Parts</label></td>
                     <tr>
@@ -120,50 +77,13 @@ require('data/session.php');
                     <div class="">
                     <select name="val[]" id="optgroup_clickable" class="form-control form-control-chosen-optgroup" title="clickable_optgroup" data-placeholder="Please select..." multiple>
                    <?php
-                   include('data/replacing.php');
+                   include('data/replacing1.php');
                    ?>
                     </select>
                     </div>
                     </td>
                     </tr>
-                    </tr>
-                    <tr>
-                    <td colspan="2"><label>Checking Parts</label></td>
-                    </tr>
-                    <tr>
-                    <td colspan="2">
-                    <select name="val1[]" id="optgroup_clickable" class="form-control form-control-chosen-optgroup" title="clickable_optgroup" data-placeholder="Please select..." multiple>
-                   <?php
-                   include('data/replacing.php');
-                   ?>
-                    </select>
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><label>Choose Department</label></td>
-                    <td>
-                    <div class="md-form">                  
-                   <!--<input type="" id="form3" class="form-control" name="fanme"> -->
-                   <select class=" form-control " name="department" id="department" required> 
-                   <?Php
-
-                   include('data/department.php');
-                   ?>
-                   <!-- echo '<option value="">Choose Variant</option>';  -->
-                 
-                    </select >
-                    </div>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td><label>Labour Charge</label></td>
-                    <td>
-                    <div class="md-form">                  
-                    <input type="text" id="amount" class="form-control validate" name="amount" data-type="model" >
-                    </div>  
-                    </td>
-                    </tr>
+                    
                     </table>
                   <div class="text-center">
                     <input type="submit" class="btn btn-indigo" value="Add"> 

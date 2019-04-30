@@ -14,6 +14,15 @@ switch($type){
     case 'leave':
         applyLeave($conn);
     break;
+    case 'startwork':
+    startWork($conn);
+    break;
+    case 'complete':
+    completeWork($conn);
+    break;
+    case 'pendingwork':
+    pendingWork($conn);
+    break;
     default:
     break;
 }
@@ -93,11 +102,16 @@ function applyLeave($conn){
     $date=$_POST['datepicker'];
     $reason=$_POST['reason'];
     $empid=getSession('employeeid');
-    $sq="SELECT * FROM tbl_emlployee WHERE employee_id='$empid'";
+    $sq="SELECT * FROM tbl_employee WHERE employee_id='$empid'";
     $res=mysqli_query($conn,$sq);
     $result=mysqli_fetch_array($res);
     $licenceno=$result['licenceno'];
     $department=$result['department_id'];
+        //find maximum capacity of srvice center
+        $sql3="SELECT `maximum` FROM `tbl_employeecount` WHERE `licenceno`='$licenceno'AND `department_id`='$department'";
+        $max=mysqli_query($conn,$sql3);
+        $data3 = mysqli_fetch_assoc($max);
+        $maxcount = $data3['maximum'];
     $sql4="SELECT * FROM `tbl_workcount` WHERE `licenceno`='$licenceno' AND `date`='$date' AND `department_id`='$department'";
     $count=mysqli_query($conn,$sql4);
     if(mysqli_num_rows($count)<1){
@@ -112,20 +126,65 @@ function applyLeave($conn){
     else{
         $data3 = mysqli_fetch_assoc($count);
         $acount = $data3['count'];
+        if($acount<$maxcount){
+        $data3 = mysqli_fetch_assoc($count);
+        $acount = $data3['count'];
         $sql9="SELECT * FROM `tbl_leave` WHERE `employee_id`='$empid' AND `date`='$date'";
         $count1=mysqli_query($conn,$sql9);
         if(mysqli_num_rows($count1)<1){
-            $acount=$acount+1;
+            // $acount=$acount+1;
             //not already applied and anyone is already applied for that particular service only upate is performed
-             $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$department'";        
-            mysqli_query($conn,$sql7);
+            //  $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$department'";        
+            // mysqli_query($conn,$sql7);
             $sql="INSERT INTO `tbl_leave`(`employee_id`,`date`, `reason`, `status`) VALUES ('$empid','$date','$reason',2)";
-            //approve 1 cancel 3 pending 2
+            //approve 1 cancel 3 pending 2 reject 4
             mysqli_query($conn,$sql);
             echo "<script>alert('Applied Successfully');window.location='../employeehome.php';</script>";
         }
         else{
-            echo "<script>alert('Sorry!! Already applied');window.location='../user.php';</script>";
+            echo "<script>alert('Sorry!! Already applied');window.location='../employeehome.php';</script>";
         } 
     }
+    else{
+        $acount=$acount+1;
+        //not already applied and anyone is already applied for that particular service only upate is performed
+         $sql7="UPDATE `tbl_workcount` SET `count`='$acount' WHERE `date`='$date' AND `licenceno`='$licenceno' AND `department_id`='$department'";        
+        mysqli_query($conn,$sql7);
+        $sql="INSERT INTO `tbl_leave`(`employee_id`,`date`, `reason`, `status`) VALUES ('$empid','$date','$reason',2)";
+        //approved 1 
+        // cancel 3 
+        // approval pending 2
+        // rejected4
+        mysqli_query($conn,$sql);
+        echo "<script>alert('Heavy workload!! Please contact the manager personally for approval');window.location='../user.php';</script>";
+    }
+    }
+}
+function startWork($conn){
+    $apid=$_POST['appointment_id'];
+    $meter=$_POST['meter'];
+    $fuel=$_POST['fuel'];
+    $damage=$_POST['damages'];
+    $empid=getSession('employeeid');
+    $sql="INSERT INTO `tbl_servicestatus`( `appointment_id`, `odometer`, `fuel`, `damage`,`employee_id`) VALUES ('$apid','$meter','$fuel','$damage','$empid')";
+    mysqli_query($conn,$sql);
+    $sql1="UPDATE `tbl_appointment` SET `appointment_status`='1' WHERE `appointment_id`='$apid' ";
+    mysqli_query($conn,$sql1);
+    echo "<script>alert('Added Successfully');window.location='../employeehome.php';</script>";
+}
+function completeWork($conn){
+    $apid=$_POST['id'];
+    $sql="UPDATE `tbl_appointment` SET `appointment_status`='3' WHERE `appointment_id`='$apid'";
+    mysqli_query($conn,$sql);
+    echo '1';
+}
+function pendingWork($conn){
+    $date=$_POST['datepicker'];
+    $reason=$_POST['reason'];
+    $apid=$_POST['appointment_id'];
+    $sql="INSERT INTO `tbl_incomplete`( `appointment_id`, `reason`, `delivery_date`) VALUES ('$apid','$reason','$date')";
+    mysqli_query($conn,$sql);
+    $sql1="UPDATE `tbl_appointment` SET `appointment_status`='2' WHERE `appointment_id`='$apid' ";
+    mysqli_query($conn,$sql1);
+    echo "<script>alert('Added Successfully');window.location='../employeehome.php';</script>";
 }

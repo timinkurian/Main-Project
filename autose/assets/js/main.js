@@ -25,8 +25,9 @@ $(document).ready(function () {
     })
 
     $("#model").on("change", function () {
-        //alert();
+        
         $model = $(this).val();
+        // alert($model);
         $.ajax({
             url: 'data/variant.php',
             method: 'post',
@@ -204,23 +205,31 @@ $(".cntr-nav").on("click", function (e) {
     switch ($type) {
         
             case 'viewSchemes':
-            $url = 'data/centerdata.php';
+            $url = 'data/viewschemes.php';
            
             break;
             case 'viewappointment':
             $url = 'data/centerappointment.php';
             break;
-            case 'startedworks':
-            $url = 'data/startedworks.php';
+            case 'viewleave':
+            $url = 'data/viewleaveemployee.php';
             break;
             case 'viewemployee':
             $url = 'data/viewemployee.php';
+            break;
+            case 'respondleave':
+            $url='data/centerdata.php';
+            break;
+            case 'startedworks':
+            $url='data/centerstartedwork.php';
+            break;
+            case 'pendingwork':
+            $url='data/centerpendingwork.php';
             break;
             default:
             break;
 
     }
-
     $.ajax({
         url: $url,
         method: 'post',
@@ -244,6 +253,7 @@ $("body").on("click", ".cntr-click", function (e) {
         data: { 'type': $type, 'id': $id },
         success: function (data) {
             console.log(data);
+            alert(data);
 
             //  $("#pageData").html(data);
             if (data == 1) {
@@ -252,34 +262,65 @@ $("body").on("click", ".cntr-click", function (e) {
             if (data == 2) {
                 $("#servControl" + $id).html('Completed!');
             }
+            if (data == 3) {
+                $("#servControl" + $id).html('Approved!');
+            }
+            if (data == 4) {
+                $("#servControl" + $id).html('Rejected!');
+            }
+            if (data == 5) {
+                $("#servControl" + $id).html('Removed');
+            }
         }
     });
 });
 
 
-$("body").on("click", ".cntr-click", function (e) {
+$("body").on("click", ".center-click", function (e) {
     // e.preventDefault();
-   
+   var data;
     $type = $(this).data('type');
-    $id = $(this).data('id');
-   
-    $.ajax({
-        
+    // alert($type);
+    // $id = $(this).data('id');
+    switch($type){
+       case 'searchdepartment':{
+            $dept = $("body #department").val();
+            if($dept=="-1"){
+                alert('select a department');
+                die();
+            }
+            data={ 'type': $type, 'dept': $dept };
+        }
+        break;
+        case 'searchscheme':{
+            // alert();
+            $model = $("body #model").val();
+            $variant = $("body #variant").val();
+            // alert($model);
+            if(!$model){
+                alert('select a model');
+                die();
+            }
+            data={ 'type': $type, 'model': $model,'variant':$variant };
+        }
+        break;
+        default:
+        break;
+
+   }
+  $.ajax({
+
         url: 'data/centerdata.php',
         method: 'post',
-        data: { 'type': $type, 'id': $id },
+        data: data,
         success: function (data) {
             console.log(data);
-
-            //  $("#pageData").html(data);
-            if (data == 1) {
-                $("#servControl" + $id).html('Removed');
-            }
-            // if (data == 2) {
-            //     $("#servControl" + $id).html('Completed!');
-            // }
+            //  $("#pageData").html(data); 
+            // $("body #tbbody").html("xx");         
+            $("body #tbbody").html(data);
         }
-    });
+    
+     });
 });
 
 $(".user-nav").on("click", function (e) {
@@ -350,7 +391,7 @@ $("body").on("click", ".user-click", function (e) {
    
     $type = $(this).data('type');
     $id = $(this).data('id');
-    //alert($id);
+    // alert($type);
     $.ajax({
 
         url: 'data/userdata.php',
@@ -361,13 +402,40 @@ $("body").on("click", ".user-click", function (e) {
 
             //  $("#pageData").html(data);
             if (data == 1) {
-                $("#servControl" + $id).html('Cancelled');
+                $("#userControl" + $id).html('Cancelled');
+                $("#userControl1" + $id).html(' ');
             }
             if (data == 2) {
-                $("#servControl" + $id).html('Booked');
+                $("#userControl" + $id).html('Booked');
             }
         }
     });
 });
 
+
+$("body").on("click", ".employee-click", function (e) {
+    // e.preventDefault();
+   
+    $type = $(this).data('type');
+    $id = $(this).data('id');
+    // alert($type);
+    $.ajax({
+
+        url: 'data/employeedata.php',
+        method: 'post',
+        data: { 'type': $type, 'id': $id },
+        success: function (data) {
+            console.log(data);
+
+            //  $("#pageData").html(data);
+            if (data == 1) {
+                $("#employeeControl" + $id).html('Completed');
+                $("#employeeControl1" + $id).html(' ');
+            }
+            if (data == 2) {
+                $("#employeeControl" + $id).html('Completed');
+            }
+        }
+    });
+});
  

@@ -4,7 +4,9 @@ require('data/session.php');
 require('layouts/app_top');
 if(!sessionRedirect('4', 'designation_id'))
 {
-  // include('components/logout.php');
+  $_SESSION['user_id'] = '';
+  $_SESSION['designation_id'] = '';
+  session_destroy();
   header('Location:index.php');
 }
 ?>
@@ -38,7 +40,7 @@ if(!sessionRedirect('4', 'designation_id'))
           <!--Grid column-->
           <div  class="col-md-12">
           <h4>
-                Welcome! User <br>
+                Welcome! Employee <br>
                 You Are In The World of Cars
 
               </h4>

@@ -27,6 +27,29 @@ if ($val) {
                 }
             </style>    
         <body>
+        <div class="mt-4 py-3">
+<div>
+<form class="float-right py-3 px-5 mx-3">
+<!-- Find service center near you
+<select name="district" id="district" required>
+    <?php
+        // include('districts.php');
+    ?> -->
+<!-- </select > -->
+<select name="department" id="department" required>
+<option value="-1">Choose Department</option>
+<?php
+$sql = "SELECT * FROM `tbl_department`";
+    $result = mysqli_query($conn,$sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            echo "<option value='".$row['department_id']."'>".$row['department_name']."</option>";
+        }
+    } ?>
+</select >
+<input type="button" class="center-click" data-type="searchdepartment" data-id="department" value="Search">
+</form>
+</div>
         <div class="py-3">
         <table>
             <thead>
@@ -39,13 +62,15 @@ if ($val) {
                 <th>Place</th>
                 <th>Contact Number</th>
                 <th>Email</th>
-                <th>Photo</th>             
+                <th>Photo</th> 
+                <th></th>            
                 </tr>
             </thead>
+            <tbody id="tbbody">
         <?php
             while($result=mysqli_fetch_array($val)){
             ?>
-        <tbody>
+    
             <tr>
 
                 <td>

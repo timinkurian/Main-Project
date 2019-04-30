@@ -2,8 +2,9 @@
 require "data/connect.php";
 require "data/session.php";
 require('layouts/app_top');
-$userid=getSession('user_id');
-$sql = "SELECT * FROM `tbl_appointment` JOIN tbl_car ON tbl_appointment.registerno=tbl_car.regno WHERE tbl_car.user_id='$userid' AND tbl_car.status='1' AND tbl_appointment.appointment_status!='3'";
+$licenceno=getSession('licenceno');
+$employeeid=getSession('employeeid');
+$sql = "SELECT tbl_appointment.appointment_id,tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_appointment.registerno,tbl_appointment.remarks,tbl_appointment.appointment_status,tbl_servicestatus.employee_id FROM `tbl_appointment` JOIN tbl_servicestatus ON tbl_appointment.appointment_id=tbl_servicestatus.appointment_id WHERE appointment_status='1' AND licenceno='$licenceno' AND tbl_servicestatus.employee_id='$employeeid'";
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
@@ -44,7 +45,7 @@ if ($val) {
   <div class="container">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="user.php">
+    <a class="navbar-brand" href="employeehome.php">
       <strong>Home</strong>
     </a>
 
@@ -63,14 +64,14 @@ if ($val) {
   </div>
 </nav>
 
-  <div class="main offset-1">
+  <div class="main">
       <!-- Content -->
-      <!-- <div class="container "> -->
+      <div class="container ">
 
         <!--Grid row-->
-        <!-- <div class="row wow fadeIn"> -->
+        <div class="row wow fadeIn">
           <!--Grid column-->
-          <!-- <div class="offset-1 " > -->
+          <div class="offset-2 " >
 
 <!--Card-->
 <!-- <div class="card"> -->
@@ -84,10 +85,9 @@ if ($val) {
 
                 <th>Date</th>
                 <th>Vehicle Number</th>
-                <th>Center Name</th>
                 <th>Service Type</th>
                 <th>Remarks</th>
-                <th>Status</th>
+                <th></th>
                 <th></th>
                 
                
@@ -104,14 +104,7 @@ if ($val) {
             <td>
                 <?php echo $result['registerno']; ?>
             </td>
-            <td>
-                <?php 
-                    $r=$result['licenceno'];
-                    $sql1="SELECT `center_name` FROM `tbl_servicecenter` WHERE `licenceno`='$r'";
-                    $val1=mysqli_query($conn,$sql1);
-                    $data= mysqli_fetch_assoc($val1);                        
-                    echo $data['center_name']; ?>
-            </td>
+
             <td>
                 <?php 
                     $sc=$result['scheme_id'];
@@ -123,29 +116,19 @@ if ($val) {
                 <td>
                     <?php echo $result['remarks']; ?>
                 </td>
-                <td id="userControl<?php echo $result['appointment_id']; ?>">
-                    <?php
-                        if($result['appointment_status']=='0'){
-                          echo 'Booked';
-                        }
-                        else if($result['appointment_status']=='1'){
-                          echo 'Started';
-                        }
-                        else if($result['appointment_status']=='2'){
-                          echo 'Work pending';
-                        }
-                        else if($result['appointment_status']=='3'){
-                          echo 'Completed';
-                        }
-
-                     ?>
-                </td>
+                
                 <?php
-                    if($result['appointment_status']=='0'){
+                    if($result['appointment_status']=='1'){
 
                 ?>
-                <td id="userControl1<?php echo $result['appointment_id']; ?>"> 
-                    <input type="button" class="usr-click" data-type="apmntcancel" data-id= <?php echo $result['appointment_id']; ?> value="Cancel">
+                <td  id="employeeControl<?php echo $result['appointment_id']; ?>"> 
+                <input type="button" class="employee-click" data-type="complete" data-id= <?php echo $result['appointment_id']; ?> value="Completed"><br>
+                </td>
+                <td id="employeeControl1<?php echo $result['appointment_id']; ?>">
+                <form name="" id="login" method="post" action="pendingwork.php"  >
+                    <input type="text" hidden value="<?php echo $result['appointment_id']; ?>" name="appointment_id">
+                    <input type="submit"  value="Incomplete">
+                </form>
                 </td>
                 <?php
                 }
@@ -161,15 +144,15 @@ if ($val) {
     ?>
     <!-- Form -->
 
-  <!-- </div> -->
+  </div>
 
 <!-- </div> -->
 <!--/.Card-->
 
-<!-- </div> -->
+</div>
 <!--Grid column-->
 
-<!-- </div> -->
+</div>
 <!--Grid row-->
 
 </div>

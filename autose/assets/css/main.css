@@ -77,7 +77,7 @@ p.alert-data {
 }
 
 .full-page-intro{
-  min-height:100vh;
+  min-height:fit-content;
   display: block;
   /*  */
 }
