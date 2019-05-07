@@ -29,8 +29,23 @@ if ($val) {
 
         </style> 
 </head>
-
-    <div class="py-3 offset-md-2">
+<body>
+<div>
+<form class="py-2 px-5 mx-5">
+<div class="row offset-md-5">
+<div class="py-2">
+<label for="datepicker">Choose Date</label>
+    </div>
+<div class="col-md-4">
+<input type="text" readonly id="lvdate" class="form-control" name="datepicker"  >
+</div> 
+<div class="py-2">
+<input type="button" class="center-click" data-type="searchleave" data-id="searchleave" value="Search">
+</div>
+</div>
+</form>
+</div>
+    <div class="py-3 offset-md-3">
         <table>
             <thead>
             <tr>
@@ -42,7 +57,7 @@ if ($val) {
                 
             </tr>
             </thead>
-        <tbody>
+        <tbody id="tbbody">
             <?php
             while($result=mysqli_fetch_array($val)){
             ?>
@@ -74,5 +89,17 @@ if ($val) {
 ?>
 </table>
 </div>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="assets/css/dtpicker.css">
+  <!-- //code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css -->
+  <link rel="stylesheet" href="/resources/demos/style.css">
+<script>
+        var d = new Date();
+        var year = d.getFullYear();
+        d.setFullYear(year);
+        $('#lvdate').datepicker({ changeYear: true, changeMonth: true, maxDate:'7d',minDate:'-6d', defaultDate: d});
+</script>   
 </body>
 </html>

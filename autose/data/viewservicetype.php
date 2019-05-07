@@ -4,75 +4,75 @@ $sql = "SELECT * FROM `tbl_servicetype` ";
 $val = mysqli_query($conn, $sql);
 if ($val) {
     ?>
-<html>
+    <html>
 
-<head>
+    <head>
 
-    <style>
-        td,
-        th {
-            border: 1px solid black;
-            padding: 25px;
-        }
+        <style>
+            td,
+            th {
+                border: 1px solid black;
+                padding: 25px;
+            }
 
-        th {
-            background-color: gray;
-            color: white;
-        }
+            th {
+                background-color: gray;
+                color: white;
+            }
 
-        td img {
-            width: 100px;
-            height: auto;
-        }
+            td img {
+                width: 100px;
+                height: auto;
+            }
 
-        td {
-            background-color: white;
-            color: black;
-        }
-    </style>
+            td {
+                background-color: white;
+                color: black;
+            }
+        </style>
 
-</head>
+    </head>
 
-<body>
-    <div class="mt-20 py-3">
+    <body>
+        <div class="mt-20 py-3">
 
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <!-- <th class="">Brand Name</th> -->
-                            <!-- <th>Model</th>
-                <th>Variant</th>
-                <th>Fuel Type</th> -->
-                        </tr>
-                    </thead>
-                    <tbody id="tbbody">
-                        <?php
-                        while ($result = mysqli_fetch_array($val)) {
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th class="">Brand Name</th> -->
+                                <th>Service Types</th>
+                                <th></th>
 
-                            ?>
-                        <tr>
-                            <td>
-                                <?php echo $result['servicetype']; ?>
-                            </td>
-                            <td>
-                        
-                            <form name="" id="login" method="post" action="editservicetype.php"  >
-                            <input type="text" hidden value="<?php echo $result['servicetype']; ?>" name="type">
-                            <input type="text" hidden value="<?php echo $result['servicetype_id']; ?>" name="id">
-                            <input type="submit" class="btn btn-indigo"  value="Edit">
-                            </form>
-                   
-                        </td>       
+                            </tr>
+                        </thead>
+                        <tbody id="tbbody">
+                            <?php
+                            while ($result = mysqli_fetch_array($val)) {
 
-                        </tr>
-                        <?php
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $result['servicetype']; ?>
+                                    </td>
+                                    <td>
 
-                    }
-                    ?>
-                    </tbody>
+                                        <form name="" id="login" method="post" action="editservicetype.php">
+                                            <input type="text" hidden value="<?php echo $result['servicetype']; ?>" name="type">
+                                            <input type="text" hidden value="<?php echo $result['servicetype_id']; ?>" name="id">
+                                            <input type="submit" value="Edit">
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+                            <?php
+
+                        }
+                        ?>
+                        </tbody>
                     <?php
 
                 } else {
@@ -86,7 +86,7 @@ if ($val) {
 
     </div>
 
- 
+
 </body>
 
-</html> 
+</html>

@@ -50,7 +50,7 @@ if(!sessionRedirect('2', 'designation_id'))
                     </select >
                   </div>
                   <div class="md-form">
-                <input type="text" class="form-control validate" name="model" id="model" data-type="name" placeholder="Model Name" required>                   
+                <input type="text" class="form-control validate" name="model" id="model" data-type="model" placeholder="Model Name" required>                   
                 </div>
                   
                   <div class="text-center">

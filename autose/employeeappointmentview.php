@@ -37,7 +37,7 @@ if ($val) {
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">

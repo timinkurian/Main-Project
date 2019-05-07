@@ -37,7 +37,7 @@ if ($val) {
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -136,6 +136,9 @@ if ($val) {
                         }
                         else if($result['appointment_status']=='3'){
                           echo 'Completed';
+                        }
+                        if($result['appointment_status']=='-1'){
+                          echo 'Cancelled';
                         }
 
                      ?>

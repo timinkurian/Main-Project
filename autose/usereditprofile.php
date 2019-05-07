@@ -57,7 +57,7 @@ if(!getSession('logid'))
           <!--Grid column-->
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4" >
 
 <!--Card-->
 <div class="card">

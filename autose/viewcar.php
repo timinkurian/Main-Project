@@ -2,7 +2,15 @@
 require "data/connect.php";
 require "data/session.php";
 require('layouts/app_top');
+if(!sessionRedirect('1', 'designation_id'))
+{
+  $_SESSION['user_id'] = '';
+  $_SESSION['designation_id'] = '';
+  session_destroy();
+  header('Location:index.php');
+}
 $userid = getSession('user_id');
+
 ?>
 
 <html>
@@ -21,7 +29,7 @@ $userid = getSession('user_id');
 </head>
 
 <body>
-  <div class="view full-page-intro" style="height: fit-content">
+  <div class="view full-page-intro">
 
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -80,6 +88,7 @@ $userid = getSession('user_id');
               </div>
               <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data">
                 <input type="text" hidden value="deletecar" name="type">
+                <input type="text" hidden value="<?php echo $result['car_id']; ?>" name="carid">
                 <input type="text" hidden value="<?php echo $result['regno']; ?>" name="regno">
                 <input type="text" hidden value="<?php echo $result1['brand_id']; ?>" name="brandid">
                 <input type="text" hidden value="<?php echo $result1['model_id']; ?>" name="modelid">
@@ -95,7 +104,9 @@ $userid = getSession('user_id');
         ?>
         </div>
       </div>
+
     </div>
+
   </body>
 
 </html>

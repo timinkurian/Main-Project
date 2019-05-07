@@ -53,6 +53,9 @@ switch($type){
         case 'spareparts':
         spareparts($conn);
         break;
+        case editspareparts:
+        editSpareparts($conn);
+        brek;
         case 'department':
         addDepartment($conn);
         break;
@@ -64,7 +67,7 @@ switch($type){
     }   
 //adding new brand
 function newBrand($conn){
-    $brand=$_POST['brand'];
+    $brand=trim($_POST['brand']);
     // $model=$_POST['model'];
     // $variant=$_POST['variant'];
     // $fuel=$_POST['fuel'];
@@ -80,14 +83,14 @@ function newBrand($conn){
     }
 }
 function editBrand($conn){
-    $brandid=$_POST['brandid'];
-    $brand=$_POST['brandname'];
+    $brandid=ttrim($_POST['brandid']);
+    $brand=trim($_POST['brandname']);
     $sql="UPDATE `tbl_brand` SET `brand_name`='$brand' WHERE brand_id='$brandid'";
     mysqli_query($conn,$sql);
     echo "<script>alert('Updated Successfully!');window.location='../adminhome.php';</script>";
 }
 function newModel($conn){
-    $model=$_POST['model'];
+    $model=trim($_POST['model']);
     $brand=$_POST['brand'];
     $sql4="SELECT * FROM `tbl_model` WHERE `brand_id`='$brand' AND `model_name`='$model'";
     $count=mysqli_query($conn,$sql4);
@@ -102,7 +105,7 @@ function newModel($conn){
 }
 function newVariant($conn){
     $model=$_POST['model'];
-    $variant=$_POST['variant'];
+    $variant=trim($_POST['variant']);
     $fuel=$_POST['fuel'];
     $sql4="SELECT * FROM `tbl_variant` WHERE `model_id`='$model' AND `variant_name`='$variant' AND `fuel_id`='$fuel'";
     $count=mysqli_query($conn,$sql4);
@@ -116,7 +119,7 @@ function newVariant($conn){
     }
 }
 function serviceType($conn){
-    $stype=$_POST['stype'];
+    $stype=trim($_POST['stype']);
     $sql4="SELECT * FROM `tbl_servicetype` WHERE `servicetype`='$stype'";
     $count=mysqli_query($conn,$sql4);
     if(mysqli_num_rows($count)<1){
@@ -129,7 +132,7 @@ function serviceType($conn){
     }
 }
 function editServicetype($conn){
-    $stype=$_POST['stype'];
+    $stype=trim($_POST['stype']);
     $id=$_POST['id'];
     $sql="UPDATE `tbl_servicetype` SET `servicetype`='$stype' WHERE `servicetype_id`='$id'";
     mysqli_query($conn,$sql);
@@ -190,7 +193,7 @@ function carReject($conn){
 
 }
 function districtAdd($conn){//adding district
-    $dname=$_POST['dname'];
+    $dname=trim($_POST['dname']);
     $sql4="SELECT * FROM `tbl_district` WHERE `district`='$dname'";
     $count=mysqli_query($conn,$sql4);
     if(mysqli_num_rows($count)<1){
@@ -204,7 +207,7 @@ function districtAdd($conn){//adding district
 }
 function editDistrict($conn){
     $districtid=$_POST['districtid'];
-    $district=$_POST['district'];
+    $district=trim($_POST['district']);
     $sql="UPDATE `tbl_district` SET `district`='$district' WHERE `district_id`='$districtid'";
     mysqli_query($conn,$sql);
     // print_r($sql);
@@ -213,19 +216,26 @@ function editDistrict($conn){
     
 }
 function spareparts($conn){
-    $spare=$_POST['part'];
+    $spare=trim($_POST['part']);
     $sql="INSERT INTO `tbl_spare`(`spare`) VALUES ('$spare')";
     mysqli_query($conn,$sql);
     echo "<script>alert('Added Successfully');window.location='../spareparts.php';</script>";
 }
+function editSpareparts($conn){
+    $spare=trim($_POST['spare']);
+    $id=$_POST['spareid'];
+    $sql="UPDATE `tbl_spare` SET `spare`='$spare' WHERE `spare_id`='$id'";
+    mysqli_query($conn,$sql);
+    echo "<script>alert('Updated Successfully');window.location='../adminhome.php';</script>";
+}
 function addDepartment($conn){
-    $department=$_POST['department'];
+    $department=trim($_POST['department']);
     $sql="INSERT INTO `tbl_department`(`department_name`) VALUES ('$department')";
     mysqli_query($conn,$sql);
-    echo "<script>alert('Added Successfully');window.location='../department.php';</script>";
+    echo "<script>alert('Added Successfully');window.location='../adminhome.php';</script>";
 }
 function editDepartment($conn){
-    $department=$_POST['department'];
+    $department=trim($_POST['department']);
     $id=$_POST['id'];
     $sql="UPDATE `tbl_department` SET `department_name`='$department' WHERE `department_id`='$id'";
     mysqli_query($conn,$sql);

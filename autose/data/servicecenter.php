@@ -32,7 +32,7 @@ if ($val) {
 </head>
 
 <body>
-    <table>
+    <table width="100%">
         <thead>
             <tr>
                 <th>Center Name</th>

@@ -38,7 +38,7 @@ if ($val) {
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -71,7 +71,7 @@ if ($val) {
         <!--Grid row-->
         <div class="row wow fadeIn">
           <!--Grid column-->
-          <div class="offset-2 " >
+          <div class="offset-0 " >
 
 <!--Card-->
 <!-- <div class="card"> -->

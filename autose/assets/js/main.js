@@ -304,6 +304,27 @@ $("body").on("click", ".center-click", function (e) {
             data={ 'type': $type, 'model': $model,'variant':$variant };
         }
         break;
+        case 'searchappointment':{
+        $apdate = $("body #apdate").val();
+        // alert($apdate);
+        // die();
+        if($apdate==""){
+            alert('select a Date');
+            die();
+        }
+        data={ 'type': $type, 'date': $apdate };
+    }
+    break;
+    case 'searchleave':{
+        $lvdate = $("body #lvdate").val();
+        // alert($apdate);
+        // die();
+        if($lvdate==""){
+            alert('select a Date');
+            die();
+        }
+        data={ 'type': $type, 'date': $lvdate };
+    }
         default:
         break;
 

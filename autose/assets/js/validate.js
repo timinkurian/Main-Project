@@ -8,7 +8,7 @@ $("#login").submit(function (e) {
         $foo = $("#password-confirm");
         if (jQuery.contains(document, $foo[0])) {
             if ($('#password').val() != $('#password-confirm').val()) {
-                userAlert("Passwords doesn't match");
+                userAlert("New And Confirm Passwords doesn't match");
             } else {
                 $("#login").unbind().submit();
             }
@@ -17,9 +17,10 @@ $("#login").submit(function (e) {
         }
         // $("#regForm").unbind().submit();
 
-    } else {
-        userAlert("Invalid details");
-    }
+    } 
+    // else {
+    //     userAlert("Please enter correct data");
+    // }
 });
 
 //validation
@@ -64,7 +65,7 @@ function inputValidate($value, $type, $optional, $class) {
     $namePattern =  /^[A-Z][a-z]{2,}$/;
     $pswdPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{6,10}$/;
     $emailPattern = /\@{1}.{1}/;
-    $stypePattern =   /^[A-Z]{1}[A-Za-z\s]+$/;
+    $stypePattern =   /[A-Za-z\s]+$/;
     $vehnoPattern=/[A-Z]{2}\s[0-9]{2}\s[A-Z]{1,2}\s[0-9]{4}/;
     $filePattern = /\.(gif|jpg|jpeg|png)$/i;
     // dd/mm/yyyy
@@ -86,8 +87,9 @@ function inputValidate($value, $type, $optional, $class) {
             
             if ($class == "name") {
                 pattern = $namePattern;
-                $message = "First letter must be an uppercase and allows only alphabets."
+                $message = "First letter must be an uppercase and allows only alphabets and space is not allowed."
             }
+
             if ($class == "model") {
                 pattern = $modelPattern;
                 $message = "Should contain letters and digits only."

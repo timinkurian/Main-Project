@@ -26,7 +26,7 @@ $brandid=getSession('brandid');
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -83,8 +83,8 @@ $brandid=getSession('brandid');
       <td>Pick a Date</label></td>
       <td>
       <div class="md-form">                
-       <input type="text" readonly id="datepicker" class="form-control" name="datepicker" data-type="dat" >
-
+       <input type="text" readonly id="apdate" class="form-control" name="datepicker" data-type="dat" >
+       <!-- datepicker -->
         </div>
      </td>
      </tr>
@@ -165,19 +165,25 @@ require('layouts/app_end');
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jQuery UI Datepicker - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="assets/css/dtpicker.css">
+  <!-- //code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css -->
   <link rel="stylesheet" href="/resources/demos/style.css">
   <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-      minDate: "+1d",
-      maxDate: "+1w"
-    });
-  } );
+  // $( function() {
+  //   $( "#datepicker" ).datepicker({
+  //     minDate: "+1d",
+  //     maxDate: "+1w"
+  //   });
+  // } );
   </script>
-
+<script>
+        var d = new Date();
+        var year = d.getFullYear();
+        d.setFullYear(year);
+        $('#apdate').datepicker({ changeYear: true, changeMonth: true, maxDate:'7d',minDate:'1d', defaultDate: d});
+</script>
 </body>
 
 </html>

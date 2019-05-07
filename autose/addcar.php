@@ -4,6 +4,9 @@ require('data/session.php');
 require('layouts/app_top');
 if(!sessionRedirect('1', 'designation_id'))
 {
+  $_SESSION['user_id'] = '';
+  $_SESSION['designation_id'] = '';
+  session_destroy();
   header('Location:index.php');
 }
 
@@ -54,7 +57,7 @@ if(!sessionRedirect('1', 'designation_id'))
       <div class="row">
         <div class="col-md-6">
         <div class="md-form">                  
-        <input type="text" id="vehno" class="form-control validate" name="vehno" maxlength=13 data-type="regno" placeholder="Vehicle Number"></td>
+        <input type="text" id="vehno" class="form-control validate" name="vehno" maxlength=13 data-type="regno" placeholder="Vehicle Number" required=""></td>
       <!--  <label for="form3">Service Name</label>-->
      </div>
         </div>
@@ -95,8 +98,24 @@ if(!sessionRedirect('1', 'designation_id'))
         </div>
         <div class="col-md-6">
         <div class="md-form">
-        <input type="text" readonly id="datepicker" class="form-control " name="datepicker" required placeholder="Select Manufactured Year"> 
-        </div>
+        <!-- <input type="text" readonly id="datepicker" class="form-control " name="datepicker" required placeholder="Select Manufactured Year">  -->
+        <select class="form-control" name="datepicker" id="datepicker" required >
+          <?php
+              echo '<option disabled selected >Manufactured Year</option>';
+        // Sets the top option to be the current year. (IE. the option that is chosen by default).
+        //$currently_selected = date('Y'); 
+        // Year to start available options at
+        $earliest_year = 2017; 
+        // Set your latest year you want in the range, in this case we use PHP to just set it to the current year.
+        $latest_year = date('Y'); 
+
+        // Loops over each int[year] from current year, back to the $earliest_year [1950]
+        foreach ( range( $latest_year, $earliest_year ) as $i ) {
+        // Prints the option with the next year in range.
+         echo '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
+        }?>
+        </select> 
+      </div>
         </div>  
         </div>  
         <div class="row">
@@ -115,13 +134,13 @@ if(!sessionRedirect('1', 'designation_id'))
         <div class="col-md-6">
         <div class="md-form">    
         <label>Choose RC Book</label><br><br>              
-        <input type="file" id="rcbook" class="form-control" name="rcbook" accept=".jpeg,.jpg,.png" required >
+        <input type="file" id="rcbook" class="form-control validate" name="rcbook" id ="photo" accept=".jpeg,.jpg,.png" required >
         </div>
         </div>
         <div class="col-md-6">
         <div class="md-form"> 
         <label>Choose Car Image</label><br><br>                  
-        <input type="file" id="car" class="form-control " name="car" accept=".jpeg,.jpg,.png" required>
+        <input type="file" id="car" class="form-control validate " name="car" id ="photo" accept=".jpeg,.jpg,.png" required>
         <label for="form3"></label>
         </div> 
         </div>  

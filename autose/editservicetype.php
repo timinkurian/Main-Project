@@ -72,7 +72,7 @@ if(!sessionRedirect('2', 'designation_id'))
                      </select >
                   </div>-->
                   <div class="text-center">
-                    <input type="submit" class="btn btn-indigo" value="Add"> 
+                    <input type="submit" class="btn btn-indigo" value="Update"> 
                     <hr>
                  <!-- <fieldset class="form-check">
                       <input type="checkbox" class="form-check-input" id="checkbox1">

@@ -81,8 +81,8 @@
                                   <img src="data/<?php echo $result['photo']; ?>" class="img-fluid rounded-circle z-depth-0" alt="Material Design for Bootstrap - example photo" class="avatar">
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Profile</a>
-                                  <a class="dropdown-item waves-effect waves-light" href="#">Change Password</a>
+                                  <!-- <a class="dropdown-item waves-effect waves-light" href="#">Profile</a> -->
+                                  <a class="dropdown-item waves-effect waves-light" href="changepassword.php">Change Password</a>
                                   <a class="dropdown-item waves-effect waves-light" href="components/logout.php">Logout</a>
                               </div>
                           </li>

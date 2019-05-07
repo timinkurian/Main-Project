@@ -131,7 +131,7 @@ if(isset($_SESSION['user_id'])){
               <strong>It's a world of Cars </strong>
             </p>
 
-            <a href=reguser.php class="btn btn-indigo btn-lg">Register your service center
+            <a href=saleshome.php class="btn btn-indigo btn-lg">Buy your dream car
               <i class="fa fa-graduation-cap ml-2"></i>
             </a>
 

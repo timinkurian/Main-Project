@@ -32,6 +32,12 @@ switch($type){
         case 'changepassword':
             changePassword($conn);
         break;
+        case 'resendotp':
+            resendOTP($conn);
+        break;
+        case 'changepass':
+        changePassword1($conn);
+        break;
         default:
             break;
     }   
@@ -106,7 +112,7 @@ function userLogin($conn){
             setSession('designation_id', $designation_id);
             // print_r($designation_id);
             // return;
-            echo "<script>alert('Login Successfull');window.location='../adminhome.php';</script>";
+            echo "<script>window.location='../adminhome.php';</script>";
 
         }
         else if($a=="1")//user
@@ -124,7 +130,7 @@ function userLogin($conn){
             }
             else{
                 
-            echo "<script>alert('Login Successfull');window.location='../user.php';</script>";
+            echo "<script>window.location='../user.php';</script>";
 
             }
 
@@ -154,7 +160,7 @@ function userLogin($conn){
             }
             else if($status=="1"){
 
-            echo "<script>alert('Login Successfull');window.location='../sevricecenterhome.php';</script>";
+            echo "<script>window.location='../sevricecenterhome.php';</script>";
 
             }
         }
@@ -184,7 +190,7 @@ function userLogin($conn){
                 }
                 else if($status=="1"){
     
-                echo "<script>alert('Login Successfull');window.location='../employeehome.php';</script>";
+                echo "<script>window.location='../employeehome.php';</script>";
     
                 }
             }
@@ -338,6 +344,7 @@ function centerRegistration($conn){
 }
 
 function forgetPassword($conn){
+    
     $email=$_POST['email'];
     $sql="SELECT * FROM `tbl_login` WHERE `email`='$email'";
 	$result=mysqli_query($conn,$sql);
@@ -377,35 +384,83 @@ function forgetPassword($conn){
    // Main program 
   
    $pa=generateNumericOTP($n); 
-   $sql="INSERT INTO `tbl_otp`(`email`, `otp`, `status`,`count`) VALUES ('$e','$pa',1,3) ";
+   setSession('otp',$pa);
+   setSession('time',time());
+//    $sql="INSERT INTO `tbl_otp`(`email`, `otp`, `status`,`count`) VALUES ('$e','$pa',1,3) ";
 //    print_r($sql);
 //    return;
-   $r2=mysqli_query($conn,$sql);
+//    $r2=mysqli_query($conn,$sql);
   // $link=
     // $pass=$row['password'];
     // $pa=base64_decode($pass);
      $p="Your OTP:".$pa;
    // $m="Go to the link to recover your account:".$link."\r\n".$p;
-	mail($e,"Recover",$p);
+	mail($e,"OTP for your password retrieval",$p);
     echo "<script>alert('Authentication Success Please check your mail');window.location='../otpconfirm.php';</script>";
 	 }
 	 else{
          echo "<script>alert('Please provide valid informations');window.location='../index.php';</script>";
      }	
  }
+ function resendOTP($conn){
+     $e=getSession('email');
+    $a = 6; 
+    // Function to generate OTP 
+    function generateNumericOTP1($a) { 
+        
+        $generator = "1357902468"; 
+
+        $result = ""; 
+    
+        for ($i = 1; $i <= $a; $i++) { 
+            $result .= substr($generator, (rand()%(strlen($generator))), 1); 
+        } 
+    
+        // Return result 
+        return $result; 
+    } 
+    
+    // Main program 
+   
+    $pa=generateNumericOTP1($a); 
+    setSession('otp',$pa);
+    setSession('time',time());
+
+      $p="Your OTP:".$pa;
+    // $m="Go to the link to recover your account:".$link."\r\n".$p;
+     mail($e,"OTP for your password retrieval",$p);
+     
+ }
 function confirmOTP($conn){
     $otp=$_POST['otp'];
     $email=getSession('email');
+    $otp1=getSession('otp');
+    $time=getSession('time');
+    
+    $diff=(time()-$time)/60;
+    if($diff<=5){
+        if($otp==$otp1){
+            echo '1';
+        }
+        else{
+            echo'2';
+        }
+       
+    }
+    else{
+        echo '3';
+        
+    }
     // print_r($email);
     // return;
-    $sql="SELECT * FROM `tbl_otp` WHERE `email`='$email'  AND `status`=1 AND `count`!=0";
+    // $sql="SELECT * FROM `tbl_otp` WHERE `email`='$email'  AND `status`=1 AND `count`!=0";
     // print_r($sql);
     //  return;
-    $result=mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result)>0){
-         	$row=mysqli_fetch_assoc($result);
-            $a=$row['otp'];
-            $co=$row['count'];
+    // $result=mysqli_query($conn,$sql);
+    // if(mysqli_num_rows($result)>0){
+    //      	$row=mysqli_fetch_assoc($result);
+    //         $a=$row['otp'];
+    //         $co=$row['count'];
 // print_r($co);
 // return;
 //      echo $co." ".$a." ".$otp;
@@ -413,32 +468,32 @@ function confirmOTP($conn){
 //     {
         
     
-        if($a==$otp)
- 	    {
-             $sql1="UPDATE `tbl_otp` SET `status`=0,`count`=0 WHERE `email`='$email'";
-             mysqli_query($conn,$sql1);
-             echo "<script>alert('Authentication Success ');window.location='../passwordchangeotp.php';</script>";
+//         if($a==$otp)
+//  	    {
+//              $sql1="UPDATE `tbl_otp` SET `status`=0,`count`=0 WHERE `otp`='$otp' AND email='$email'";
+//              mysqli_query($conn,$sql1);
+             
 
          
-         }
-         else
-         {
+//          }
+//          else
+//          {
 
-             $sql2="UPDATE `tbl_otp` SET `count`= count-1 WHERE `email`='$email'";
-             //print_r($sql2);
-             //return;
-             mysqli_query($conn,$sql2);
-             echo "<script>alert('Wrong OTP ');window.location='../otpconfirm.php';</script>";
-         }
-     }
-  else
-     {
-        $sql3="UPDATE `tbl_otp` SET `count`=0,`status`=0 WHERE `email`='$email'";
-        //print_r($sql2);
-        //return;
-        mysqli_query($conn,$sql3);
-        echo "<script>alert('OTP Expired ');window.location='../index.php';</script>";
-     }
+//              $sql2="UPDATE `tbl_otp` SET `count`= count-1 WHERE `email`='$email'";
+//              //print_r($sql2);
+//              //return;
+//              mysqli_query($conn,$sql2);
+//              echo "<script>alert('Wrong OTP ');window.location='../otpconfirm.php';</script>";
+//          }
+//      }
+//   else
+//      {
+//         $sql3="UPDATE `tbl_otp` SET `count`=0,`status`=0 WHERE `email`='$email'";
+//         //print_r($sql2);
+//         //return;
+//         mysqli_query($conn,$sql3);
+//         echo "<script>alert('OTP Expired ');window.location='../index.php';</script>";
+//      }
  }
 
 
@@ -458,5 +513,25 @@ function  changePassword($conn){
     $_SESSION['user_id'] = '';
     $_SESSION['designation_id'] = '';
     $_SESSION['email'] = '';
+    session_destroy();
     echo "<script>alert('Password updated successfully');window.location='../index.php';</script>";
+
+}
+function changePassword1($conn)
+{
+    $usrid=getSession('user_id');
+    $cupswd=md5($_POST['curpswd']);
+    $paswd = md5($_POST['pswd']);
+    $cpswd=md5($_POST['cpswd']);
+    //$logid = getSession('logid');
+    $sql1="SELECT * FROM tbl_login WHERE password='$cupswd' AND user_id='$usrid'";
+    $count=mysqli_query($conn, $sql1);
+    if (mysqli_num_rows($count) >0) {
+    $sql = "UPDATE `tbl_login` SET `password`='$paswd' WHERE `user_id`='$usrid'";
+    mysqli_query($conn, $sql);
+    echo "<script>alert('Password updated successfully');window.location='../changepassword.php';</script>";
+    }
+    else{
+        echo "<script>alert('Current Password is Wrong');window.location='../changepassword.php';</script>";
+    }
 }

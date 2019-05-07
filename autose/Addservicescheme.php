@@ -157,10 +157,18 @@ require('data/session.php');
                     </td>
                     </tr>
                     <tr>
+                    <td><label>Kilometer Limit </label></td>
+                    <td>
+                    <div class="md-form">                  
+                    <input type="text" id="km" class="form-control validate" name="km" data-type="number" >
+                    </div>  
+                    </td>
+                    </tr>
+                    <tr>
                     <td><label>Labour Charge</label></td>
                     <td>
                     <div class="md-form">                  
-                    <input type="text" id="amount" class="form-control validate" name="amount" data-type="model" >
+                    <input type="text" id="amount" class="form-control validate" name="amount" data-type="number" >
                     </div>  
                     </td>
                     </tr>

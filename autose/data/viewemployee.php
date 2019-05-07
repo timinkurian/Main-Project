@@ -50,8 +50,9 @@ $sql = "SELECT * FROM `tbl_department`";
 <input type="button" class="center-click" data-type="searchdepartment" data-id="department" value="Search">
 </form>
 </div>
-        <div class="py-3">
-        <table>
+</div>
+        <div class="py-4">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                 

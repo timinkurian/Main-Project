@@ -43,7 +43,7 @@ if(!sessionRedirect('2', 'designation_id'))
                   </h3>
                   <hr>
                   <div class="md-form">                  
-                    <input type="text" id="stype" class="form-control validate" name="stype" data-type="name" placeholder="Service Type">
+                    <input type="text" id="stype" class="form-control validate" name="stype" data-type="servicetype" placeholder="Service Type">
                     <!-- <label for="form3">District Name</label> -->
                   </div>
                   <div class="text-center">

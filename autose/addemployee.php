@@ -1,7 +1,13 @@
 <?php 
 require('layouts/app_top');
 require('data/session.php');
-
+if(!sessionRedirect('3', 'designation_id'))
+{
+  $_SESSION['user_id'] = '';
+  $_SESSION['designation_id'] = '';
+  session_destroy();
+  header('Location:index.php');
+}
 ?>
 
 <head>
@@ -9,7 +15,7 @@ require('data/session.php');
 </head>
 <body>
 <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" >
 
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">

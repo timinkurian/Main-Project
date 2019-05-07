@@ -27,7 +27,7 @@ if ($val) {
             </style>    
         <body>
         <div class="py-3">
-        <table>
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                 
