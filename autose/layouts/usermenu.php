@@ -45,6 +45,21 @@
                                   <a class="dropdown-item waves-effect waves-light" href="appointmentview.php">View Appointment</a>
                               </div>
                           </li>
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Buy A Car
+                              </a>
+                              <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+                                  <a class="dropdown-item waves-effect waves-light" href="saleshome.php">Advertisements</a>
+                                  <a class="dropdown-item waves-effect waves-light" href="viewyouroffers.php">Owner Approved Offers</a>
+                              </div>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link waves-effect waves-light" id="navbarDropdownMenuLink-5" aria-haspopup="true" aria-expanded="false" href="advertisement.php">Your Advretisement
+                              </a>
+                          </li>
+
+
+
                       </ul>
                       <ul class="navbar-nav ml-auto nav-flex-icons">
                           <!-- <li class="nav-item">
@@ -73,6 +88,7 @@
                                   <a class="dropdown-item waves-effect waves-light" href="components/logout.php">Logout</a>
                               </div>
                           </li>
+
                       </ul>
                   </div>
               <!-- <a class="navbar-brand" href="#">Navbar</a> -->

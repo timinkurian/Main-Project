@@ -63,7 +63,7 @@ $userid = getSession('user_id');
         // print_r($sql);
         // return;
         $val = mysqli_query($conn, $sql);
-        if ($val) {
+        if (mysqli_num_rows($val) > 0) {
           while ($result = mysqli_fetch_array($val)) {
             ?>
             <div class="col-md-4 pb-5">
@@ -103,14 +103,20 @@ $userid = getSession('user_id');
         }
         ?>
         </div>
-      </div>
 
+      </div>
+      <?php
+        } else {
+            ?>
+                <div offset-md-5>
+                    <img src="nothing.png" style="max-width:35%;margin-left: 110px; margin-right: auto; ">
+                    <h3><?php echo "NOTHING TO SHOW ! NO ONE IS INTERESTED !!"; ?></h3>
+                </div>
+            <?php
+        } ?>
     </div>
 
   </body>
 
 </html>
-<?php
-} else {
-  echo "0 results";
-}
+

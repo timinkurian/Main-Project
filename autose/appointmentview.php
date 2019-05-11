@@ -3,7 +3,7 @@ require "data/connect.php";
 require "data/session.php";
 require('layouts/app_top');
 $userid=getSession('user_id');
-$sql = "SELECT * FROM `tbl_appointment` JOIN tbl_car ON tbl_appointment.registerno=tbl_car.regno WHERE tbl_car.user_id='$userid' AND tbl_car.status='1' AND tbl_appointment.appointment_status!='3'";
+$sql = "SELECT * FROM `tbl_appointment` JOIN tbl_car ON tbl_appointment.registerno=tbl_car.regno WHERE tbl_car.user_id='$userid' AND tbl_appointment.appointment_status!='3'";
 $val=mysqli_query($conn,$sql);
 if ($val) {
     ?>
@@ -148,6 +148,7 @@ if ($val) {
 
                 ?>
                 <td id="userControl1<?php echo $result['appointment_id']; ?>"> 
+                <input hidden name="date" id="date" value=<?php echo date("m/d/Y"); ?>>
                     <input type="button" class="usr-click" data-type="apmntcancel" data-id= <?php echo $result['appointment_id']; ?> value="Cancel">
                 </td>
                 <?php

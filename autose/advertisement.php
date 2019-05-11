@@ -22,19 +22,14 @@ $userid = getSession('user_id');
 
     .button1 {
       background-color: #aeaeaeed;
-      max-height: 20%;
+      max-height: 10%;
       margin-top: -50px;
-    }
-
-    .card {
-      box-shadow: none;
-      border: 1px solid #b2b2b2;
     }
   </style>
 </head>
 
 <body>
-  <div class="view full-page-intro" style="background-image: url('back.jpg'); background-repeat: no-repeat; background-size: cover;">
+  <div class="view full-page-intro">
 
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -58,58 +53,24 @@ $userid = getSession('user_id');
       </div>
     </nav>
 
-    <div class="main offset-md-1" >
-      <div class="col-md-11" style="padding-left: -1;padding-left: 0px;">
-        <div class="card">
-          <div class="card-body">
-            <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data">
-              <input type="text" hidden value="filtersearch" name="type">
-             <label style="padding-right: 20px;">
-                BRAND AND MODEL
-             </label>
-                <select name="brand" id="brand" style="width: 183px;">
-                <?php
-                include('data/brand.php');
-                ?>
-              </select>
-              <select  name="model" id="model" style="width: 183px;" >
-                echo '<option value="">Choose Model</option>'
-              </select>
-              <label style="padding-left: 50px;padding-right: 45px;">PRICE</label>
-               <input type="text" class="validate" name="minprice" id="minprice" data-type="digits" placeholder="Min">
-              <input type="text" class="validate" name="maxprice" id="maxprice" data-type="digits" placeholder="Max">
-              <br>
-              <label style="padding-right: 82px;">KM DRIVEN</label>
-               <input type="text" class="validate" name="minkm" id="minkm" data-type="digits" placeholder="Min">
-              <input type="text" class="validate" name="maxkm" id="maxkm" data-type="digits" placeholder="Max">
-              <label style="padding-left: 50px;padding-right: 6px;">FUEL TYPE</label>
-              <select  name="fuel" id="fuel" style="width: 183px;">
-                    <?php
-                      //echo '<option value="">Choose Model</option>';
-                        include('data/fuel.php');
-                     ?>
-                    </select >
-                    <input type="submit" class="button"style="background-color: #c1c1c1;height: initial;width: 188px;" value="Apply Filter">
-            </form>
-          </div>
-        </div>
-      </div>
+    <div class="main offset-md-1">
       <!-- <script>
         alert();
 </script> -->
       <div class="row py-2">
         <?php
-        $sql = "SELECT * FROM `tbl_advertisement` WHERE status=0 AND car_id NOT IN(SELECT car_id FROM tbl_car WHERE user_id='$userid') ";
+        $sql = "SELECT * FROM `tbl_advertisement` WHERE status=0 AND car_id IN(SELECT car_id FROM tbl_car WHERE user_id='$userid') ";
         // print_r($sql);
         // return;
         $val = mysqli_query($conn, $sql);
         if (mysqli_num_rows($val) > 0) {
           while ($result = mysqli_fetch_array($val)) {
+            $carid=$result['car_id'];
             $sql2 = "SELECT * FROM tbl_image WHERE advertisement_id='$result[advertisement_id]'";
             $val1 = mysqli_query($conn, $sql2);
             $image = mysqli_fetch_array($val1);
             ?>
-            <div class="col-md-3 pb-3 " style="border-style: groove; margin-left:10px;">
+            <div class="col-md-3 pb-3 " style="border-style: groove;margin-left:10px;">
               <div class="row">
 
                 <div class="col">
@@ -128,22 +89,22 @@ $userid = getSession('user_id');
                   <label><b><?php echo $result1['model_name']; ?> | </b></label>
                   <label><b><?php echo $result1['variant_name']; ?></b></label><br>
                   <label><b><?php echo $result3['manufactured_year']; ?> - </b></label>
-                  <label><b><?php echo $result['odometer']; ?>KM</b></label><br>
+                  <label><b><?php echo $result['odometer']; ?>KM</b></label>
 
-
-                  <!-- <label><b><?php echo $result1['fuel']; ?></b></label> -->
-
-                  <!-- <label><b><?php echo $result['description']; ?></b></label><br>
-                                           -->
 
                   <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data" class="mt-5">
                     <!-- Heading -->
 
-                    <input type="text" hidden value="viewmore" name="type">
-                    <input type="text" hidden value="<?php echo $result['car_id']; ?>" name="carid">
-                    <button type="submit" class="btn button1" value="appointment" name="car">View More</button>
+                    <input type="text" hidden value="viewoffer" name="type">
+                    <input type="text" hidden value="<?php echo $result['advertisement_id']; ?>" name="adid">
+                    <button type="submit" class="btn button1" value="appointment" name="car">View Offers</button>
                   </form>
+                  <br>
+                  <button type="button" class="btn button1 waves-effect waves-light " data-toggle="modal" data-target="#exampleModal" style="width: 150px;height: 100px;">
+                    Delete Ad
+                  </button>
                 </div>
+
               </div>
 
             </div>
@@ -156,17 +117,48 @@ $userid = getSession('user_id');
       ?>
         <div offset-md-5>
           <img src="nothing.png" style="max-width:35%;margin-left: auto; margin-right: auto; ">
-          <h3><?php echo "NOTHING TO SHOW !  THERE  IS NO ADVERTISEMENT IS AVAILABLE !!"; ?></h3>
+          <h3><?php echo "NOTHING TO SHOW ! YOU HAVEN'T LISTED ANYTHING YET  !"; ?></h3>
         </div>
       <?php
-    } ?>
+    }
+    ?>
     </div>
-  </div>
 
   </div>
-<?php 
-require('layouts/specialapp_end');
-?>
+
 </body>
 
 </html>
+<?php
+require('layouts/specialapp_end');
+?>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="exampleModalLabel"><b><label style="padding-left: 125px;">Delete Your Ad</label></b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data">
+        <input type="text" hidden value="deletead" name="type">
+        <input type="text" hidden value=<?php echo $carid;?> name="carid">
+        <div class="modal-body">
+          Reason of Deletion
+          <select name="reason" required>
+          <option value disabled selected>Select Reason</option>
+            <option value="1">Car sold through this site</option>
+            <option value="2">Car sold through other source</option>
+            <option value="3">Not selling it anymore </option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

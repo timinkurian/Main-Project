@@ -47,7 +47,23 @@ $brandid=getSession('brandid');
 </nav>
 
   <div class="main">
-  <div class="row">
+  <div>
+        <form class="py-2 px-5 mx-8">
+            <div class="row offset-md-7">
+            <h5 class="pt-2">Find service center </h5>
+                <div class="col-md-5">
+                <input type="text" hidden value="<?php echo $brandid?>" name="brnd" id="brnd">
+                    <select class="form-control" name="district" id="distt" required>
+                        <?php
+                        include('data/districtid.php');
+                        ?>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+    </div>
+  <div class="row" id="center">
 <!-- <script>
         alert();
 </script> -->
@@ -56,7 +72,7 @@ $sql = "SELECT * FROM `tbl_servicecenter` WHERE `brand_id`=$brandid";
 // print_r($sql);
 // return;
 $val=mysqli_query($conn,$sql);
-if ($val) {
+if (mysqli_num_rows($val)) {
  while($result=mysqli_fetch_array($val)){
     //  $licenceno=$result['licenceno'];
     // setSession('licenceno',$licenceno);
@@ -91,13 +107,21 @@ if ($val) {
     }
 ?>
   </div>
+  <?php
+    } else {
+      ?>
+        <div offset-md-5>
+          <img src="nothing.png" style="max-width:35%;margin-left: auto; margin-right: auto; ">
+          <h3><?php echo "NOTHING TO SHOW ! YOU HAVEN'T LISTED ANYTHING YET  !"; ?></h3>
+        </div>
+      <?php
+    }
+    ?>
     </div>
           </div>
+          <?php
+          include('layouts/specialapp_end');
+          ?>
 </body>
 
 </html>
-<?php
-   }
- else {
-    echo "0 results";
-}

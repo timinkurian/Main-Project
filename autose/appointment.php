@@ -72,6 +72,7 @@ $brandid=getSession('brandid');
       <!-- Heading -->
       
       <input type="text" hidden value="appointment" name="type">
+      <input hidden name="date" value=<?php echo date("m/d/Y"); ?>>
       <input type="text" hidden value="<?php echo $_POST['licenceno']?>" name="licenceno">    
       <input type="text" hidden value="<?php echo $regno?>" name="regno">
       <h3 class="dark-grey-text text-center">
@@ -115,6 +116,14 @@ $brandid=getSession('brandid');
         </td>
         </tr>
         <tr>
+        <td><label>Advance Payment Amount</label></td>
+        <td>
+        <div class="md-form">
+        <input type="text" readonly class="form-control" name="price" id="price">                   
+        </div>
+        </td>
+        </tr>
+        <tr>
         <td><label>Odometer Reading</label></td>
         <td>
         <div class="md-form">
@@ -126,7 +135,7 @@ $brandid=getSession('brandid');
         <td><label>Remarks</label></td>
         <td>
         <div class="md-form">
-        <textarea rows="3" class="form-control" name="remarks" id="remarks" required></textarea>                   
+        <textarea rows="3" class="form-control" name="remarks" id="remarks"></textarea>                   
         </div>
         </td>
         </tr>
@@ -182,7 +191,7 @@ require('layouts/app_end');
         var d = new Date();
         var year = d.getFullYear();
         d.setFullYear(year);
-        $('#apdate').datepicker({ changeYear: true, changeMonth: true, maxDate:'7d',minDate:'1d', defaultDate: d});
+        $('#apdate').datepicker({ changeYear: true, changeMonth: true, maxDate:'7d',minDate:'2d', defaultDate: d});
 </script>
 </body>
 

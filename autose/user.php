@@ -20,14 +20,14 @@ if(!sessionRedirect('1', 'designation_id'))
   
 
   <!-- Full Page Intro -->
-  <div  id="pageData"  class="view full-page-intro" >
+  <div  id="pageData"  class="view full-page-intro" style="background-image: url('back.jpg'); background-repeat: no-repeat; background-size: cover;" >
 <!-- video -->
-<div class="background-wrap">
+<!-- <div class="background-wrap">
 			<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted"> 
 				<source src="traffic.mp4" type="video/mp4">
 				Video not supported
 			</video>          
-		</div>
+		</div> -->
     <!-- Mask & flexbox options-->
     <div class="mask d-flex justify-content-center align-items-center">
 

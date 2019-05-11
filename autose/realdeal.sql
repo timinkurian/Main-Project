@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2019 at 12:36 PM
+-- Generation Time: May 09, 2019 at 07:22 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -45,7 +45,9 @@ CREATE TABLE `tbl_advertisement` (
 --
 
 INSERT INTO `tbl_advertisement` (`advertisement_id`, `car_id`, `price`, `description`, `latitude`, `longitude`, `advertisement_date`, `odometer`, `status`) VALUES
-(2, 5, 150000, 'Good vehicle', 9.5279423, 76.8221974, '07/05/19', 15200, 0);
+(3, 5, 284500, 'Family used car\r\nGood condition\r\nNew insurance', 10.8505159, 76.2710833, '09/05/19', 58000, 1),
+(4, 6, 358000, 'Good condition', 0, 0, '09/05/19', 100000, 0),
+(5, 5, 260000, 'Family used car', 10.8505159, 76.2710833, '09/05/19', 58000, 0);
 
 -- --------------------------------------------------------
 
@@ -58,10 +60,10 @@ CREATE TABLE `tbl_appointment` (
   `registerno` varchar(20) NOT NULL,
   `licenceno` varchar(20) NOT NULL,
   `scheme_id` int(11) NOT NULL,
-  `bookdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `bookdate` varchar(20) NOT NULL,
   `appointment_date` varchar(20) NOT NULL,
   `odometer` int(11) NOT NULL,
-  `remarks` varchar(500) NOT NULL,
+  `remarks` varchar(500) DEFAULT 'Nil',
   `appointment_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -70,8 +72,7 @@ CREATE TABLE `tbl_appointment` (
 --
 
 INSERT INTO `tbl_appointment` (`appointment_id`, `registerno`, `licenceno`, `scheme_id`, `bookdate`, `appointment_date`, `odometer`, `remarks`, `appointment_status`) VALUES
-(1, 'KL 06 H 3595', 'lic3691', 5, '2019-05-02 07:24:03', '05/04/2019', 2500, 'sfhsa', 3),
-(2, 'KL 06 H 3595', 'lic4123', 4, '2019-05-02 09:48:29', '05/03/2019', 67, 'nil', 0);
+(7, 'KL 06 J 0959', 'lic4123', 2, '05/09/19', '05/11/2019', 850, '', 3);
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,9 @@ CREATE TABLE `tbl_car` (
 --
 
 INSERT INTO `tbl_car` (`car_id`, `user_id`, `variant_id`, `manufactured_year`, `color`, `regno`, `engineno`, `chasisno`, `rcbook`, `photo`, `status`) VALUES
-(5, 14, 4, '2017', 'White', 'KL 06 H 3595', 'F8DN5645546', 'MA3EUA61S00878747DG', '/upload/car/14/KL 06 H 3595/RC book.jpg', '/upload/car/14/KL 06 H 3595/alto 800 white.png', 2);
+(5, 14, 4, '2017', 'White', 'KL 06 H 3595', 'F8DN5645546', 'MA3EUA61S00878747DG', '/upload/car/14/KL 06 H 3595/RC book.jpg', '/upload/car/14/KL 06 H 3595/alto 800 white.png', 2),
+(6, 14, 2, '2018', 'Red', 'KL 06 J 0959', 'G5FG98364578', 'RK1HTE55R47159802IF', '/upload/car/14/KL 06 J 0959/RC book.jpg', '/upload/car/14/KL 06 J 0959/swift1.jpg', 2),
+(7, 5, 5, '2017', 'White', 'KL 07 CK 1091', 'K5FG98364548', 'RK1HTE55R47157202KT', '/upload/car/5/KL 07 CK 1091/RC book.jpg', '/upload/car/5/KL 07 CK 1091/i10 white.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +296,7 @@ INSERT INTO `tbl_fuel` (`fuel_id`, `fuel`) VALUES
 
 CREATE TABLE `tbl_image` (
   `image_id` int(11) NOT NULL,
-  `car_id` int(11) NOT NULL,
+  `advertisement_id` int(11) NOT NULL,
   `image1` varchar(300) NOT NULL,
   `image2` varchar(300) NOT NULL,
   `image3` varchar(300) NOT NULL,
@@ -304,8 +307,10 @@ CREATE TABLE `tbl_image` (
 -- Dumping data for table `tbl_image`
 --
 
-INSERT INTO `tbl_image` (`image_id`, `car_id`, `image1`, `image2`, `image3`, `image4`) VALUES
-(5, 5, '/upload/sales/5/alto 800 2.jpg', '/upload/sales/5/alto 800 3.jpg', '/upload/sales/5/alto 800 4.jpg', '/upload/sales/5/alto800 1.jpg');
+INSERT INTO `tbl_image` (`image_id`, `advertisement_id`, `image1`, `image2`, `image3`, `image4`) VALUES
+(8, 3, '/upload/sales/3/alto800 1.jpg', '/upload/sales/3/alto 800 2.jpg', '/upload/sales/3/alto 800 4.jpg', '/upload/sales/3/alto 800 3.jpg'),
+(9, 4, '/upload/sales/4/swift 2.jpg', '/upload/sales/4/swift 5.jpg', '/upload/sales/4/swift4.jpg', '/upload/sales/4/swift3.jpg'),
+(10, 5, '/upload/sales/5/alto 800 3.jpg', '/upload/sales/5/alto 800 4.jpg', '/upload/sales/5/alto 800 2.jpg', '/upload/sales/5/alto800 1.jpg');
 
 -- --------------------------------------------------------
 
@@ -319,13 +324,6 @@ CREATE TABLE `tbl_incomplete` (
   `reason` varchar(300) NOT NULL,
   `delivery_date` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_incomplete`
---
-
-INSERT INTO `tbl_incomplete` (`incomplete_id`, `appointment_id`, `reason`, `delivery_date`) VALUES
-(1, 1, 'Parts missing', '05/04/2019');
 
 -- --------------------------------------------------------
 
@@ -368,7 +366,7 @@ INSERT INTO `tbl_login` (`user_id`, `email`, `password`, `designation_id`, `stat
 (30, 'cicilyneykuzhy@gmail.com', 'b24331b1a138cde62aa1f679164fc62f', 3, 1),
 (31, 'sobiad@mca.ajce.in', 'b24331b1a138cde62aa1f679164fc62f', 4, 1),
 (32, 'timin@gmail.com', 'b24331b1a138cde62aa1f679164fc62f', 3, 0),
-(33, 'timin123@gmail.com', 'b7116401ee0c74da7fbcdb815b54de8a', 1, 1);
+(33, 'timin123@gmail.com', 'b24331b1a138cde62aa1f679164fc62f', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -393,6 +391,28 @@ INSERT INTO `tbl_model` (`model_id`, `brand_id`, `model_name`) VALUES
 (4, 2, 'alto800'),
 (5, 1, 'Verna'),
 (6, 2, 'Wagon R');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_offeredprice`
+--
+
+CREATE TABLE `tbl_offeredprice` (
+  `offer_id` int(11) NOT NULL,
+  `advertisement_id` int(11) NOT NULL,
+  `offer_amount` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `offer_status` int(11) NOT NULL,
+  `offer_date` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_offeredprice`
+--
+
+INSERT INTO `tbl_offeredprice` (`offer_id`, `advertisement_id`, `offer_amount`, `user_id`, `offer_status`, `offer_date`) VALUES
+(5, 3, 255000, 5, 1, '09/05/19');
 
 -- --------------------------------------------------------
 
@@ -518,13 +538,6 @@ CREATE TABLE `tbl_servicestatus` (
   `employee_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tbl_servicestatus`
---
-
-INSERT INTO `tbl_servicestatus` (`status_id`, `appointment_id`, `started_time`, `odometer`, `fuel`, `damage`, `employee_id`) VALUES
-(1, 1, '2019-05-02 07:22:59', 2500, 'full', 'Nil', 6);
-
 -- --------------------------------------------------------
 
 --
@@ -570,6 +583,29 @@ INSERT INTO `tbl_spare` (`spare_id`, `spare`) VALUES
 (7, 'Viper Blade'),
 (8, 'Break Fluid'),
 (9, 'Bumber');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_transaction`
+--
+
+CREATE TABLE `tbl_transaction` (
+  `transaction_id` int(11) NOT NULL,
+  `transaction_date` varchar(20) NOT NULL,
+  `appointment_id` int(11) NOT NULL,
+  `paid_from` int(11) NOT NULL,
+  `paid_to` int(11) NOT NULL,
+  `transaction_type` varchar(50) NOT NULL,
+  `paid_amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_transaction`
+--
+
+INSERT INTO `tbl_transaction` (`transaction_id`, `transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES
+(3, '09/05/19', 7, 14, 30, 'Advance', 1300);
 
 -- --------------------------------------------------------
 
@@ -640,8 +676,7 @@ CREATE TABLE `tbl_workcount` (
 --
 
 INSERT INTO `tbl_workcount` (`count_id`, `date`, `licenceno`, `department_id`, `count`) VALUES
-(1, '05/04/2019', 'lic3691', 2, 1),
-(2, '05/03/2019', 'lic4123', 2, 1);
+(7, '05/11/2019', 'lic4123', 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -731,7 +766,7 @@ ALTER TABLE `tbl_fuel`
 --
 ALTER TABLE `tbl_image`
   ADD PRIMARY KEY (`image_id`),
-  ADD KEY `tbl_image_ibfk_1` (`car_id`);
+  ADD KEY `tbl_image_ibfk_1` (`advertisement_id`);
 
 --
 -- Indexes for table `tbl_incomplete`
@@ -760,6 +795,14 @@ ALTER TABLE `tbl_login`
 ALTER TABLE `tbl_model`
   ADD PRIMARY KEY (`model_id`),
   ADD KEY `brand_id` (`brand_id`);
+
+--
+-- Indexes for table `tbl_offeredprice`
+--
+ALTER TABLE `tbl_offeredprice`
+  ADD PRIMARY KEY (`offer_id`),
+  ADD KEY `advertisement_id` (`advertisement_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `tbl_place`
@@ -817,6 +860,15 @@ ALTER TABLE `tbl_spare`
   ADD PRIMARY KEY (`spare_id`);
 
 --
+-- Indexes for table `tbl_transaction`
+--
+ALTER TABLE `tbl_transaction`
+  ADD PRIMARY KEY (`transaction_id`),
+  ADD KEY `paid_from` (`paid_from`),
+  ADD KEY `paid_to` (`paid_to`),
+  ADD KEY `appointment_id` (`appointment_id`);
+
+--
 -- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
@@ -847,13 +899,13 @@ ALTER TABLE `tbl_workcount`
 -- AUTO_INCREMENT for table `tbl_advertisement`
 --
 ALTER TABLE `tbl_advertisement`
-  MODIFY `advertisement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `advertisement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_appointment`
 --
 ALTER TABLE `tbl_appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_brand`
@@ -865,7 +917,7 @@ ALTER TABLE `tbl_brand`
 -- AUTO_INCREMENT for table `tbl_car`
 --
 ALTER TABLE `tbl_car`
-  MODIFY `car_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `car_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_checking`
@@ -913,13 +965,13 @@ ALTER TABLE `tbl_fuel`
 -- AUTO_INCREMENT for table `tbl_image`
 --
 ALTER TABLE `tbl_image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_incomplete`
 --
 ALTER TABLE `tbl_incomplete`
-  MODIFY `incomplete_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `incomplete_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_leave`
@@ -938,6 +990,12 @@ ALTER TABLE `tbl_login`
 --
 ALTER TABLE `tbl_model`
   MODIFY `model_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbl_offeredprice`
+--
+ALTER TABLE `tbl_offeredprice`
+  MODIFY `offer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_place`
@@ -961,7 +1019,7 @@ ALTER TABLE `tbl_servicescheme`
 -- AUTO_INCREMENT for table `tbl_servicestatus`
 --
 ALTER TABLE `tbl_servicestatus`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_servicetype`
@@ -976,6 +1034,12 @@ ALTER TABLE `tbl_spare`
   MODIFY `spare_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `tbl_transaction`
+--
+ALTER TABLE `tbl_transaction`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_variant`
 --
 ALTER TABLE `tbl_variant`
@@ -985,7 +1049,7 @@ ALTER TABLE `tbl_variant`
 -- AUTO_INCREMENT for table `tbl_workcount`
 --
 ALTER TABLE `tbl_workcount`
-  MODIFY `count_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `count_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -1038,7 +1102,7 @@ ALTER TABLE `tbl_employeecount`
 -- Constraints for table `tbl_image`
 --
 ALTER TABLE `tbl_image`
-  ADD CONSTRAINT `tbl_image_ibfk_1` FOREIGN KEY (`car_id`) REFERENCES `tbl_car` (`car_id`);
+  ADD CONSTRAINT `tbl_image_ibfk_1` FOREIGN KEY (`advertisement_id`) REFERENCES `tbl_advertisement` (`advertisement_id`);
 
 --
 -- Constraints for table `tbl_incomplete`
@@ -1063,6 +1127,13 @@ ALTER TABLE `tbl_login`
 --
 ALTER TABLE `tbl_model`
   ADD CONSTRAINT `tbl_model_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `tbl_brand` (`brand_id`);
+
+--
+-- Constraints for table `tbl_offeredprice`
+--
+ALTER TABLE `tbl_offeredprice`
+  ADD CONSTRAINT `tbl_offeredprice_ibfk_1` FOREIGN KEY (`advertisement_id`) REFERENCES `tbl_advertisement` (`advertisement_id`),
+  ADD CONSTRAINT `tbl_offeredprice_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`);
 
 --
 -- Constraints for table `tbl_place`
@@ -1101,6 +1172,14 @@ ALTER TABLE `tbl_servicescheme`
 ALTER TABLE `tbl_servicestatus`
   ADD CONSTRAINT `tbl_servicestatus_ibfk_1` FOREIGN KEY (`appointment_id`) REFERENCES `tbl_appointment` (`appointment_id`),
   ADD CONSTRAINT `tbl_servicestatus_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`);
+
+--
+-- Constraints for table `tbl_transaction`
+--
+ALTER TABLE `tbl_transaction`
+  ADD CONSTRAINT `tbl_transaction_ibfk_1` FOREIGN KEY (`paid_from`) REFERENCES `tbl_login` (`user_id`),
+  ADD CONSTRAINT `tbl_transaction_ibfk_2` FOREIGN KEY (`paid_to`) REFERENCES `tbl_login` (`user_id`),
+  ADD CONSTRAINT `tbl_transaction_ibfk_3` FOREIGN KEY (`appointment_id`) REFERENCES `tbl_appointment` (`appointment_id`);
 
 --
 -- Constraints for table `tbl_user`

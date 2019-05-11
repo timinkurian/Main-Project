@@ -64,6 +64,37 @@ $(document).ready(function () {
             }
         });
     })
+    $("#stype").on("change", function () {
+        // alert();
+        $schemeid = $(this).val();
+        $.ajax({
+            url: 'data/price.php',
+            method: 'post',
+            data: { 'schemeid': $schemeid },
+            success: function (data) {
+                $("#price").val(data);
+            }
+        });
+    })
+
+
+
+    $("#distt").on("change", function () {
+        
+        $distid = $(this).val();
+        
+        $brandid=$("body #brnd").val();
+        // alert($brandid);
+        $.ajax({
+            url: 'data/userdata.php',
+            method: 'post',
+            data: { 'type':"searchcenter",'distid': $distid,'brandid':$brandid },
+            success: function (data) {
+                $("body #center").html(data);
+            }
+        });
+    })
+
 
     // $("#variant").on("change", function () {
     //     //alert();
@@ -409,6 +440,33 @@ $("body").on("click", ".user-click", function (e) {
 
  $("body").on("click", ".usr-click", function (e) {
     // e.preventDefault();
+  
+    $type = $(this).data('type');
+    $id = $(this).data('id');
+    $date=$("body #date").val();
+    // alert($date);
+    $.ajax({
+
+        url: 'data/userdata.php',
+        method: 'post',
+        data: { 'type': $type, 'id': $id,'date': $date },
+        success: function (data) {
+            console.log(data);
+
+            //  $("#pageData").html(data);
+            if (data != 0) {
+                $("#userControl" + $id).html(data);
+                $("#userControl1" + $id).html(' ');
+            }
+            if (data == 2) {
+                $("#userControl" + $id).html('Booked');
+            }
+        }
+    });
+});
+
+$("body").on("click", ".userr-click", function (e) {
+    // e.preventDefault();
    
     $type = $(this).data('type');
     $id = $(this).data('id');
@@ -423,11 +481,11 @@ $("body").on("click", ".user-click", function (e) {
 
             //  $("#pageData").html(data);
             if (data == 1) {
-                $("#userControl" + $id).html('Cancelled');
+                $("#userControl" + $id).html('Approved');
                 $("#userControl1" + $id).html(' ');
             }
             if (data == 2) {
-                $("#userControl" + $id).html('Booked');
+                $("#userControl" + $id).html('Rejected');
             }
         }
     });
