@@ -89,7 +89,7 @@ $userid = getSession('user_id');
                         include('data/fuel.php');
                      ?>
                     </select >
-                    <input type="submit" class="button"style="background-color: #c1c1c1;height: initial;width: 188px;" value="Apply Filter">
+                    <input type="submit" class="button buyer-click"style="background-color: #c1c1c1;height: initial;width: 188px;" value="Apply Filter">
             </form>
           </div>
         </div>

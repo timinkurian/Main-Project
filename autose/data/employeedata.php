@@ -166,7 +166,7 @@ function startWork($conn){
     $fuel=$_POST['fuel'];
     $damage=$_POST['damages'];
     $empid=getSession('employeeid');
-    $sql="INSERT INTO `tbl_servicestatus`( `appointment_id`, `odometer`, `fuel`, `damage`,`employee_id`) VALUES ('$apid','$meter','$fuel','$damage','$empid')";
+    $sql="INSERT INTO `tbl_carcondition`( `appointment_id`, `odometer`, `fuel`, `damage`,`employee_id`) VALUES ('$apid','$meter','$fuel','$damage','$empid')";
     mysqli_query($conn,$sql);
     $sql1="UPDATE `tbl_appointment` SET `appointment_status`='1' WHERE `appointment_id`='$apid' ";
     mysqli_query($conn,$sql1);

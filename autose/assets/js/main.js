@@ -518,3 +518,35 @@ $("body").on("click", ".employee-click", function (e) {
     });
 });
  
+$("body").on("click", ".buyer-click", function (e) {
+    // e.preventDefault();
+  
+    $type = $(this).data('type');
+    $id = $(this).data('id');
+    $date=$("body #date").val();
+    $brand=$("body #brand").val();
+    $model=$("body #model").val();
+    $minprice=$("body #minprice").val();
+    $maxprice=$("body #maxprice").val();
+    $minkm=$("body #minkm").val();
+    $maxkm=$("body #maxkm").val();
+    // alert($date);
+    $.ajax({
+
+        url: 'data/userdata.php',
+        method: 'post',
+        data: { 'type': $type, 'id': $id,'date': $date },
+        success: function (data) {
+            console.log(data);
+
+            //  $("#pageData").html(data);
+            if (data != 0) {
+                $("#userControl" + $id).html(data);
+                $("#userControl1" + $id).html(' ');
+            }
+            if (data == 2) {
+                $("#userControl" + $id).html('Booked');
+            }
+        }
+    });
+});
