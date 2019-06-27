@@ -10,7 +10,7 @@ if(!sessionRedirect('2', 'designation_id'))
 
 <body>
 <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-<div class="view full-page-intro" >
+<div class="view full-page-intro"  style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
   <!-- Navbar -->
   <?php

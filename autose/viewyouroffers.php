@@ -29,7 +29,7 @@ $userid = getSession('user_id');
 </head>
 
 <body>
-    <div class="view full-page-intro">
+    <div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: no-repeat; background-size: cover;">
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -53,14 +53,14 @@ $userid = getSession('user_id');
             </div>
         </nav>
 
-        <div class="main offset-md-1">
+        <div class="main offset-md-1" >
             <div class="container">
             <?php
                         $sql = "SELECT * FROM `tbl_advertisement` WHERE status='0' AND advertisement_id IN(SELECT advertisement_id FROM tbl_offeredprice WHERE user_id='$userid' AND offer_status='1')";
                         // print_r($sql);
                         // return;
                         $val = mysqli_query($conn, $sql);
-                        if ($val) {
+                        if (mysqli_num_rows($val) > 0) {
                             while ($result = mysqli_fetch_array($val)) {
                                 $sql2 = "SELECT * FROM tbl_image WHERE advertisement_id='$result[advertisement_id]'";
                                 $val1 = mysqli_query($conn, $sql2);
@@ -116,8 +116,18 @@ $userid = getSession('user_id');
                                 </div>
                         <?php
                     }
-                }
-                ?>
+                    ?>
+        </div>
+      <?php
+    } else {
+      ?>
+        <div offset-md-5>
+          <img src="nothing.png" style="max-width:35%;margin-left: auto; margin-right: auto; ">
+          <h3><?php echo "NOTHING TO SHOW !  THERE  IS NO APPROVED OFFER IS AVAILABLE !!"; ?></h3>
+        </div>
+      <?php
+    } ?>
+              
                 </div>
                 <!-- </div> -->
             </div>

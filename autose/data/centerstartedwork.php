@@ -2,9 +2,9 @@
 require "connect.php";
 require "session.php";
 $licenceno=getSession('licenceno');
-$sql = "SELECT tbl_appointment.appointment_id,tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_appointment.registerno,tbl_appointment.remarks,tbl_appointment.appointment_status,tbl_servicestatus.employee_id,tbl_servicestatus.started_time FROM `tbl_appointment` JOIN tbl_servicestatus ON tbl_appointment.appointment_id=tbl_servicestatus.appointment_id WHERE appointment_status='1' AND tbl_appointment.licenceno='$licenceno'";
+$sql = "SELECT tbl_appointment.appointment_id,tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_appointment.registerno,tbl_appointment.remarks,tbl_appointment.appointment_status,tbl_carcondition.employee_id,tbl_carcondition.started_time FROM `tbl_appointment` JOIN tbl_carcondition ON tbl_appointment.appointment_id=tbl_carcondition.appointment_id WHERE appointment_status='1' AND tbl_appointment.licenceno='$licenceno'";
 $val=mysqli_query($conn,$sql);
-if ($val) {
+if (mysqli_num_rows($val) > 0) {
     ?>
 <html>  
 
@@ -73,7 +73,7 @@ if ($val) {
             <td>
             <?php 
                     $sc=$result['employee_id'];
-                    $sql1="SELECT * FROM `tbl_employee` JOIN tbl_servicestatus ON tbl_employee.employee_id=tbl_servicestatus.employee_id WHERE tbl_servicestatus.employee_id='$sc'";
+                    $sql1="SELECT * FROM `tbl_employee` JOIN tbl_carcondition ON tbl_employee.employee_id=tbl_carcondition.employee_id WHERE tbl_carcondition.employee_id='$sc'";
                     $val1=mysqli_query($conn,$sql1);
                     $data= mysqli_fetch_assoc($val1);                        
                     echo $data['first_name'];echo" ";echo $data['last_name']; ?>
@@ -86,10 +86,19 @@ if ($val) {
             }
             ?>
         </tbody>
+        </table>
         <?php
    }
-?>
-</table>
+   else {
+    ?>
+        <div class="offset-4 " >
+            <img src="sorry.jpg" style="max-width:35%;margin-left: 110px; margin-right: auto; ">
+            <h3><?php echo "NOTHING TO SHOW ! NO WORK IS LISTED!!"; ?></h3>
+        </div>
+    <?php
+} ?>
+
+
 </div>
 </body>
 </html>

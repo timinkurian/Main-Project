@@ -130,10 +130,10 @@ if(isset($_SESSION['user_id'])){
             <p class="mb-4 d-none d-md-block">
               <strong>It's a world of Cars </strong>
             </p>
-
+<!-- 
             <a href=saleshome.php class="btn btn-indigo btn-lg">Buy your dream car
               <i class="fa fa-graduation-cap ml-2"></i>
-            </a>
+            </a> -->
 
           </div>
           <!--Grid column-->
@@ -161,12 +161,12 @@ if(isset($_SESSION['user_id'])){
 
                   <div class="md-form">
                     <i class="fa fa-user prefix grey-text"></i>
-                    <input type="email" id="form3" class="form-control" name="username" >
+                    <input type="email" id="form3" class="form-control" name="username" required >
                     <label for="form3">user name</label>
                   </div>
                   <div class="md-form">
                     <i class="fa fa-envelope prefix grey-text"></i>
-                    <input type="password" id="form2" class="form-control" name="password">
+                    <input type="password" id="form2" class="form-control" name="password" required>
                     <label for="form2">Password</label>
                   </div>
 

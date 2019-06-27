@@ -13,14 +13,14 @@ $brandid=getSession('brandid');
     max-height: 158px;
 }
 .button1{
-  background-color: #aeaeaeed;
+  background-color: #000000ed;
   max-height: 20%;
 }
   </style>
 </head>
 
 <body>
-<div class="view full-page-intro" style="height: fit-content">
+<div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;"style="height: fit-content" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -46,7 +46,7 @@ $brandid=getSession('brandid');
   </div>
 </nav>
 
-  <div class="main">
+  <div class="main" >
   <div>
         <form class="py-2 px-5 mx-8">
             <div class="row offset-md-7">

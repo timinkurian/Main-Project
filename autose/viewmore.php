@@ -51,7 +51,7 @@ $carid = getSession('carid');
 </head>
 
 <body>
-    <div class="view full-page-intro">
+    <div class="view full-page-intro" >
         <?php
         $sql = "SELECT * FROM `tbl_advertisement` WHERE car_id='$carid' AND status='0'";
         // print_r($sql);

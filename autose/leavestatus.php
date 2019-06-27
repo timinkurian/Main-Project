@@ -38,7 +38,7 @@ if ($val) {
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" >
+<div class="view full-page-intro"  style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;" >
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -71,7 +71,7 @@ if ($val) {
         <!--Grid row-->
         <div class="row wow fadeIn">
           <!--Grid column-->
-          <div class="offset-2 " >
+          <div class="offset-4 " >
 
 <!--Card-->
 <!-- <div class="card"> -->

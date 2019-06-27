@@ -1,21 +1,21 @@
-<?php 
+<?php
 require('data/connect.php');
 require('data/session.php');
 require('layouts/app_top');
-if(!sessionRedirect('2', 'designation_id'))
-{
+if (!sessionRedirect('2', 'designation_id')) {
   $_SESSION['user_id'] = '';
   $_SESSION['designation_id'] = '';
   session_destroy();
   header('Location:index.php');
 }
 ?>
+
 <body>
   <!-- Navbar -->
   <?php
- include('layouts/adminmenu.php');
- ?>
- <!-- <nav>
+  include('layouts/adminmenu.php');
+  ?>
+  <!-- <nav>
   <ul id='menu'>
     <li><a class='home' href='adminhome.php'>Home</a></li>
     <li><a class='prett' href='#' title='Service center'>Service center</a>
@@ -53,7 +53,7 @@ if(!sessionRedirect('2', 'designation_id'))
 
 
   <!-- Full Page Intro -->
-  <div id="pageData" class="view full-page-intro" >
+  <div id="pageData" class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
 
     <!-- Mask & flexbox options-->
@@ -67,9 +67,11 @@ if(!sessionRedirect('2', 'designation_id'))
 
           <!--Grid column-->
           <div id="pageData" class="col-md-12">
-              <h4 >
-              Welcome! Admin
-              </h4>
+            <h4 style="font-size: -webkit-xxx-large;font-style: normal;font-family: fantasy;">
+              Welcome to real deal cars! <br>
+              You Are In The World of Cars
+
+            </h4>
           </div>
           <!--Grid column-->
 
@@ -85,9 +87,9 @@ if(!sessionRedirect('2', 'designation_id'))
   </div>
   <!-- Full Page Intro -->
 
- <?php
-    require('layouts/specialapp_end');
- ?>
+  <?php
+  require('layouts/specialapp_end');
+  ?>
 </body>
 
 </html>

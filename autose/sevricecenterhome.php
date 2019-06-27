@@ -1,21 +1,21 @@
-<?php 
+<?php
 require('data/connect.php');
 require('data/session.php');
 require('layouts/app_top');
-if(!sessionRedirect('3', 'designation_id'))
-{
+if (!sessionRedirect('3', 'designation_id')) {
   $_SESSION['user_id'] = '';
   $_SESSION['designation_id'] = '';
   session_destroy();
   header('Location:index.php');
 }
 ?>
+
 <body>
-<!-- <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"> -->
-<?php
- include('layouts/servicemenu.php');
- ?>
- <!-- </nav> -->
+  <!-- <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"> -->
+  <?php
+  include('layouts/servicemenu.php');
+  ?>
+  <!-- </nav> -->
   <!-- Navbar -->
   <!-- <nav>
 
@@ -42,7 +42,7 @@ if(!sessionRedirect('3', 'designation_id'))
 </nav> -->
 
   <!-- Full Page Intro -->
-  <div  id="pageData"  class="view full-page-intro ">
+  <div id="pageData" class="view full-page-intro " style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
     <!-- Mask & flexbox options-->
     <div class="mask d-flex justify-content-center align-items-center">
@@ -54,10 +54,12 @@ if(!sessionRedirect('3', 'designation_id'))
         <div class="row wow fadeIn">
 
           <!--Grid column-->
-          <div  class="col-md-8">
-          <h4>
-                Welcome! 
-              </h4>
+          <div class="col-md-8">
+            <h4 style="font-size: -webkit-xxx-large;font-style: normal;font-family: fantasy;">
+              Welcome to real deal cars! <br>
+              You Are In The World of Cars
+
+            </h4>
           </div>
           <!--Grid column-->
 
@@ -73,9 +75,9 @@ if(!sessionRedirect('3', 'designation_id'))
   </div>
   <!-- Full Page Intro -->
 
- <?php
-    require('layouts/app_end');
- ?>
+  <?php
+  require('layouts/app_end');
+  ?>
 </body>
 
 </html>

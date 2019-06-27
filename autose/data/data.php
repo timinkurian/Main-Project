@@ -186,7 +186,7 @@ function userLogin($conn){
                     header('Location:../employeeupdate.php');
                 }
                 if($status=="3"){
-                    header('Location:../changepassword.php');
+                    header('Location:../employeechange.php');
                 }
                 else if($status=="1"){
     

@@ -28,7 +28,7 @@ $carid = getSession('carid');
             // print_r($modelid);
             // return;
             ?> -->
-    <div class="view full-page-intro">
+    <div class="view full-page-intro"  style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">

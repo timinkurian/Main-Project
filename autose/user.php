@@ -20,7 +20,7 @@ if(!sessionRedirect('1', 'designation_id'))
   
 
   <!-- Full Page Intro -->
-  <div  id="pageData"  class="view full-page-intro" style="background-image: url('back.jpg'); background-repeat: no-repeat; background-size: cover;" >
+  <div  id="pageData"  class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: no-repeat; background-size: cover;" >
 <!-- video -->
 <!-- <div class="background-wrap">
 			<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted"> 
@@ -39,8 +39,8 @@ if(!sessionRedirect('1', 'designation_id'))
 
           <!--Grid column-->
           <div  class="col-md-12">
-          <h4>
-                Welcome! User <br>
+          <h4 style="font-size: -webkit-xxx-large;font-style: normal;font-family: fantasy;">
+                Welcome to real deal cars!  <br>
                 You Are In The World of Cars
 
               </h4>

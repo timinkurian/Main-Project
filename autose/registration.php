@@ -11,7 +11,7 @@ if(!getSession('user_id'))
 
 <body>
 <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-<div class="view full-page-intro" >
+<div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
   <!-- Navbar -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -49,7 +49,7 @@ if(!getSession('user_id'))
 
 
           <!--Grid column-->
-          <div class="offset-4 col-md-4 mb-4" ">
+          <div class="offset-4 col-md-4 mb-4" >
 
             <!--Card-->
             <div class="card">

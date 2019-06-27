@@ -9,7 +9,7 @@ if(!sessionRedirect('2', 'designation_id'))
 ?>
 
 <body>
-<div class="view full-page-intro" >
+<div class="view full-page-intro"  style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;" >
   <!-- Navbar -->
   <?php
  include('layouts/adminmenu.php');

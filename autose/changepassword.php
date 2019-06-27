@@ -23,16 +23,44 @@ if ($desg == "4") {
 
 <body>
   <!--style="background-image: url('userimg.png'); background-repeat: no-repeat; background-size: cover;"-->
-  <div class="view full-page-intro">
+  <div class="view full-page-intro"  style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
+
+
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href=<?php echo $link ?>>
+      <strong>Home</strong>
+    </a>
+
+ 
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+
+
 
     <!-- Navbar -->
 
-    <nav>
+    <!-- <nav>
       <ul id='menu'>
         <li><a class='home' href=<?php echo $link ?>>Home</a></li>
-        <!-- 'user.php' -->
+      
       </ul>
-    </nav>
+    </nav> -->
     <!-- Navbar -->
 
     <div class="main">

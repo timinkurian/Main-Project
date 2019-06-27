@@ -61,6 +61,9 @@ switch ($type) {
     case 'searchleave':
         searchLeave($conn);
         break;
+    case 'rejectappointment':
+        rejectAppointment($conn);
+        break;
     default:
         break;
 }
@@ -571,9 +574,7 @@ function searchAppointment($conn)
                     <?php echo $result['remarks']; ?>
                 </td>
 
-                <?php
-                if ($result['appointment_status'] == '0') { }
-                ?>
+
             </tr>
         <?php
     }
@@ -611,4 +612,34 @@ function searchLeave($conn)
         <?php
     }
 }
+}
+function rejectAppointment($conn){
+    $apid=$_POST['appointment_id'];
+    $reason=$_POST['reason'];
+    $date=$_POST['date'];
+    $sql2="SELECT scheme_id FROM tbl_appointment WHERE appointment_id='$apid'";
+    $row2 = mysqli_query($conn, $sql2);
+    $data2 = mysqli_fetch_assoc($row2);
+    $schemeid = $data2['scheme_id'];
+    $sql = "UPDATE `tbl_appointment` SET `appointment_status`='-2' WHERE `appointment_id`='$apid' ";
+    mysqli_query($conn, $sql);
+
+    $sql8 = "SELECT amount FROM tbl_servicescheme WHERE scheme_id='$schemeid'";
+    $row1 = mysqli_query($conn, $sql8);
+    $data3 = mysqli_fetch_assoc($row1);
+    $amount = $data3['amount'];
+    $sql5="SELECT * FROM tbl_transaction WHERE appointment_id='$apid'";
+    $row5 = mysqli_query($conn, $sql5);
+    $data5 = mysqli_fetch_array($row5);
+    $userid = $data5['paid_from'];
+    $licenceno=$data5['paid_to'];
+    $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$date','$apid','$licenceno','$userid','returned to user','$amount')";
+    mysqli_query($conn, $sq);
+    $sql6="SELECT email FROM tbl_login WHERE user_id='$userid'";
+    $row6 = mysqli_query($conn, $sql6);
+    $data6 = mysqli_fetch_assoc($row6);
+    $email = $data6['email'];
+    $p="Sorry for the inconvenience! Your appointment is cancelled due to ".$reason.".The advanced amount will be refunded shortly";
+    mail($email,"Regret mail",$p);
+    echo "<script>alert('Cancelled Successfully');window.location='../sevricecenterhome.php';</script>";
 }

@@ -21,7 +21,7 @@ $userid = getSession('user_id');
     }
 
     .button1 {
-      background-color: #aeaeaeed;
+      background-color:#000000ed;
       max-height: 20%;
       margin-top: -50px;
     }
@@ -34,7 +34,7 @@ $userid = getSession('user_id');
 </head>
 
 <body>
-  <div class="view full-page-intro" style="background-image: url('back.jpg'); background-repeat: no-repeat; background-size: cover;">
+  <div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -76,12 +76,12 @@ $userid = getSession('user_id');
                 echo '<option value="">Choose Model</option>'
               </select>
               <label style="padding-left: 50px;padding-right: 45px;">PRICE</label>
-               <input type="text" class="validate" name="minprice" id="minprice" data-type="digits" placeholder="Min">
-              <input type="text" class="validate" name="maxprice" id="maxprice" data-type="digits" placeholder="Max">
+               <input type="text" class="validate optional" name="minprice" id="minprice" data-type="digits" placeholder="Min">
+              <input type="text" class="validate optional" name="maxprice" id="maxprice" data-type="digits" placeholder="Max">
               <br>
               <label style="padding-right: 82px;">KM DRIVEN</label>
-               <input type="text" class="validate" name="minkm" id="minkm" data-type="digits" placeholder="Min">
-              <input type="text" class="validate" name="maxkm" id="maxkm" data-type="digits" placeholder="Max">
+               <input type="text" class="validate optional" name="minkm" id="minkm" data-type="digits" placeholder="Min">
+              <input type="text" class="validate optional" name="maxkm" id="maxkm" data-type="digits" placeholder="Max">
               <label style="padding-left: 50px;padding-right: 6px;">FUEL TYPE</label>
               <select  name="fuel" id="fuel" style="width: 183px;">
                     <?php
@@ -89,7 +89,7 @@ $userid = getSession('user_id');
                         include('data/fuel.php');
                      ?>
                     </select >
-                    <input type="submit" class="button buyer-click"style="background-color: #c1c1c1;height: initial;width: 188px;" value="Apply Filter">
+                    <input type="button" class="button buyer-click"style="background-color: #c1c1c1;height: initial;width: 188px;" value="Apply Filter" data-type="filtercar" >
             </form>
           </div>
         </div>
@@ -97,7 +97,7 @@ $userid = getSession('user_id');
       <!-- <script>
         alert();
 </script> -->
-      <div class="row py-2">
+      <div class="row py-2" id="divbody">
         <?php
         $sql = "SELECT * FROM `tbl_advertisement` WHERE status=0 AND car_id NOT IN(SELECT car_id FROM tbl_car WHERE user_id='$userid') ";
         // print_r($sql);

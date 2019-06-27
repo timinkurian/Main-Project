@@ -29,7 +29,7 @@ if(!sessionRedirect('1', 'designation_id'))
 
 
 
-  <div class="main">
+  <div class="main"style="background-image: url('realdeal.jpg'); background-repeat: no-repeat; background-size: cover;" >
       <!-- Content -->
       <div class="container">
 

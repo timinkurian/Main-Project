@@ -31,12 +31,12 @@ if ($val) {
     <body>
     <div class="mt-20 py-3">
     <div class="row">
-            <div class="col-md-6 offset-md-1">
+            <div class="col-md-10 offset-md-2">
     <table>
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th> Name</th>
+                <!-- <th>Last Name</th> -->
                 <th>Email</th>
                 <th>Mobile</th>
                 <th>District</th>
@@ -60,11 +60,9 @@ if ($val) {
             ?>
             <tr>
                 <td>
-                    <?php echo $result['first_name']; ?>
+                    <?php echo $result['first_name']; echo " ";echo $result['last_name']; ?>
                 </td>
-                <td>
-                    <?php echo $result['last_name']; ?>
-                </td>
+
                 <td>
                     <?php echo $result1['email']; ?>
                 </td>

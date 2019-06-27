@@ -22,14 +22,14 @@ $userid = getSession('user_id');
     }
 
     .button1 {
-      background-color: #aeaeaeed;
+      background-color: #000000ed;
       max-height: 20%;
     }
   </style>
 </head>
 
 <body>
-  <div class="view full-page-intro">
+  <div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: no-repeat; background-size: cover;">
 
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -105,16 +105,17 @@ $userid = getSession('user_id');
         </div>
 
       </div>
+      </div>
       <?php
         } else {
             ?>
-                <div offset-md-5>
+                <div offset-4>
                     <img src="nothing.png" style="max-width:35%;margin-left: 110px; margin-right: auto; ">
-                    <h3><?php echo "NOTHING TO SHOW ! NO ONE IS INTERESTED !!"; ?></h3>
+                    <h3><?php echo "NOTHING TO SHOW ! SHOWS ONLY THE CARS THAT ARE APPROVED BY ADMIN !!"; ?></h3>
                 </div>
             <?php
         } ?>
-    </div>
+    
 
   </body>
 

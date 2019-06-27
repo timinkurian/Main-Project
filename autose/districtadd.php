@@ -1,22 +1,21 @@
-<?php 
+<?php
 require('data/connect.php');
 require('data/session.php');
 require('layouts/app_top');
-if(!sessionRedirect('2', 'designation_id'))
-{
+if (!sessionRedirect('2', 'designation_id')) {
   header('Location:index.php');
 }
 ?>
 
 <body>
-<div class="view full-page-intro" >
-  <!-- Navbar -->
-  <?php
- include('layouts/adminmenu.php');
- ?>
-  <!-- Navbar -->
+  <div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
+    <!-- Navbar -->
+    <?php
+    include('layouts/adminmenu.php');
+    ?>
+    <!-- Navbar -->
 
-  <div class="main">
+    <div class="main">
       <!-- Content -->
       <div class="container">
 
@@ -36,20 +35,20 @@ if(!sessionRedirect('2', 'designation_id'))
                 <!-- Form -->
                 <form name="" id="login" method="post" action="data/admindata.php" class="mt-5">
                   <!-- Heading -->
-                  
+
                   <input type="text" hidden value="district" name="type">
                   <h3 class="dark-grey-text text-center">
                     <strong>Add District</strong>
                   </h3>
                   <hr>
-                  <div class="md-form">                  
-                    <input type="text" id="dname" class="form-control validate" name="dname" data-type="name" >
+                  <div class="md-form">
+                    <input type="text" id="dname" class="form-control validate" name="dname" data-type="name">
                     <label for="form3">District Name</label>
                   </div>
                   <div class="text-center">
-                    <input type="submit" class="btn btn-indigo" value="ADD"> 
+                    <input type="submit" class="btn btn-indigo" value="ADD">
                     <hr>
-                <!-- <fieldset class="form-check">
+                    <!-- <fieldset class="form-check">
                       <input type="checkbox" class="form-check-input" id="checkbox1">
                       <label for="checkbox1" class="form-check-label dark-grey-text">Rememer Me</label>-->
                     </fieldset>
@@ -69,17 +68,17 @@ if(!sessionRedirect('2', 'designation_id'))
         </div>
         <!--Grid row-->
       </div>
-      <!-- Content -->     
-  </div>
+      <!-- Content -->
+    </div>
 
 
 
-  
 
- <?php
+
+    <?php
     require('layouts/specialapp_end');
- ?>
- </div>
+    ?>
+  </div>
 </body>
 
 </html>

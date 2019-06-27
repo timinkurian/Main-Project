@@ -3,9 +3,7 @@ require "data/connect.php";
 require "data/session.php";
 require('layouts/app_top');
 $userid=getSession('user_id');
-$sql = "SELECT * FROM `tbl_appointment` JOIN tbl_car ON tbl_appointment.registerno=tbl_car.regno WHERE tbl_car.user_id='$userid' AND tbl_appointment.appointment_status!='3'";
-$val=mysqli_query($conn,$sql);
-if ($val) {
+
     ?>
 <html>  
 
@@ -37,7 +35,7 @@ if ($val) {
 // print_r($modelid);
 // return;
 ?> -->
-<div class="view full-page-intro" >
+<div class="view full-page-intro" style="background-image: url('realdeal.jpg'); background-repeat: repeat; background-size: cover;">
 
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
@@ -77,7 +75,12 @@ if ($val) {
 
   <!--Card content-->
   <!-- <div class="card-body"> -->
-
+    <?php
+  $sql = "SELECT * FROM `tbl_appointment` JOIN tbl_car ON tbl_appointment.registerno=tbl_car.regno WHERE tbl_car.user_id='$userid' AND tbl_appointment.appointment_status!='3'";
+            $val=mysqli_query($conn,$sql);
+            
+               if (mysqli_num_rows($val) > 0) {
+                 ?>
   <table >
         <thead>
             <tr>
@@ -95,6 +98,7 @@ if ($val) {
         </thead>
         <tbody>
             <?php
+
             while($result=mysqli_fetch_array($val)){
             ?>
             <tr>
@@ -140,6 +144,9 @@ if ($val) {
                         if($result['appointment_status']=='-1'){
                           echo 'Cancelled';
                         }
+                        if($result['appointment_status']=='-2'){
+                          echo 'Cancelled by servicecenter';
+                        }
 
                      ?>
                 </td>
@@ -162,7 +169,15 @@ if ($val) {
     </table>
     <?php
 }
-    ?>
+else {
+  ?>
+    <div offset-md-5>
+      <img src="nothing.png" style="max-width:35%;margin-left: auto; margin-right: auto; ">
+      <h3><?php echo "NOTHING TO SHOW ! YOU HAVEN'T LISTED ANYTHING YET  !"; ?></h3>
+    </div>
+  <?php
+}
+?>
     <!-- Form -->
 
   <!-- </div> -->

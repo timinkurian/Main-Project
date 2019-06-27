@@ -60,6 +60,9 @@ switch ($type) {
     case 'deletead':
         deleteAd($conn);
         break;
+    case 'filtercar':
+        filterCar($conn);
+        break;
     default:
         break;
 }
@@ -147,56 +150,56 @@ function deleteCar($conn)
     <?php
 }
 }
-function searchCenter($conn){
-$distid=$_POST['distid'];
-$brandid=$_POST['brandid'];
-$sql = "SELECT * FROM `tbl_servicecenter` JOIN tbl_place ON tbl_servicecenter.place_id=tbl_place.place_id WHERE`brand_id`='$brandid' AND district_id='$distid'";
-$val=mysqli_query($conn,$sql);
-if (mysqli_num_rows($val)) {
-    while($result=mysqli_fetch_array($val)){
-       //  $licenceno=$result['licenceno'];
-       // setSession('licenceno',$licenceno);
-       ?>
-       
-       <div class="col-md-4 pb-5">
-           <div class="row">
-   
-               <div class="col">
-               <img src="data/<?php echo $result['photo']; ?>"class="image1">
-               </div>
-               <div class="col">
-               <label ><b><?php echo $result['center_name']; ?></b></label><br>
-                 <label ><b><?php echo $result['licenceno']; ?></b></label><br>
-                 <label ><b><?php echo $result['mobile']; ?></b></label><br>
-                 <?php
-                 $sql1="SELECT tbl_district.district,tbl_place.place FROM tbl_district JOIN tbl_place ON tbl_district.district_id=tbl_place.district_id JOIN tbl_servicecenter ON tbl_servicecenter.place_id=tbl_place.place_id WHERE tbl_servicecenter.brand_id=$brandid AND tbl_servicecenter.licenceno='$result[licenceno]'";
-                 $val1=mysqli_query($conn,$sql1);
-                 $result1=mysqli_fetch_array($val1);
-   
-                 ?>
-                 <label ><b><?php echo $result1['district']; ?></b></label><br>
-                 <label ><b><?php echo $result1['place']; ?></b></label><br>
-               </div>
-           </div>
-           <form name="" id="login" method="post" action="appointment.php">
-           <input type="text" hidden value="<?php echo $result['licenceno']; ?>" name="licenceno">
-           <button type="submit" class="btn button1" value="appointment" name="car">Book</button>
-           </form>
-       </div>
-   <?php
-       }
-   ?>
-     </div>
-     <?php
-       } else {
-         ?>
-           <div offset-md-5>
-             <img src="sorry.jpg" style="max-width:35%;margin-left: auto; margin-right: auto; ">
-             <h3 style="padding-left: 200px;"><?php echo "NOTHING TO SHOW ! NO SERVICE CENTER IS AVAILABLE  !"; ?></h3>
-           </div>
-         <?php
-       }
-       
+function searchCenter($conn)
+{
+    $distid = $_POST['distid'];
+    $brandid = $_POST['brandid'];
+    $sql = "SELECT * FROM `tbl_servicecenter` JOIN tbl_place ON tbl_servicecenter.place_id=tbl_place.place_id WHERE`brand_id`='$brandid' AND district_id='$distid'";
+    $val = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($val)) {
+        while ($result = mysqli_fetch_array($val)) {
+            //  $licenceno=$result['licenceno'];
+            // setSession('licenceno',$licenceno);
+            ?>
+
+            <div class="col-md-4 pb-5">
+                <div class="row">
+
+                    <div class="col">
+                        <img src="data/<?php echo $result['photo']; ?>" class="image1">
+                    </div>
+                    <div class="col">
+                        <label><b><?php echo $result['center_name']; ?></b></label><br>
+                        <label><b><?php echo $result['licenceno']; ?></b></label><br>
+                        <label><b><?php echo $result['mobile']; ?></b></label><br>
+                        <?php
+                        $sql1 = "SELECT tbl_district.district,tbl_place.place FROM tbl_district JOIN tbl_place ON tbl_district.district_id=tbl_place.district_id JOIN tbl_servicecenter ON tbl_servicecenter.place_id=tbl_place.place_id WHERE tbl_servicecenter.brand_id=$brandid AND tbl_servicecenter.licenceno='$result[licenceno]'";
+                        $val1 = mysqli_query($conn, $sql1);
+                        $result1 = mysqli_fetch_array($val1);
+
+                        ?>
+                        <label><b><?php echo $result1['district']; ?></b></label><br>
+                        <label><b><?php echo $result1['place']; ?></b></label><br>
+                    </div>
+                </div>
+                <form name="" id="login" method="post" action="appointment.php">
+                    <input type="text" hidden value="<?php echo $result['licenceno']; ?>" name="licenceno">
+                    <button type="submit" class="btn button1" value="appointment" name="car">Book</button>
+                </form>
+            </div>
+        <?php
+    }
+    ?>
+        </div>
+    <?php
+} else {
+    ?>
+        <div offset-md-5>
+            <img src="sorry.jpg" style="max-width:35%;margin-left: auto; margin-right: auto; ">
+            <h3 style="padding-left: 200px;"><?php echo "NOTHING TO SHOW ! NO SERVICE CENTER IS AVAILABLE  !"; ?></h3>
+        </div>
+    <?php
+}
 }
 function makeAppointment($conn)
 {
@@ -263,8 +266,8 @@ function payment($conn)
     $licenceno =  getSession('licenceno');
     $price =  getSession('price');
     $deptid = getSession('deptid');
-    $userid=getSession('user_id');
-    $sql22="SELECT user_id FROM tbl_servicecenter WHERE licenceno='$licenceno'";
+    $userid = getSession('user_id');
+    $sql22 = "SELECT user_id FROM tbl_servicecenter WHERE licenceno='$licenceno'";
     $val22 = mysqli_query($conn, $sql22);
     $result22 = mysqli_fetch_assoc($val22);
     $scid = $result22['user_id'];
@@ -298,7 +301,7 @@ function payment($conn)
                 $apid = $result20['appointment_id'];
                 // $_SESSION['scid'] = '';
 
-                $sql21="INSERT INTO `tbl_transaction`(`transaction_date`,`appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$tdate','$apid','$userid','$scid','Advance','$price')";
+                $sql21 = "INSERT INTO `tbl_transaction`(`transaction_date`,`appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$tdate','$apid','$userid','$scid','Advance','$price')";
                 mysqli_query($conn, $sql21);
                 echo "<script>alert('Added successfully');window.location='../appointmentview.php';</script>";
             } else {
@@ -335,10 +338,9 @@ function payment($conn)
                     $val20 = mysqli_query($conn, $sql20);
                     $result20 = mysqli_fetch_assoc($val20);
                     $apid = $result20['appointment_id'];
-                    $sql21="INSERT INTO `tbl_transaction`(`transaction_date`,`appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$tdate','$apid','$userid','$scid','Advance','$price')";
-                mysqli_query($conn, $sql21);
+                    $sql21 = "INSERT INTO `tbl_transaction`(`transaction_date`,`appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$tdate','$apid','$userid','$scid','Advance','$price')";
+                    mysqli_query($conn, $sql21);
                     echo "<script>alert('Added successfully');window.location='../appointmentview.php';</script>";
-
                 } else {
                     echo "<script>alert('Sorry!! You already made an appointmenton this day');window.location='../user.php';</script>";
                 }
@@ -380,24 +382,24 @@ function profileUpdate($conn)
 
 function appointmentCancel($conn)
 {
-    $userid=getSession('user_id');
+    $userid = getSession('user_id');
     //echo "<script>alert('Your Booking Cancelled!');window.location='../user.php';</script>";
     $apid = $_POST['id'];
-    $c1date=$_POST['date'];
-    $cdate=strtotime($_POST['date']);
+    $c1date = $_POST['date'];
+    $cdate = strtotime($_POST['date']);
 
     $sql4 = "SELECT tbl_appointment.licenceno,tbl_appointment.appointment_id,tbl_appointment.bookdate, tbl_appointment.scheme_id,tbl_appointment.appointment_date,tbl_servicescheme.department_id FROM `tbl_appointment` JOIN tbl_servicescheme  ON tbl_appointment.scheme_id=tbl_servicescheme.scheme_id WHERE tbl_appointment.appointment_id='$apid'";
     $row = mysqli_query($conn, $sql4);
     $data1 = mysqli_fetch_array($row);
     $deptid = $data1['department_id'];
     $licenceno = $data1['licenceno'];
-    $date1=$data1['appointment_date'];
+    $date1 = $data1['appointment_date'];
     $date = strtotime($data1['appointment_date']);
-    $bdate=strtotime($data1['bookdate']);
-    $apid=$data1['appointment_id'];
-    $schemeid=$data1['scheme_id'];
-    $diff=($date - $cdate)/60/60/24;
-    $cdiff=($cdate - $bdate)/60/60/24;
+    $bdate = strtotime($data1['bookdate']);
+    $apid = $data1['appointment_id'];
+    $schemeid = $data1['scheme_id'];
+    $diff = ($date - $cdate) / 60 / 60 / 24;
+    $cdiff = ($cdate - $bdate) / 60 / 60 / 24;
     $sql5 = "SELECT `count` FROM `tbl_workcount` WHERE `department_id`='$deptid' AND `date`='$date1' AND `licenceno`='$licenceno'";
     $count = mysqli_query($conn, $sql5);
     $data2 = mysqli_fetch_assoc($count);
@@ -407,58 +409,56 @@ function appointmentCancel($conn)
     mysqli_query($conn, $sql7);
     $sql = "UPDATE `tbl_appointment` SET `appointment_status`='-1' WHERE `appointment_id`='$apid' ";
     mysqli_query($conn, $sql);
-    $sql8="SELECT amount FROM tbl_servicescheme WHERE scheme_id='$schemeid'";
+    $sql8 = "SELECT amount FROM tbl_servicescheme WHERE scheme_id='$schemeid'";
     $row1 = mysqli_query($conn, $sql8);
     $data3 = mysqli_fetch_assoc($row1);
     $amount = $data3['amount'];
-    $sqll="SELECT user_id FROM tbl_servicecenter WHERE licenceno='$licenceno'";
+    $sqll = "SELECT user_id FROM tbl_servicecenter WHERE licenceno='$licenceno'";
     $row11 = mysqli_query($conn, $sqll);
     $data33 = mysqli_fetch_assoc($row11);
     $usr = $data33['user_id'];
-    if($cdiff==0){//applied date and cancelled date is equal
-            //calculating return amount($return)
-            $return=$amount*.95;
-            $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-            mysqli_query($conn,$sq);
-            echo " Appointment cancelled,5% of Advance Payment Debited";
-    }
-    else{
+    if ($cdiff == 0) { //applied date and cancelled date is equal
+        //calculating return amount($return)
+        $return = $amount * .95;
+        $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+        mysqli_query($conn, $sq);
+        echo " Appointment cancelled,5% of Advance Payment Debited";
+    } else {
 
-    if($diff==1){
+        if ($diff == 1) {
             //calculating return amount($return)
-        $return=$amount*.25;
-        $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-        mysqli_query($conn,$sq);
-        echo " Appointment cancelled,75% of Advance Payment Debited";
-    }
-    if($diff==2){
-      //calculating return amount($return)
-        $return=$amount*.4;
-        $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-        mysqli_query($conn,$sq);
-        echo "60% of Advance Payment Debited";
-    }
-    if($diff==3){
-        //calculating return amount($return)
-          $return=$amount*.5;
-          $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-          mysqli_query($conn,$sq);
-          echo "50% of Advance Payment Debited";
-      }
-      if($diff==4){
-        //calculating return amount($return)
-          $return=$amount*.75;
-          $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-          mysqli_query($conn,$sq);
-          echo "25% of Advance Payment Debited";
-      }
-      else{
-        //calculating return amount($return)
-          $return=$amount*.95;
-          $sq="INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
-          mysqli_query($conn,$sq);
-          echo "5% of Advance Payment Debited'";
-      }
+            $return = $amount * .25;
+            $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+            mysqli_query($conn, $sq);
+            echo " Appointment cancelled,75% of Advance Payment Debited";
+        }
+        if ($diff == 2) {
+            //calculating return amount($return)
+            $return = $amount * .4;
+            $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+            mysqli_query($conn, $sq);
+            echo "60% of Advance Payment Debited";
+        }
+        if ($diff == 3) {
+            //calculating return amount($return)
+            $return = $amount * .5;
+            $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+            mysqli_query($conn, $sq);
+            echo "50% of Advance Payment Debited";
+        }
+        if ($diff == 4) {
+            //calculating return amount($return)
+            $return = $amount * .75;
+            $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+            mysqli_query($conn, $sq);
+            echo "25% of Advance Payment Debited";
+        } else {
+            //calculating return amount($return)
+            $return = $amount * .95;
+            $sq = "INSERT INTO `tbl_transaction`(`transaction_date`, `appointment_id`, `paid_from`, `paid_to`, `transaction_type`, `paid_amount`) VALUES ('$c1date','$apid','$usr','$userid','returned to user','$return')";
+            mysqli_query($conn, $sq);
+            echo "5% of Advance Payment Debited'";
+        }
     }
     // echo '1';
 }
@@ -480,10 +480,10 @@ function sellCar($conn)
     // 0 live ad
     //1 delete
     mysqli_query($conn, $sql);
-    $sql5="SELECT advertisement_id FROM `tbl_advertisement` WHERE car_id='$carid' AND status=0";
-    $val=mysqli_query($conn,$sql5);
-    $res=mysqli_fetch_assoc($val);
-    $adid=$res['advertisement_id'];
+    $sql5 = "SELECT advertisement_id FROM `tbl_advertisement` WHERE car_id='$carid' AND status=0";
+    $val = mysqli_query($conn, $sql5);
+    $res = mysqli_fetch_assoc($val);
+    $adid = $res['advertisement_id'];
 
     $sql1 = "UPDATE `tbl_car` SET `status`='2' WHERE `car_id`='$carid' ";
     mysqli_query($conn, $sql1);
@@ -565,21 +565,109 @@ function  offerReject($conn)
     mysqli_query($conn, $sql);
     echo '1';
 }
-function deleteAd($conn){
-    $carid=$_POST['carid'];
-    $reason=$_POST['reason'];
-    if($reason==3){
-        $sql1="UPDATE `tbl_car` SET status='1' WHERE car_id='$carid'";
-        mysqli_query($conn,$sql1);
-        $sql="UPDATE `tbl_advertisement` SET status='1' WHERE car_id='$carid'";
-        mysqli_query($conn,$sql);
+function deleteAd($conn)
+{
+    $carid = $_POST['carid'];
+    $reason = $_POST['reason'];
+    if ($reason == 3) {
+        $sql1 = "UPDATE `tbl_car` SET status='1' WHERE car_id='$carid'";
+        mysqli_query($conn, $sql1);
+        $sql = "UPDATE `tbl_advertisement` SET status='1' WHERE car_id='$carid'";
+        mysqli_query($conn, $sql);
+        echo "<script>alert('Advertisement Deleted');window.location='../user.php';</script>";
+    } else {
+        $sql = "UPDATE `tbl_advertisement` SET status='1' WHERE car_id='$carid'";
+        mysqli_query($conn, $sql);
         echo "<script>alert('Advertisement Deleted');window.location='../user.php';</script>";
     }
-    else{
-        $sql="UPDATE `tbl_advertisement` SET status='1' WHERE car_id='$carid'";
-        mysqli_query($conn,$sql);
-        echo "<script>alert('Advertisement Deleted');window.location='../user.php';</script>";
+}
+function filterCar($conn)
+{
+    $userid = getSession('user_id');
+    $brand = $_POST['brand'];
+    $model = $_POST['model'];
+    $minprice = $_POST['minprice'];
+    $maxprice = $_POST['maxprice'];
+    $minkm = $_POST['minkm'];
+    $maxkm = $_POST['maxkm'];
+    $fuel = $_POST['fuel'];
+    $sql = "SELECT * FROM `tbl_advertisement` JOIN tbl_car ON tbl_advertisement.car_id=tbl_car.car_id JOIN tbl_variant ON tbl_car.variant_id=tbl_variant.variant_id JOIN tbl_model ON tbl_variant.model_id=tbl_model.model_id JOIN tbl_brand on tbl_model.brand_id=tbl_brand.brand_id WHERE tbl_car.user_id!='5' AND tbl_advertisement.status=0 ";
+    if ($brand != null) {
+        $sql .= "AND tbl_brand.brand_id='$brand'";
     }
+    if ($model != null) {
+        $sql .= "AND tbl_brand.brand_id='$brand' AND tbl_model.model_id='$model'";
+    }
+    if ($minprice != null) {
+        $sql .= " AND tbl_advertisement.price>='$minprice'";
+    }
+    if ($maxprice != null) {
+        $sql .= " AND tbl_advertisement.price<='$maxprice'";
+    }
+    if ($minkm != null) {
+        $sql .= " AND tbl_advertisement.odometer>='$minkm'";
+    }
+    if ($maxkm != null) {
+        $sql .= " AND tbl_advertisement.odometer<='$maxkm'";
+    }
+    if ($fuel != null) {
+        $sql .= " AND tbl_variant.fuel_id='$fuel'";
+    }
+    // print_r($sql);
+    // return;
+    $val = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($val) > 0) {
+        while ($result = mysqli_fetch_array($val)) {
+            $sql2 = "SELECT * FROM tbl_image WHERE advertisement_id='$result[advertisement_id]'";
+            $val1 = mysqli_query($conn, $sql2);
+            $image = mysqli_fetch_array($val1);
+            ?>
+            <div class="col-md-3 pb-3 " style="border-style: groove; margin-left:10px;">
+                <div class="row">
+
+                    <div class="col">
+                        <img src="data/<?php echo $image['image1']; ?>" class="image1" style="width: inherit;height: auto;">
+
+                        <?php
+                        $sql1 = "SELECT tbl_brand.brand_name,tbl_brand.brand_id,tbl_model.model_name,tbl_model.model_id,tbl_variant.variant_name, tbl_variant.variant_id,tbl_fuel.fuel FROM tbl_variant JOIN tbl_car ON tbl_variant.variant_id=tbl_car.variant_id JOIN tbl_model ON tbl_model.model_id=tbl_variant.model_id JOIN tbl_brand ON tbl_brand.brand_id=tbl_model.brand_id JOIN tbl_fuel ON tbl_fuel.fuel_id=tbl_variant.fuel_id WHERE tbl_car.car_id='$result[car_id]'";
+                        $val2 = mysqli_query($conn, $sql1);
+                        $result1 = mysqli_fetch_array($val2);
+                        $sql3 = "SELECT * FROM tbl_car WHERE car_id='$result[car_id]'";
+                        $val3 = mysqli_query($conn, $sql3);
+                        $result3 = mysqli_fetch_array($val3);
+                        ?>
+                        <h3 style="font-size:30px;"><b>₹<?php echo $result['price']; ?></b></h3>
+                        <label><b><?php echo $result1['brand_name']; ?> | </b></label>
+                        <label><b><?php echo $result1['model_name']; ?> | </b></label>
+                        <label><b><?php echo $result1['variant_name']; ?></b></label><br>
+                        <label><b><?php echo $result3['manufactured_year']; ?> - </b></label>
+                        <label><b><?php echo $result['odometer']; ?>KM</b></label><br>
 
 
+                        <!-- <label><b><?php echo $result1['fuel']; ?></b></label> -->
+
+                        <!-- <label><b><?php echo $result['description']; ?></b></label><br>
+                                                               -->
+
+                        <form name="" id="login" method="post" action="data/userdata.php" enctype="multipart/form-data" class="mt-5">
+                            <!-- Heading -->
+
+                            <input type="text" hidden value="viewmore" name="type">
+                            <input type="text" hidden value="<?php echo $result['car_id']; ?>" name="carid">
+                            <button type="submit" class="btn button1" value="appointment" name="car">View More</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        <?php
+    }
+} else {
+    ?>
+        <div offset-md-5>
+            <img src="nothing.png" style="max-width:35%;margin-left: auto; margin-right: auto; ">
+            <h3><?php echo "NOTHING TO SHOW !  THERE  IS NO ADVERTISEMENT IS AVAILABLE !!"; ?></h3>
+        </div>
+    <?php
+}
 }

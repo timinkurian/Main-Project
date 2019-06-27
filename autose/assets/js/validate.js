@@ -63,7 +63,7 @@ function inputValidate($value, $type, $optional, $class) {
     $enginePattern=/[A-Z]{1}[0-9]{1}[A-Z]{2}[0-9]{7}/;
     $chasisPattern=/[A-Z]{2}[0-9]{1}[A-Z]{3}[0-9]{2}[A-Z]{1}[0-9]{8}[A-Z]{2}/;
     $namePattern =  /^[A-Z][a-z]{2,}$/;
-    $pswdPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{6,10}$/;
+    $pswdPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{6,15}$/;
     $emailPattern = /\@{1}.{1}/;
     $stypePattern =   /[A-Za-z\s]+$/;
     $vehnoPattern=/[A-Z]{2}\s[0-9]{2}\s[A-Z]{1,2}\s[0-9]{4}/;
